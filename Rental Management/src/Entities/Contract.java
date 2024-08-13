@@ -1,0 +1,5 @@
+/* Contrato */
+
+public class Contract {
+
+}

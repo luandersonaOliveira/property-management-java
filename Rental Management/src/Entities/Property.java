@@ -1,0 +1,5 @@
+/* Imóvel */
+
+public class Property {
+
+}
