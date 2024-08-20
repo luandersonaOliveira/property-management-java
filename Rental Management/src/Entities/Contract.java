@@ -1,104 +1,92 @@
-/* Contrato */
+// Contrato
 
 import java.util.Date;
+import Enum.TypesRent;
 
 public class Contract {
-    //Atributos
+    // Atributos
     private int id;
     private Date dataInicio, dataFim;
     private double valor;
     private Property imovel;
     private Tenant inquilino;
+    private TypesRent tipo;
 
-    //Metodos especias
+    public Contract(int id, Date dataInicio, Date dataFim, double valor, Property imovel, Tenant inquilino,
+            TypesRent tipo) {
+        this.id = id;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.valor = valor;
+        this.imovel = imovel;
+        this.inquilino = inquilino;
+        this.tipo = tipo;
+    }
 
+    // Metodos especias
+    public int getId() {
+        return id;
+    }
 
-    //Metodos personalizados
-    private double calcularValorTotal(){
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public Date getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(Date dataFim) {
+        this.dataFim = dataFim;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public Property getImovel() {
+        return imovel;
+    }
+
+    public void setImovel(Property imovel) {
+        this.imovel = imovel;
+    }
+
+    public Tenant getInquilino() {
+        return inquilino;
+    }
+
+    public void setInquilino(Tenant inquilino) {
+        this.inquilino = inquilino;
+    }
+
+    public TypesRent getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TypesRent tipo) {
+        this.tipo = tipo;
+    }
+
+    // Metodos personalizados
+    private double calcularValorTotal() {
         return 0.0;
     }
 
-    private void renovarContrato(Date novaData){
+    private void renovarContrato(Date novaData) {
 
     }
 
 }
-/*
-Classes Principais
-    Imóvel
-    Atributos: id, endereço, tipo, valorAluguel, status
-    Métodos: calcularValorAluguel(), alterarStatus()
-
-    Inquilino
-    Atributos: id, nome, cpf,
-    Métodos: atualizarDados(), verificarHistorico()
-
-    Contrato
-    Atributos: id, dataInicio, dataFim, valor, imóvel, inquilino
-    Métodos: calcularValorTotal(), renovarContrato()
-
-Interfaces
-    Repositório de Contratos
-    Métodos: adicionarContrato(), removerContrato(), buscarContrato()
-
-    Serviço de Cobrança
-    Métodos: gerarCobranca(), enviarCobranca()
-
-Herança
-    Aluguel Residencial (herda de Contrato)
-    Atributos: tipoResidencia
-    Métodos: calcularDescontoResidencial()
-
-    Aluguel Comercial (herda de Contrato)
-    Atributos: tipoComercio
-    Métodos: calcularTaxaComercial()
-
-Relacionamentos
-    Imóvel tem um Proprietário.
-    Contrato associa um Imóvel a um Inquilino.
-    Aluguel Residencial e Aluguel Comercial herdam de Contrato.
-    Repositório de Contratos gerencia Contrato.
-    Serviço de Cobrança gera cobranças para Contrato.
-
-+----------------+       +----------------+       +----------------+
-|    Imóvel      |       |   Inquilino    |       |   Contrato     |
-+----------------+       +----------------+       +----------------+
-| - id: int      |       | - id: int      |       | - id: int      |
-| - endereço:... |       | - nome: String |       | - dataInicio:..|
-| - tipo: String |       | - cpf: String  |       | - dataFim: Date|
-| - valorAluguel:|       | - telefone:... |       | - valor: double|
-| - status: String|      | - email: String|       | - imóvel: Imóvel|
-+----------------+       +----------------+       | - inquilino:...|
-| + calcular...  |       | + atualizar... |       +----------------+
-| + alterar...   |       | + verificar... |       | + calcular...  |
-+----------------+       +----------------+       | + renovar...   |
-        |                        |                +----------------+
-        |                        |                        |
-        |                        |                        |
-        |                        |                        |
-        |                        |                        |
-        v                        v                        v
-+----------------+       +----------------+       +----------------+
-| Aluguel Res.   |       | Aluguel Com.   |       | Repositório de |
-+----------------+       +----------------+       | Contratos      |
-| - tipoResid... |       | - tipoComercio |       +----------------+
-+----------------+       +----------------+       | + adicionar... |
-| + calcular...  |       | + calcular...  |       | + remover...   |
-+----------------+       +----------------+       | + buscar...    |
-        ^                        ^                +----------------+
-        |                        |                        |
-        |                        |                        |
-        |                        |                        |
-        |                        |                        |
-        +------------------------+                        |
-                 herda de                                  |
-                                                         v
-                                                  +----------------+
-                                                  | Serviço de     |
-                                                  | Cobrança       |
-                                                  +----------------+
-                                                  | + gerarCobr... |
-                                                  | + enviarCobr...|
-                                                  +----------------+
-
- */

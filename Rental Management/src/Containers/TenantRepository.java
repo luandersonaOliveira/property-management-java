@@ -1,4 +1,4 @@
-/* Repositório de Inquilino */
+// Repositório de Inquilino
 
 public class TenantRepository {
 
