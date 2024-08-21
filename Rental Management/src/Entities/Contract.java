@@ -1,6 +1,8 @@
 // Contrato
 
 import java.util.Date;
+
+import Enum.StatusProperty;
 import Enum.TypesRent;
 
 public class Contract {
@@ -8,19 +10,20 @@ public class Contract {
     private int id;
     private Date dataInicio, dataFim;
     private double valor;
+    private TypesRent tipo;
+    private StatusProperty status;
     private Property imovel;
     private Tenant inquilino;
-    private TypesRent tipo;
 
-    public Contract(int id, Date dataInicio, Date dataFim, double valor, Property imovel, Tenant inquilino,
-            TypesRent tipo) {
+    public Contract(int id) {
         this.id = id;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
-        this.valor = valor;
-        this.imovel = imovel;
-        this.inquilino = inquilino;
-        this.tipo = tipo;
+        this.dataInicio = getDataInicio();
+        this.dataFim = getDataFim();
+        this.valor = getValor();
+        this.imovel = getImovel();
+        this.inquilino = getInquilino();
+        this.tipo = getTipo();
+        this.status = getStatus();
     }
 
     // Metodos especias
@@ -78,6 +81,14 @@ public class Contract {
 
     public void setTipo(TypesRent tipo) {
         this.tipo = tipo;
+    }
+
+    public StatusProperty getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusProperty status) {
+        this.status = status;
     }
 
     // Metodos personalizados

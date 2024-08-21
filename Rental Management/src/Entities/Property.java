@@ -1,13 +1,18 @@
 // Imóvel
 
+import Enum.TypesRent;
+import Enum.StatusProperty;
+
 public class Property {
     // Atributos
     private int id;
-    private String endereco, tipo, status;
+    private String endereco;
     private double valorAluguel;
+    private TypesRent tipo;
+    private StatusProperty status;
 
-    public Property(int id, String endereco, String tipo, String status, double valorAluguel) {
-        this.id = id;
+    public Property(String endereco, double valorAluguel, TypesRent tipo, StatusProperty status) {
+        this.id = getId();
         this.endereco = endereco;
         this.tipo = tipo;
         this.status = status;
@@ -31,24 +36,24 @@ public class Property {
         this.endereco = endereco;
     }
 
-    public String getTipo() {
+    public double getValorAluguel() {
+        return valorAluguel;
+    }
+
+    public TypesRent getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TypesRent tipo) {
         this.tipo = tipo;
     }
 
-    public String getStatus() {
+    public StatusProperty getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusProperty status) {
         this.status = status;
-    }
-
-    public double getValorAluguel() {
-        return valorAluguel;
     }
 
     public void setValorAluguel(double valorAluguel) {

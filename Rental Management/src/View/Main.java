@@ -1,9 +1,29 @@
+import Enum.StatusProperty;
+import Enum.TypesRent;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        Tenant inquilino = new Tenant("Luan", "000.000.000-00", "00 90000-0000");
+        System.out.println("Nome: " + inquilino.getNome());
+        System.out.println("Cpf: " + inquilino.getCpf());
+        System.out.println("Tel: " + inquilino.getTelefone());
+
+        Property imovel = new Property("Rua José Mariano da Silva", 120.00, TypesRent.RESIDENTIAL, StatusProperty.VAGO);
+        System.out.println("Endereço: "+ imovel.getEndereco());
+        System.out.println("Valor: "+ imovel.getValorAluguel());
+        System.out.println("Tipo: "+ imovel.getTipo());
+        System.out.println("Status: "+ imovel.getStatus());
+        
+        Contract contrato = new Contract(1);
+        System.out.println("Id: " + contrato.getId());
     }
 }
 /*
+Sistema de Gerenciamento de Aluguéis:
+    Entidades: Contrato, Inquilino, Imóvel
+    Interfaces: Repositório de Contratos, Serviço de Cobrança
+    Herança: Aluguel Residencial, Aluguel Comercial
+
 Classes Principais
     Imóvel
     Atributos: id, endereço, tipo, valorAluguel, status

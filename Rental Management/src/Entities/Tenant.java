@@ -5,8 +5,8 @@ public class Tenant {
     private int id;
     private String nome, cpf, telefone;
 
-    public Tenant(int id, String nome, String cpf, String telefone) {
-        this.id = id;
+    public Tenant(String nome, String cpf, String telefone) {
+        this.id = getId();
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
