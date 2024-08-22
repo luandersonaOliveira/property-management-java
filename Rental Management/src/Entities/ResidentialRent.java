@@ -1,7 +1,5 @@
 //Herança Aluguel Residencial
 
-import java.util.Date;
-
 import Enum.StatusProperty;
 import Enum.TypesRent;
 
@@ -10,9 +8,9 @@ public class ResidentialRent extends Contract {
 
     // Metodos especias
 
-    public ResidentialRent(int id, Date dataInicio, Date dataFim, double valor, Property imovel,
-            Tenant inquilino, TypesRent tipo, StatusProperty status) {
-        super(id);
+    public ResidentialRent(int id, String dataInicio, String dataFim, double valor, TypesRent tipo,
+            StatusProperty status, Property imovel, Tenant inquilino) {
+        super(id, dataInicio, dataFim, valor, tipo, status, imovel, inquilino);
         // TODO Auto-generated constructor stub
     }
 

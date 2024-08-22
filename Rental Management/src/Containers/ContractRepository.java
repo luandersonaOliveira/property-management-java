@@ -2,21 +2,36 @@
 
 import java.util.ArrayList;
 
-public class ContractRepository {
+public class ContractRepository implements IContractRepository {
     private ArrayList<Contract> contracts = new ArrayList<>();
 
-    public void adicionarContratos(Contract contract){
-        contracts.add(contract);
+    @Override
+    public void adicionarContrato(Contract contrato) {
+        contracts.add(contrato);
     }
 
-    public ArrayList<Contract> listarContracts(){
-        return contracts;
+    @Override
+    public void removerContrato(int id) {
+        contracts.remove(id);
     }
 
-    public Contract buscarContractsPorIndice(int index){
-        if(index >=0 && index <contracts.size()){
-            return contracts.get(index);
+    @Override
+    public Contract buscarContrato(int id) {
+        if (id >= 0 && id < contracts.size()) {
+            return contracts.get(id);
         }
         return null;
+    }
+
+    @Override
+    public void listarContrato() {
+        for (int i = 0; i < contracts.size(); i++) {
+            contracts.get(i).contratoInfo(i);
+        }
+    }
+
+    @Override
+    public void alterarContrato() {
+        throw new UnsupportedOperationException("Unimplemented method 'alterarContrato'");
     }
 }

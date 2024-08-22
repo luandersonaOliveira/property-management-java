@@ -1,29 +1,30 @@
 // Contrato
 
 import java.util.Date;
-
+import java.util.ArrayList;
 import Enum.StatusProperty;
 import Enum.TypesRent;
 
-public class Contract {
+abstract class Contract {
     // Atributos
     private int id;
-    private Date dataInicio, dataFim;
+    private String dataInicio, dataFim;
     private double valor;
     private TypesRent tipo;
     private StatusProperty status;
-    private Property imovel;
-    private Tenant inquilino;
+    private ArrayList<Property> imovel;
+    private ArrayList<Tenant> inquilino;
 
-    public Contract(int id) {
-        this.id = id;
-        this.dataInicio = getDataInicio();
-        this.dataFim = getDataFim();
-        this.valor = getValor();
-        this.imovel = getImovel();
-        this.inquilino = getInquilino();
-        this.tipo = getTipo();
-        this.status = getStatus();
+    public Contract(int id, String dataInicio, String dataFim, double valor, TypesRent tipo, StatusProperty status,
+            Property imovel, Tenant inquilino) {
+        this.setId(id);
+        this.setDataInicio(dataInicio);
+        this.setDataFim(dataFim);
+        this.setValor(valor);
+        this.setTipo(tipo);
+        this.setStatus(status);
+        this.imovel = new ArrayList<>();
+        this.inquilino = new ArrayList<>();
     }
 
     // Metodos especias
@@ -35,19 +36,19 @@ public class Contract {
         this.id = id;
     }
 
-    public Date getDataInicio() {
+    public String getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(Date dataInicio) {
+    public void setDataInicio(String dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public Date getDataFim() {
+    public String getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(Date dataFim) {
+    public void setDataFim(String dataFim) {
         this.dataFim = dataFim;
     }
 
@@ -57,22 +58,6 @@ public class Contract {
 
     public void setValor(double valor) {
         this.valor = valor;
-    }
-
-    public Property getImovel() {
-        return imovel;
-    }
-
-    public void setImovel(Property imovel) {
-        this.imovel = imovel;
-    }
-
-    public Tenant getInquilino() {
-        return inquilino;
-    }
-
-    public void setInquilino(Tenant inquilino) {
-        this.inquilino = inquilino;
     }
 
     public TypesRent getTipo() {
@@ -100,4 +85,14 @@ public class Contract {
 
     }
 
+    public void contratoInfo(int id) {
+        System.out.println("Id Contrato: " + id + ": ");
+        System.out.print("Data de Inicio: " + this.getDataInicio() + "Data Finalizada: " + getDataFim() + " | ");
+        System.out.print("Valor: " + this.getValor() + " | ");
+        System.out.print("Tipo: " + this.getTipo() + " | ");
+        System.out.print("Status: " + this.getStatus() + " | ");
+        System.out.print("Imovel: " + imovel + " | ");
+        System.out.print("Inquilino: " + inquilino + " |\n");
+        System.out.println("-------------------------------------------------------------------------");
+    }
 }

@@ -1,21 +1,67 @@
-import Enum.StatusProperty;
-import Enum.TypesRent;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        Tenant inquilino = new Tenant("Luan", "000.000.000-00", "00 90000-0000");
-        System.out.println("Nome: " + inquilino.getNome());
-        System.out.println("Cpf: " + inquilino.getCpf());
-        System.out.println("Tel: " + inquilino.getTelefone());
+    private static final Scanner scanner = new Scanner(System.in);
+    private static boolean sair = false;
 
-        Property imovel = new Property("Rua José Mariano da Silva", 120.00, TypesRent.RESIDENTIAL, StatusProperty.VAGO);
-        System.out.println("Endereço: "+ imovel.getEndereco());
-        System.out.println("Valor: "+ imovel.getValorAluguel());
-        System.out.println("Tipo: "+ imovel.getTipo());
-        System.out.println("Status: "+ imovel.getStatus());
-        
-        Contract contrato = new Contract(1);
-        System.out.println("Id: " + contrato.getId());
+    // CONTAINERS
+
+    private static final Tenant inquilino = new Tenant("", "", "");
+    private static final Property imovel = new Property(null, 0, null, null);
+    private static final ContractRepository contractRepository = new ContractRepository();
+
+    // METODOS
+    
+    public static void main(String[] args) {
+        // OPÇÕES DO MENU
+        do {
+            menuPrincipal();
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+            switch (opcao) {
+                case 1:
+                    cadastraInquilinoNoImovel();
+                    break;
+                case 2:
+                    
+                    break;
+                case 3:
+                    
+                    break;
+                case 4:
+                    
+                    break;
+                case 5:
+                    
+                    break;
+                case 6:
+                    
+                    break;
+                case 0:
+                    sair = true;
+            }
+        } while (!sair);
+    }
+
+    // MENU
+    public static void menuPrincipal() {
+        System.out.println("==========================");
+        System.out.println("SELECIONE SUA OPÇÃO");
+        System.out.print("| 1 Para cadastrar Inquilino em um Imovel |");
+        System.out.print(" 2 Para checar Inquilino em um Imovel (Contrato) |");
+        System.out.print(" 3 Para ver lista de Inquilinos |");
+        System.out.print("\n--------------------------------");
+        System.out.print("\n| 4 Para editar um Inquilino |");
+        System.out.print(" 5 Para ver lista de Imoveis |");
+        System.out.print(" 6 Para deletar Contratos |");
+        System.out.print("\n--------------------------------");
+        System.out.print("\n0 Para sair do menu");
+        System.out.println("\n===========================");
+        System.out.print("Opção: ");
+    }
+
+    public static void cadastraInquilinoNoImovel(){
+
     }
 }
 /*
@@ -30,7 +76,7 @@ Classes Principais
     Métodos: calcularValorAluguel(), alterarStatus()
 
     Inquilino
-    Atributos: id, nome, cpf,
+    Atributos: id, nome, cpf, telefone
     Métodos: atualizarDados(), verificarHistorico()
 
     Contrato

@@ -6,10 +6,10 @@ public class Tenant {
     private String nome, cpf, telefone;
 
     public Tenant(String nome, String cpf, String telefone) {
-        this.id = getId();
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
+        this.setId(id);
+        this.setNome(nome);
+        this.setCpf(cpf);
+        this.setTelefone(telefone);
     }
 
     // Metoods especias
@@ -52,6 +52,15 @@ public class Tenant {
 
     private void verificarHistorico() {
 
+    }
+
+    public void statusInfo(int id) {
+        System.out.println("-------------------------------------------------------------------------------");
+        System.out.print("Usuário " + id + "\n");
+        System.out.print("| Nome: " + this.getNome());
+        System.out.print(" | Idade: " + this.getCpf());
+        System.out.print(" | Telefone: " + this.getTelefone() + " |");
+        System.out.println("\n-------------------------------------------------------------------------------");
     }
 
 }
