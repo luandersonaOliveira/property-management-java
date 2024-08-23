@@ -1,5 +1,5 @@
 package Enum;
 
-public enum StatusProperty {
+public enum OccupationProprietary {
     VAGO, OCUPADO;
 }

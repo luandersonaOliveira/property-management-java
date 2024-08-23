@@ -1,32 +1,30 @@
-// Repositório de Contratos
+// REPOSITÓRIO INQUILINOS
 
 import java.util.ArrayList;
 
-public class TenantRepository {
-    private ArrayList<Tenant> tenants = new ArrayList<>();
+public class TenantRepository implements ITenantRepository {
+    private ArrayList<Tenant> tenants = new ArrayList<Tenant>();
 
-    public void adicionarInquilino(Tenant inquilino) {
-        tenants.add(inquilino);
+    @Override
+    public void adicionarInquilinos(Tenant tenant) {
+        tenants.add(tenant);
     }
 
-    public void removerInquilino(int id) {
+    @Override
+    public void removerInquilinos(int id) {
         tenants.remove(id);
     }
 
-    public Contract buscarInquilino(int id) {
-        if (id >= 0 && id < tenants.size()) {
-            tenants.get(id);
-        }
-        return null;
-    }
-
-    public void listarInquilino() {
+    @Override
+    public void listarInquilinos() {
         for (int i = 0; i < tenants.size(); i++) {
-            tenants.get(i).statusInfo(i);
+            tenants.get(i).tenantInfo(i);
         }
     }
 
-    public void alterarContrato() {
-        throw new UnsupportedOperationException("Unimplemented method 'alterarContrato'");
+    @Override
+    public void alterarInquilinos() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'alterarInquilinos'");
     }
 }

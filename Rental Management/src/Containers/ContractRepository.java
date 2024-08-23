@@ -1,37 +1,30 @@
-// Repositório de Contratos
+// REPOSITÓRIO CONTRATOS
 
 import java.util.ArrayList;
 
 public class ContractRepository implements IContractRepository {
-    private ArrayList<Contract> contracts = new ArrayList<>();
+    private ArrayList<Contract> contracts = new ArrayList<Contract>();
 
     @Override
-    public void adicionarContrato(Contract contrato) {
-        contracts.add(contrato);
+    public void adicionarContratos(Contract contract) {
+        contracts.add(contract);
     }
 
     @Override
-    public void removerContrato(int id) {
+    public void removerContratos(int id) {
         contracts.remove(id);
     }
 
     @Override
-    public Contract buscarContrato(int id) {
-        if (id >= 0 && id < contracts.size()) {
-            return contracts.get(id);
-        }
-        return null;
-    }
-
-    @Override
-    public void listarContrato() {
+    public void listarContratos() {
         for (int i = 0; i < contracts.size(); i++) {
-            contracts.get(i).contratoInfo(i);
+            contracts.get(i).contractInfo(i);
         }
     }
 
     @Override
-    public void alterarContrato() {
+    public void alterarContratos() {
+        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'alterarContrato'");
     }
 }

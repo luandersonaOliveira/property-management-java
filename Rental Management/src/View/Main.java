@@ -1,4 +1,9 @@
+// MAIN
+
 import java.util.Scanner;
+
+import Enum.OccupationProprietary;
+import Enum.TypesRent;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
@@ -6,7 +11,7 @@ public class Main {
 
     // CONTAINERS
     private static final TenantRepository tenantRepository = new TenantRepository();
-    
+    private static final PropertyRepository propertyRepository = new PropertyRepository();
 
     // METODOS
     
@@ -24,10 +29,10 @@ public class Main {
                     checarInquilino();
                     break;
                 case 3:
-                    
+                    criarImovel();
                     break;
                 case 4:
-                    
+                    checarImovel();
                     break;
                 case 5:
                     
@@ -67,15 +72,26 @@ public class Main {
         System.out.println("Telefone: ");
         String telefone = scanner.nextLine();
         Tenant tenant = new Tenant(nome, cpf, telefone);
-        tenantRepository.adicionarInquilino(tenant);
+        tenantRepository.adicionarInquilinos(tenant);
     }
 
     public static void checarInquilino(){
-        tenantRepository.listarInquilino();
+        tenantRepository.listarInquilinos();
     }
 
     public static void criarImovel(){
+        System.out.println("Limite de Vagas: ");
+        int vagas = scanner.nextInt();
+        System.out.println("Tipo: 1 Comercial | 2 Residencial |");
+        int tipo = scanner.nextInt();
+        System.out.println("Ocupação: 1 Vago | 2 Ocupado");
+        int occupation = scanner.nextInt();
+        Property property = new Property(vagas, null, null);
+        propertyRepository.adicionarImoveis(property);
+    }
 
+    public static void checarImovel(){
+        propertyRepository.listarImoveis();
     }
 
     public static void criarContrato(){
@@ -87,87 +103,3 @@ public class Main {
     }
 
 }
-/*
-Sistema de Gerenciamento de Aluguéis:
-    Entidades: Contrato, Inquilino, Imóvel
-    Interfaces: Repositório de Contratos, Serviço de Cobrança
-    Herança: Aluguel Residencial, Aluguel Comercial
-
-Classes Principais
-    Imóvel
-    Atributos: id, endereço, tipo, valorAluguel, status
-    Métodos: calcularValorAluguel(), alterarStatus()
-
-    Inquilino
-    Atributos: id, nome, cpf, telefone
-    Métodos: atualizarDados(), verificarHistorico()
-
-    Contrato
-    Atributos: id, dataInicio, dataFim, valor, imóvel, inquilino
-    Métodos: calcularValorTotal(), renovarContrato()
-
-Interfaces
-    Repositório de Contratos
-    Métodos: adicionarContrato(), removerContrato(), buscarContrato()
-
-    Serviço de Cobrança
-    Métodos: gerarCobranca(), enviarCobranca()
-
-Herança
-    Aluguel Residencial (herda de Contrato)
-    Atributos: tipoResidencia
-    Métodos: calcularDescontoResidencial()
-
-    Aluguel Comercial (herda de Contrato)
-    Atributos: tipoComercio
-    Métodos: calcularTaxaComercial()
-
-Relacionamentos
-    Imóvel tem um Proprietário.
-    Contrato associa um Imóvel a um Inquilino.
-    Aluguel Residencial e Aluguel Comercial herdam de Contrato.
-    Repositório de Contratos gerencia Contrato.
-    Serviço de Cobrança gera cobranças para Contrato.
-
-+----------------+       +----------------+       +----------------+
-|    Imóvel      |       |   Inquilino    |       |   Contrato     |
-+----------------+       +----------------+       +----------------+
-| - id: int      |       | - id: int      |       | - id: int      |
-| - endereço:... |       | - nome: String |       | - dataInicio:..|
-| - tipo: String |       | - cpf: String  |       | - dataFim: Date|
-| - valorAluguel:|       | - telefone:... |       | - valor: double|
-| - status: String|      | - email: String|       | - imóvel: Imóvel|
-+----------------+       +----------------+       | - inquilino:...|
-| + calcular...  |       | + atualizar... |       +----------------+
-| + alterar...   |       | + verificar... |       | + calcular...  |
-+----------------+       +----------------+       | + renovar...   |
-        |                        |                +----------------+
-        |                        |                        |
-        |                        |                        |
-        |                        |                        |
-        |                        |                        |
-        v                        v                        v
-+----------------+       +----------------+       +----------------+
-| Aluguel Res.   |       | Aluguel Com.   |       | Repositório de |
-+----------------+       +----------------+       | Contratos      |
-| - tipoResid... |       | - tipoComercio |       +----------------+
-+----------------+       +----------------+       | + adicionar... |
-| + calcular...  |       | + calcular...  |       | + remover...   |
-+----------------+       +----------------+       | + buscar...    |
-        ^                        ^                +----------------+
-        |                        |                        |
-        |                        |                        |
-        |                        |                        |
-        |                        |                        |
-        +------------------------+                        |
-                 herda de                                  |
-                                                         v
-                                                  +----------------+
-                                                  | Serviço de     |
-                                                  | Cobrança       |
-                                                  +----------------+
-                                                  | + gerarCobr... |
-                                                  | + enviarCobr...|
-                                                  +----------------+
-
- */

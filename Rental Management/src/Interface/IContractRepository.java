@@ -1,13 +1,11 @@
 // Interface Repositório de Contratos
 
 public interface IContractRepository {
-    public void adicionarContrato(Contract contrato);
+    public void adicionarContratos(Contract contract);
 
-    public void removerContrato(int id);
+    public void removerContratos(int id);
     
-    public Contract buscarContrato(int id);
-    
-    public void listarContrato();
+    public void listarContratos();
 
-    public void alterarContrato();
+    public void alterarContratos();
 }

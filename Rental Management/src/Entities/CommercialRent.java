@@ -1,20 +1,22 @@
-//Herança Aluguel Comercial
+//HERANÇA ALUGUEL COMERCIAL
 
-import Enum.StatusProperty;
+import Enum.OccupationProprietary;
 import Enum.TypesRent;
 
 public class CommercialRent extends Contract {
-    // Atributos
+    // ATRIBUTOS
 
-    // Metodos especias
+    // METODOS ESPECIAS
 
-    public CommercialRent(int id, String dataInicio, String dataFim, double valor, TypesRent tipo,
-            StatusProperty status, Property imovel, Tenant inquilino) {
-        super(id, dataInicio, dataFim, valor, tipo, status, imovel, inquilino);
-        // TODO Auto-generated constructor stub
+    // CONSTRUCTOR
+
+    public CommercialRent(TypesRent tipo, OccupationProprietary status, Property imovel, Tenant inquilino) {
+        super(tipo, status, imovel, inquilino);
+        //TODO Auto-generated constructor stub
     }
 
-    // Metodos personalizados
+    // METODOS PERSONALIZADOS
+    
     private double calcularDescontoResidencial() {
         return 0.0;
     }
