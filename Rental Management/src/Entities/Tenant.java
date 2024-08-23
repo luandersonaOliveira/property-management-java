@@ -34,7 +34,12 @@ public class Tenant {
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        if (cpf.length() > 11 || cpf.length() < 11 ) {
+            this.cpf = null;
+            System.out.println("| CPF invalido, Número de digitos incorreto! |");
+        }else {
+            this.cpf = cpf;
+        }
     }
 
     public String getTelefone() {
@@ -42,7 +47,12 @@ public class Tenant {
     }
 
     public void setTelefone(String telefone) {
-        this.telefone = telefone;
+        if (telefone.length() < 9 || telefone.length() > 13) {
+            this.telefone = null;
+            System.out.println("\n| Telefone invalido, Número de digitos incorreto! |\n");
+        }else {
+            this.telefone = telefone;
+        }
     }
 
     // Metodos persolizados
@@ -58,7 +68,7 @@ public class Tenant {
         System.out.println("-------------------------------------------------------------------------------");
         System.out.print("Usuário " + id + "\n");
         System.out.print("| Nome: " + this.getNome());
-        System.out.print(" | Idade: " + this.getCpf());
+        System.out.print(" | CPF: " + this.getCpf());
         System.out.print(" | Telefone: " + this.getTelefone() + " |");
         System.out.println("\n-------------------------------------------------------------------------------");
     }

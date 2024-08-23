@@ -5,26 +5,29 @@ import java.util.ArrayList;
 import Enum.StatusProperty;
 import Enum.TypesRent;
 
-abstract class Contract {
+public class Contract {
     // Atributos
     private int id;
     private String dataInicio, dataFim;
     private double valor;
+    private int limiteVagas;
     private TypesRent tipo;
     private StatusProperty status;
     private ArrayList<Property> imovel;
     private ArrayList<Tenant> inquilino;
 
-    public Contract(int id, String dataInicio, String dataFim, double valor, TypesRent tipo, StatusProperty status,
+    public Contract(int id, String dataInicio, String dataFim, double valor, int limiteVagas, TypesRent tipo,
+            StatusProperty status,
             Property imovel, Tenant inquilino) {
         this.setId(id);
         this.setDataInicio(dataInicio);
         this.setDataFim(dataFim);
         this.setValor(valor);
+        this.setLimiteVagas(limiteVagas);
         this.setTipo(tipo);
         this.setStatus(status);
         this.imovel = new ArrayList<>();
-        this.inquilino = new ArrayList<>();
+        this.inquilino = new ArrayList<>(this.getLimiteVagas());
     }
 
     // Metodos especias
@@ -76,6 +79,14 @@ abstract class Contract {
         this.status = status;
     }
 
+    public int getLimiteVagas() {
+        return limiteVagas;
+    }
+
+    public void setLimiteVagas(int limiteVagas) {
+        this.limiteVagas = limiteVagas;
+    }
+
     // Metodos personalizados
     private double calcularValorTotal() {
         return 0.0;
@@ -89,10 +100,12 @@ abstract class Contract {
         System.out.println("Id Contrato: " + id + ": ");
         System.out.print("Data de Inicio: " + this.getDataInicio() + "Data Finalizada: " + getDataFim() + " | ");
         System.out.print("Valor: " + this.getValor() + " | ");
+        System.out.print("Limite de Vagas: " + this.getLimiteVagas() + " | ");
         System.out.print("Tipo: " + this.getTipo() + " | ");
         System.out.print("Status: " + this.getStatus() + " | ");
         System.out.print("Imovel: " + imovel + " | ");
         System.out.print("Inquilino: " + inquilino + " |\n");
         System.out.println("-------------------------------------------------------------------------");
     }
+
 }

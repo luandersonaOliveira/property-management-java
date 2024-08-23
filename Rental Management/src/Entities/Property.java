@@ -8,15 +8,17 @@ public class Property {
     private int id;
     private String endereco;
     private double valorAluguel;
+    private int limiteVagas;
     private TypesRent tipo;
     private StatusProperty status;
 
-    public Property(String endereco, double valorAluguel, TypesRent tipo, StatusProperty status) {
+    public Property(String endereco, double valorAluguel, int limiteVagas, TypesRent tipo, StatusProperty status) {
         this.setId(id);
         this.setEndereco(endereco);
+        this.setValorAluguel(valorAluguel);
+        this.setLimiteVagas(limiteVagas);
         this.setTipo(tipo);
         this.setStatus(status);
-        this.setValorAluguel(valorAluguel);
     }
 
     // Metodos especias
@@ -47,13 +49,13 @@ public class Property {
     public void setTipo(TypesRent tipo) {
         if (tipo.equals(TypesRent.COMMERCIAL)) {
             this.tipo = TypesRent.COMMERCIAL;
-            System.out.println("Comercial");
+            System.out.println("| Comercial! |");
         }else if(tipo.equals(TypesRent.RESIDENTIAL)){
             this.tipo = TypesRent.RESIDENTIAL;
-            System.out.println("Residencial");
+            System.out.println("| Residencial! |");
         }else {
             this.tipo = null;
-            System.out.println("Invalido...");
+            System.out.println("| Invalido! |");
         }
         this.tipo = tipo;
     }
@@ -65,17 +67,33 @@ public class Property {
     public void setStatus(StatusProperty status) {
         if (status.equals(StatusProperty.OCUPADO)) {
             this.status = null;
-            System.out.println("Ocupado");
+            System.out.println("| Ocupado! |");
         } else if (status.equals(StatusProperty.VAGO)) {
             this.status = status;
-            System.out.println("Vago");
+            System.out.println("| Vago! |");
         } else {
-            System.out.println("Invalido...");
+            System.out.println("| Invalido! |");
         }
     }
 
     public void setValorAluguel(double valorAluguel) {
         this.valorAluguel = valorAluguel;
+    }
+
+    public int getLimiteVagas() {
+        return limiteVagas;
+    }
+
+    public void setLimiteVagas(int limiteVagas) {
+        if (limiteVagas <= 0 && limiteVagas > 10) {
+            this.setStatus(StatusProperty.OCUPADO);
+            this.limiteVagas = limiteVagas;
+            System.out.println("| Limite de vagas atingido! |");
+        }else{
+            this.setStatus(StatusProperty.VAGO);
+            this.limiteVagas = limiteVagas;
+            System.err.println("Numero de vagas: " + getLimiteVagas());
+        }
     }
 
     // Metodos personalizados
@@ -87,13 +105,13 @@ public class Property {
             taxa = 100.00;
             novoValor = getValorAluguel() + taxa;
             this.valorAluguel = novoValor;
-            System.out.print(" + Taxa comercial: " + taxa + " Novo Valor: " + novoValor);
+            System.out.print(" + Taxa comercial: " + taxa + " \nValor Total: " + novoValor);
         }else if(getTipo().equals(TypesRent.RESIDENTIAL)){
             System.out.println("Valor do imovel " + getValorAluguel());
             taxa = 80.00;
             novoValor = getValorAluguel() + taxa;
             this.valorAluguel = novoValor;
-            System.out.print(" Taxa residencial: " + taxa + " Novo Valor: " + novoValor);
+            System.out.print(" Taxa residencial: " + taxa + " \nValor Total: " + novoValor);
         }
     }
 
@@ -119,8 +137,10 @@ public class Property {
 
     public void imovelInfo(int id) {
         System.out.println("-------------------------------------------------------------------------------");
+        System.out.print(" | Id do Imovel: " + id);
         System.out.print(" | Endereço: " + this.getEndereco());
         System.out.print(" | Valor do Aluguel: " + this.getValorAluguel());
+        System.out.print(" | Limite de Vagas: " + this.getLimiteVagas());
         System.out.print(" | Tipo: " + this.getTipo());
         System.out.print(" | Status: " + this.getStatus() + " |");
         System.out.println("\n-------------------------------------------------------------------------------");

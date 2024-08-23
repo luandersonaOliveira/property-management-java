@@ -5,10 +5,8 @@ public class Main {
     private static boolean sair = false;
 
     // CONTAINERS
-
-    private static final Tenant inquilino = new Tenant("", "", "");
-    private static final Property imovel = new Property(null, 0, null, null);
-    private static final ContractRepository contractRepository = new ContractRepository();
+    private static final TenantRepository tenantRepository = new TenantRepository();
+    
 
     // METODOS
     
@@ -20,10 +18,10 @@ public class Main {
             scanner.nextLine();
             switch (opcao) {
                 case 1:
-                    cadastraInquilinoNoImovel();
+                    criarInquilino();
                     break;
                 case 2:
-                    
+                    checarInquilino();
                     break;
                 case 3:
                     
@@ -47,22 +45,47 @@ public class Main {
     public static void menuPrincipal() {
         System.out.println("==========================");
         System.out.println("SELECIONE SUA OPÇÃO");
-        System.out.print("| 1 Para cadastrar Inquilino em um Imovel |");
-        System.out.print(" 2 Para checar Inquilino em um Imovel (Contrato) |");
-        System.out.print(" 3 Para ver lista de Inquilinos |");
+        System.out.print("| 1 para cadastrar Inquilinos |");
+        System.out.print(" 2 Para ver lista de Inquilinos |");
+        System.out.print(" 3 Para editar um Inquilino |");
         System.out.print("\n--------------------------------");
-        System.out.print("\n| 4 Para editar um Inquilino |");
-        System.out.print(" 5 Para ver lista de Imoveis |");
-        System.out.print(" 6 Para deletar Contratos |");
+        System.out.print("\n| 4 Para cadastrar Inquilino em um Imovel |"); // Cria o imovel e o contrato é feito.
+        System.out.print(" 5 Para checar Inquilino em um Imovel |"); // Lista de contrato.
+        System.out.print(" 6 Para deletar Contratos |"); //Remove o inquilino do imovel.
+        //OU Apaga o iquilino e o imovel.
         System.out.print("\n--------------------------------");
         System.out.print("\n0 Para sair do menu");
         System.out.println("\n===========================");
         System.out.print("Opção: ");
     }
 
+    public static void criarInquilino(){
+        System.out.println("Nome: ");
+        String nome = scanner.nextLine();
+        System.out.println("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.println("Telefone: ");
+        String telefone = scanner.nextLine();
+        Tenant tenant = new Tenant(nome, cpf, telefone);
+        tenantRepository.adicionarInquilino(tenant);
+    }
+
+    public static void checarInquilino(){
+        tenantRepository.listarInquilino();
+    }
+
+    public static void criarImovel(){
+
+    }
+
+    public static void criarContrato(){
+
+    }
+
     public static void cadastraInquilinoNoImovel(){
 
     }
+
 }
 /*
 Sistema de Gerenciamento de Aluguéis:
