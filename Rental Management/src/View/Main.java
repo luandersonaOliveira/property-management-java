@@ -2,9 +2,6 @@
 
 import java.util.Scanner;
 
-import Enum.OccupationProprietary;
-import Enum.TypesRent;
-
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static boolean sair = false;
@@ -83,7 +80,9 @@ public class Main {
 
     // EDITAR INQUILINOS
     public static void alterarInquilinos() {
-
+        System.out.print("\nInsira o índice do Inquilino à editar: ");
+        int id = scanner.nextInt();
+        tenantRepository.alterarInquilinos(id);
     }
 
     // CRIAR IMOVEIS
@@ -92,7 +91,7 @@ public class Main {
         int vagas = scanner.nextInt();
         System.out.println("Tipo: \n1 Comercial | 2 Residencial |");
         int tipo = scanner.nextInt();
-        System.out.println("Ocupação: \n1 Vago | 2 Ocupado");
+        System.out.println("Ocupação: \n1 Vago | 2 Ocupado |");
         int ocupacao = scanner.nextInt();
         Property property = new Property(vagas, tipo, ocupacao);
         propertyRepository.adicionarImoveis(property);
@@ -104,8 +103,10 @@ public class Main {
     }
 
     // EDITAR IMOVEIS
-    public static void alterarImoveis(){
-
+    public static void alterarImoveis() {
+        System.out.print("\nInsira o índice do Imovel à editar: ");
+        int id = scanner.nextInt();
+        propertyRepository.alterarImoveis(id);
     }
 
     // CRIAR CONTRATO
@@ -119,8 +120,8 @@ public class Main {
     }
 
     // DELETAR CONTRATOS (INQUILINOS E IMOVEIS)
-    public static void excluirContrato(){
-        
+    public static void excluirContrato() {
+
     }
 
 }

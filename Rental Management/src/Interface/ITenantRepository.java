@@ -7,5 +7,5 @@ public interface ITenantRepository {
     
     public void listarInquilinos();
 
-    public void alterarInquilinos();
+    public void alterarInquilinos(int id);
 }

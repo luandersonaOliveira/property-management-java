@@ -1,8 +1,5 @@
 //HERANÇA ALUGUEL RESIDENCIAL
 
-import Enum.OccupationProprietary;
-import Enum.TypesRent;
-
 public class ResidentialRent extends Contract {
     // ATRIBUTOS
 

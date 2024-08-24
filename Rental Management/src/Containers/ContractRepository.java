@@ -12,7 +12,14 @@ public class ContractRepository implements IContractRepository {
 
     @Override
     public void removerContratos(int id) {
+        if (id < 0 || id >= contracts.size()) {
+            System.out.println("Índice inválido. Tente novamente!");
+            return;
+        }
+        Contract contract = contracts.get(id);
+        contract.contractInfo(id);
         contracts.remove(id);
+        System.out.println("\nContrato " + id + " deletado com sucesso!");
     }
 
     @Override

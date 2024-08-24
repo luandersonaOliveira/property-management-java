@@ -51,10 +51,6 @@ public class Tenant {
 
     // METODOS PERSONALIZADOS
 
-    private void alterarInquilinos(String novoTelefone) {
-
-    }
-
     private void verificarHistorico() {
 
     }

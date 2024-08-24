@@ -1,8 +1,5 @@
 //HERANÇA ALUGUEL COMERCIAL
 
-import Enum.OccupationProprietary;
-import Enum.TypesRent;
-
 public class CommercialRent extends Contract {
     // ATRIBUTOS
 
