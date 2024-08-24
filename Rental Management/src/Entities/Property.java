@@ -7,16 +7,16 @@ public class Property {
     // ATRIBUTOS
 
     private double valorAluguel;
-    private int limiteVagas;
-    private TypesRent tipo;
-    private OccupationProprietary occupation;
+    private int limiteVagas, tipo, ocupacao;
+    private TypesRent typesRent;
+    private OccupationProprietary oProprietary;
 
     // CONSTRUCTOR
 
-    public Property(int limiteVagas, TypesRent tipo, OccupationProprietary occupation) {
+    public Property(int limiteVagas, int tipo, int ocupacao) {
         this.setLimiteVagas(limiteVagas);
         this.setTipo(tipo);
-        this.setOccupation(occupation);
+        this.setOcupacao(ocupacao);
     }
 
     // METODOS ESPECIAS
@@ -37,86 +37,88 @@ public class Property {
         this.limiteVagas = limiteVagas;
     }
 
-    public TypesRent getTipo() {
+    public int getTipo() {
         return tipo;
     }
 
-    public void setTipo(TypesRent tipo) {
-        if (tipo.equals(TypesRent.COMMERCIAL)) {
-            this.tipo = TypesRent.COMMERCIAL;
-            this.valorAluguel = getValorAluguel() + 100.00;
-            System.out.println("| Comercial! |");
-        } else if (tipo.equals(TypesRent.RESIDENTIAL)) {
-            this.tipo = TypesRent.RESIDENTIAL;
-            this.valorAluguel = getValorAluguel() + 50.00;
-            System.out.println("| Residencial! |");
+    public void setTipo(int tipo) {
+        if (tipo == 1) {
+            this.tipo = tipo;
+            this.typesRent = TypesRent.COMMERCIAL;
+            this.valorAluguel = valorAluguel + getValorAluguel() + 100;
+        } else if (tipo == 2) {
+            this.tipo = tipo;
+            this.typesRent = TypesRent.RESIDENTIAL;
+            this.valorAluguel = valorAluguel + getValorAluguel() + 80;
         } else {
-            this.tipo = null;
-            System.out.println("| Invalido! |");
+            this.tipo = tipo;
+            this.typesRent = null;
         }
-        this.tipo = tipo;
     }
 
-    public OccupationProprietary getOccupation() {
-        return occupation;
+    public int getOcupacao() {
+        return ocupacao;
     }
 
-    public void setOccupation(OccupationProprietary occupation) {
-        if (occupation.equals(OccupationProprietary.OCUPADO)) {
-            this.occupation = null;
-            System.out.println("| Ocupado! |");
-        } else if (occupation.equals(OccupationProprietary.VAGO)) {
-            this.occupation = occupation;
-            System.out.println("| Vago! |");
+    public void setOcupacao(int ocupacao) {
+        if (ocupacao == 1) {
+            this.ocupacao = ocupacao;
+            this.oProprietary = OccupationProprietary.VAGO;
+        } else if (ocupacao == 2) {
+            this.ocupacao = ocupacao;
+            this.oProprietary = OccupationProprietary.OCUPADO;
         } else {
-            System.out.println("| Invalido! |");
+            this.ocupacao = ocupacao;
+            this.oProprietary = null;
         }
+    }
+
+    public TypesRent getTypesRent() {
+        return typesRent;
+    }
+
+    public void setTypesRent(TypesRent typesRent) {
+        this.typesRent = typesRent;
+    }
+
+    public OccupationProprietary getoProprietary() {
+        return oProprietary;
+    }
+
+    public void setoProprietary(OccupationProprietary oProprietary) {
+        this.oProprietary = oProprietary;
     }
 
     // METODOS PERSONALIZADOS
 
     public void calcularValorAluguel() {
-        double novoValor;
-        double taxa;
-        if (getTipo().equals(TypesRent.COMMERCIAL)) {
-            System.out.println("Valor do imovel " + getValorAluguel());
-            taxa = 100.00;
-            novoValor = getValorAluguel() + taxa;
-            this.valorAluguel = novoValor;
-            System.out.print(" + Taxa comercial: " + taxa + " \nValor Total: " + novoValor);
-        } else if (getTipo().equals(TypesRent.RESIDENTIAL)) {
-            System.out.println("Valor do imovel " + getValorAluguel());
-            taxa = 80.00;
-            novoValor = getValorAluguel() + taxa;
-            this.valorAluguel = novoValor;
-            System.out.print(" Taxa residencial: " + taxa + " \nValor Total: " + novoValor);
-        }
+        
     }
 
-    public void alterarTipo(TypesRent novoTipo) {
-        if (novoTipo.equals(TypesRent.COMMERCIAL)) {
-            setTipo(TypesRent.COMMERCIAL);
-        } else if (novoTipo.equals(TypesRent.RESIDENTIAL)) {
-            setTipo(TypesRent.RESIDENTIAL);
+    public void alterarTipo(int novoTipo) {
+        if (novoTipo == 1) {
+            setTipo(novoTipo);
+        } else if (novoTipo == 2) {
+            setTipo(novoTipo);
         } else {
-            setTipo(null);
+            setTipo(novoTipo);
         }
     }
 
-    public void alterarStatus(OccupationProprietary novoStatus) {
-        if (novoStatus.equals(OccupationProprietary.OCUPADO)) {
-            setOccupation(OccupationProprietary.OCUPADO);
-        } else if (novoStatus.equals(OccupationProprietary.VAGO)) {
-            setOccupation(OccupationProprietary.VAGO);
+    public void alterarStatus(int novoStatus) {
+        if (novoStatus == 1) {
+            setOcupacao(novoStatus);
+        } else if (novoStatus == 2) {
+            setOcupacao(novoStatus);
         } else {
-            setOccupation(null);
+            setOcupacao(novoStatus);
         }
     }
 
-    public void alterarVagas(int limiteVagas){
+    public void alterarVagas(int limiteVagas) {
         if (limiteVagas <= 0 || limiteVagas >= 200) {
             System.out.println("| Limite de vagas atingido! |");
-        } else if(limiteVagas > getLimiteVagas()){
+        } else if (limiteVagas > getLimiteVagas()) {
             this.limiteVagas = limiteVagas;
             System.err.println("Numero de vagas: " + getLimiteVagas());
         }
@@ -127,8 +129,8 @@ public class Property {
         System.out.print("Imovel " + id + "\n");
         System.out.print(" | Valor do Aluguel: " + this.getValorAluguel());
         System.out.print(" | Limite de Vagas: " + this.getLimiteVagas());
-        System.out.print(" | Tipo: " + this.getTipo());
-        System.out.print(" | Ocupação: " + this.getOccupation() + " |");
+        System.out.print(" | Tipo: " + this.getTypesRent());
+        System.out.print(" | Ocupação: " + this.getoProprietary() + " |");
         System.out.println("\n-------------------------------------------------------------------------------");
     }
 

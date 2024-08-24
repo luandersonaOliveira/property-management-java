@@ -51,7 +51,7 @@ public class Tenant {
 
     // METODOS PERSONALIZADOS
 
-    private void atualizarDados(String novoTelefone) {
+    private void alterarInquilinos(String novoTelefone) {
 
     }
 

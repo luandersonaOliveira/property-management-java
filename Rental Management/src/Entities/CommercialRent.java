@@ -6,18 +6,17 @@ import Enum.TypesRent;
 public class CommercialRent extends Contract {
     // ATRIBUTOS
 
+    private String dataInicio, dataFim;
+
     // METODOS ESPECIAS
 
     // CONSTRUCTOR
-
-    public CommercialRent(TypesRent tipo, OccupationProprietary status, Property imovel, Tenant inquilino) {
-        super(tipo, status, imovel, inquilino);
-        //TODO Auto-generated constructor stub
-    }
-
-    // METODOS PERSONALIZADOS
     
-    private double calcularDescontoResidencial() {
-        return 0.0;
+    public CommercialRent(Property imovel, Tenant inquilino, String dataInicio, String dataFim) {
+        super(imovel, inquilino);
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
     }
+    
+    // METODOS PERSONALIZADOS
 }

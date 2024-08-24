@@ -2,8 +2,6 @@
 
 import java.util.Date;
 import java.util.ArrayList;
-import Enum.OccupationProprietary;
-import Enum.TypesRent;
 
 public class Contract {
     // ATRIBUTOS
@@ -14,7 +12,7 @@ public class Contract {
 
     // CONSTRUCTOR
 
-    public Contract(TypesRent tipo, OccupationProprietary status, Property imovel, Tenant inquilino) {
+    public Contract(Property imovel, Tenant inquilino) {
         this.imovel = new ArrayList<>();
         this.inquilino = new ArrayList<>(this.getVagas());
     }
@@ -26,10 +24,10 @@ public class Contract {
     }
 
     public void setVagas(int limiteVagas) {
-        Property property = new Property(limiteVagas, null, null);
+        Property property = new Property(limiteVagas, 0, 0);
         if (limiteVagas <= 0) {
             property.setLimiteVagas(limiteVagas);
-        }else {
+        } else {
             this.vagas = property.getLimiteVagas();
         }
     }
@@ -52,19 +50,31 @@ public class Contract {
 
     // METODOS PERSONALIZADOS
 
-    private double calcularValorTotal() {
-        return 0.0;
+    private void renovarContrato(String novaData) {
+
     }
 
-    private void renovarContrato(Date novaData) {
+    public void listarImoveis(Contract contract) {
+        for (int i = 0; i < contract.imovel.size(); i++) {
+            imovel.get(i).imovelInfo(i);
+        }
+    }
 
+    public void listarInquilinos(Contract contract){
+        for(int i = 0; i< contract.inquilino.size(); i++){
+            inquilino.get(i).tenantInfo(i);    
+        }
     }
 
     public void contractInfo(int id) {
         System.out.println("Contrato: " + id);
-        System.out.print("Imovel: " + imovel + " | ");
-        System.out.print("Inquilino: " + inquilino + " |\n");
+        System.out.print("Imovel: " + getImovel() + " | ");
+        System.out.print("Inquilino: " + getInquilino() + " |\n");
         System.out.println("-------------------------------------------------------------------------");
+    }
+
+    public void cadastrarInquilinoNoImovel(){
+
     }
 
 }

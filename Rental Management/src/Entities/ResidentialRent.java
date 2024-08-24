@@ -7,20 +7,17 @@ public class ResidentialRent extends Contract {
     // ATRIBUTOS
 
     private String dataInicio, dataFim;
-    private double valor;
 
     // METODOS ESPECIAS
-
+    
     // CONSTRUCTOR
-
-    public ResidentialRent(TypesRent tipo, OccupationProprietary status, Property imovel, Tenant inquilino) {
-        super(tipo, status, imovel, inquilino);
-        //TODO Auto-generated constructor stub
+    
+    public ResidentialRent(Property imovel, Tenant inquilino, String dataInicio, String dataFim) {
+        super(imovel, inquilino);
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
     }
 
     // METODOS PERSONALIZADOS
 
-    private double calcularTaxaComercial() {
-        return 0.0;
-    }
 }
