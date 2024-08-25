@@ -9,6 +9,7 @@ public class Main {
     // CONTAINERS
     private static final TenantRepository tenantRepository = new TenantRepository();
     private static final PropertyRepository propertyRepository = new PropertyRepository();
+    private static final ContractRepository contractRepository = new ContractRepository();
 
     // METODOS
 
@@ -35,7 +36,16 @@ public class Main {
                     checarImoveis();
                     break;
                 case 6:
-                    alterarImoveis();
+                    criarContratos();
+                    break;
+                case 7:
+                    checarContratos();
+                    break;
+                case 8:
+
+                    break;
+                case 9:
+
                     break;
                 case 0:
                     sair = true;
@@ -70,7 +80,9 @@ public class Main {
         String cpf = scanner.nextLine();
         System.out.println("Telefone: ");
         String telefone = scanner.nextLine();
-        Tenant tenant = new Tenant(nome, cpf, telefone);
+        System.out.println("Saldo: ");
+        int saldo = scanner.nextInt();
+        Tenant tenant = new Tenant(nome, cpf, telefone, saldo);
         tenantRepository.adicionarInquilinos(tenant);
     }
 
@@ -96,12 +108,12 @@ public class Main {
         Property property = new Property(vagas, tipo);
         propertyRepository.adicionarImoveis(property);
     }
-    
+
     // LISTA IMOVEIS
     public static void checarImoveis() {
         propertyRepository.listarImoveis();
     }
-    
+
     // EDITAR IMOVEIS
     public static void alterarImoveis() {
         System.out.print("\nInsira o índice do Imovel à editar: ");
@@ -111,7 +123,17 @@ public class Main {
 
     // CRIAR CONTRATO
     public static void criarContratos() {
+        System.out.print("\nÍndice do inquilino: ");
+        int idInquilino = scanner.nextInt();
+        System.out.print("\nÍndice do imovel: ");
+        int idImovel = scanner.nextInt();
+        Contract contract = new Contract(idImovel, idInquilino);
+        contractRepository.adicionarContratos(contract);
+    }
 
+    // LISTA CONTRATOS
+    public static void checarContratos() {
+        contractRepository.listarContratos();
     }
 
     // CADASTRA INQUILINO NO IMOVEL

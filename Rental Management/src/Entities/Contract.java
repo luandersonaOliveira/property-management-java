@@ -5,30 +5,57 @@ import java.util.ArrayList;
 public class Contract {
     // ATRIBUTOS
 
-    private int vagas;
-    private ArrayList<Property> imovel;
-    private ArrayList<Tenant> inquilino;
+    private int imovel, inquilino;
+    private double valor;
+    private String dataInicio, dataFim;
 
     // CONSTRUCTOR
 
-    public Contract(Property imovel, Tenant inquilino) {
-        this.imovel = new ArrayList<>(this.getVagas());
-        this.inquilino = new ArrayList<>();
+    public Contract(int imovel, int inquilino) {
+        this.setImovel(imovel);
+        this.setInquilino(inquilino);
     }
 
     // METODOS ESPECIAS
 
-    public int getVagas() {
-        return vagas;
+    public int getImovel() {
+        return imovel;
     }
 
-    public void setVagas(int limiteVagas) {
-        Property property = new Property(limiteVagas, 0);
-        if (limiteVagas <= 0) {
-            property.setLimiteVagas(limiteVagas);
-        } else {
-            this.vagas = property.getLimiteVagas();
-        }
+    public void setImovel(int imovel) {
+        this.imovel = imovel;
+    }
+
+    public int getInquilino() {
+        return inquilino;
+    }
+
+    public void setInquilino(int inquilino) {
+        this.inquilino = inquilino;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public String getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(String dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public String getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(String dataFim) {
+        this.dataFim = dataFim;
     }
 
     // METODOS PERSONALIZADOS
@@ -37,28 +64,17 @@ public class Contract {
 
     }
 
-    public void listarImoveis(Contract contract) {
-        for (int i = 0; i < contract.imovel.size(); i++) {
-            imovel.get(i).imovelInfo(i);
-        }
-    }
-
-    public void listarInquilinos(Contract contract) {
-        for (int i = 0; i < contract.inquilino.size(); i++) {
-            inquilino.get(i).tenantInfo(i);
-        }
-    }
 
     public void contractInfo(int id) {
         System.out.println("\n-------------------------------------------------------------------------");
         System.out.println("Contrato: " + id);
-        System.out.print("Imovel: " + imovel + " | ");
-        System.out.print("Inquilino: " + inquilino + " |\n");
+        System.out.print("Imovel: " + this.getImovel() + " | ");
+        System.out.print("Inquilino: " + this.getInquilino() + " |\n");
         System.out.println("\n-------------------------------------------------------------------------");
     }
 
     public void cadastrarInquilinoNoImovel(Tenant tenant, Property property, int idInquilino) {
-    
+        
     }
 
 }

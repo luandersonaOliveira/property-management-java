@@ -6,20 +6,20 @@ Sistema de Gerenciamento de Aluguéis:
 
 Classes Principais
     Imóvel
-    Atributos: id, endereço, tipo, valorAluguel, status
-    Métodos: calcularValorAluguel(), alterarStatus()
+    Atributos: limiteVagas, tipo, ocupacao, TypesRent typesRent, oProprietary;
+    Métodos: calcularValorAluguel(), alterarStatus();
 
     Inquilino
-    Atributos: id, nome, cpf, telefone
-    Métodos: atualizarDados(), verificarHistorico()
+    Atributos: nome, cpf, telefone;
+    Métodos: tenantInfo(); atualizarDados(), verificarHistorico()
 
     Contrato
-    Atributos: id, dataInicio, dataFim, valor, imóvel, inquilino
-    Métodos: calcularValorTotal(), renovarContrato()
+    Atributos: vagas, dataInicio, dataFim, valor, Inquilino, Imovel; 
+    Métodos: listarImoveis(), listarInquilinos(); calcularValorTotal(), renovarContrato()
 
 Interfaces
     Repositório de Contratos
-    Métodos: adicionarContrato(), removerContrato(), buscarContrato()
+    Métodos: adicionarContrato(), removerContrato()
 
     Serviço de Cobrança
     Métodos: gerarCobranca(), enviarCobranca()

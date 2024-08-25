@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TenantRepository implements ITenantRepository {
-    private ArrayList<Tenant> tenants = new ArrayList<Tenant>();
+    public ArrayList<Tenant> tenants = new ArrayList<Tenant>();
 
     @Override
     public void adicionarInquilinos(Tenant tenant) {
@@ -38,8 +38,11 @@ public class TenantRepository implements ITenantRepository {
         String novoNome = scanner.nextLine();
         System.out.print("Telefone: ");
         String novoTelefone = scanner.nextLine();
+        System.out.print("Saldo: ");
+        double novoSaldo = scanner.nextDouble();
         tenant.setNome(novoNome);
         tenant.setTelefone(novoTelefone);
+        tenant.setSaldo(novoSaldo);
         System.out.println("\nInquilino " + tenant.getNome() + " atualizado com sucesso!");
     }
 }

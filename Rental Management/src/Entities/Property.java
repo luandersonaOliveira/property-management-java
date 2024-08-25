@@ -6,7 +6,6 @@ import Enum.OccupationProprietary;
 public class Property {
     // ATRIBUTOS
 
-    private double valorAluguel;
     private int limiteVagas, tipo, ocupacao;
     private TypesRent typesRent;
     private OccupationProprietary oProprietary;
@@ -21,14 +20,6 @@ public class Property {
 
     // METODOS ESPECIAS
 
-    public double getValorAluguel() {
-        return valorAluguel;
-    }
-
-    public void setValorAluguel(double valorAluguel) {
-        this.valorAluguel = valorAluguel;
-    }
-
     public int getLimiteVagas() {
         return limiteVagas;
     }
@@ -41,7 +32,7 @@ public class Property {
         } else if (limiteVagas >= maxVagas) {
             this.limiteVagas = maxVagas;
             System.out.println("\n| Limite de vagas atingido. Limite máximo foi adicionado! |");
-        } else if (limiteVagas >= 0 && limiteVagas <= maxVagas) {
+        } else if (limiteVagas > 0 && limiteVagas <= maxVagas) {
             this.limiteVagas = limiteVagas;
         }
     }
@@ -56,28 +47,23 @@ public class Property {
                 this.tipo = 0;
                 setOcupacao(0);
                 setTypesRent(TypesRent.NENHUM);
-                setValorAluguel(0);
             } else {
                 this.tipo = 1;
                 setTypesRent(TypesRent.COMMERCIAL);
-                setValorAluguel(100);
             }
         } else if (tipo == 2) {
             if (getLimiteVagas() <= 0 || getLimiteVagas() > 200) {
                 this.tipo = 0;
                 setOcupacao(0);
                 setTypesRent(TypesRent.NENHUM);
-                setValorAluguel(0);
             } else {
                 this.tipo = 2;
                 setTypesRent(TypesRent.RESIDENTIAL);
-                setValorAluguel(80);
             }
         } else if (tipo <= 0 || tipo > 2) {
             this.tipo = 0;
             setOcupacao(0);
             setTypesRent(TypesRent.NENHUM);
-            setValorAluguel(0);
         }
     }
 
@@ -143,7 +129,7 @@ public class Property {
     public void imovelInfo(int id) {
         System.out.println("\n-------------------------------------------------------------------------------");
         System.out.print("Imovel " + id + "\n");
-        System.out.print(" | Valor do Aluguel: " + this.getValorAluguel());
+        System.out.print(" | Valor do Aluguel: ");
         System.out.print(" | Limite de Vagas: " + this.getLimiteVagas());
         System.out.print(" | Tipo: " + this.getTypesRent());
         System.out.print(" | Ocupação: " + this.getoProprietary() + " |");

@@ -3,7 +3,7 @@
 import java.util.ArrayList;
 
 public class ContractRepository implements IContractRepository {
-    private ArrayList<Contract> contracts = new ArrayList<Contract>();
+    public ArrayList<Contract> contracts = new ArrayList<Contract>();
 
     @Override
     public void adicionarContratos(Contract contract) {

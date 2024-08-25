@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PropertyRepository {
-    private ArrayList<Property> properties = new ArrayList<Property>();
+    public ArrayList<Property> properties = new ArrayList<Property>();
 
     public void adicionarImoveis(Property property) {
         properties.add(property);
