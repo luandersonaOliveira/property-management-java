@@ -23,7 +23,7 @@ public class Contract {
     }
 
     public void setVagas(int limiteVagas) {
-        Property property = new Property(limiteVagas, 0, 0);
+        Property property = new Property(limiteVagas, 0);
         if (limiteVagas <= 0) {
             property.setLimiteVagas(limiteVagas);
         } else {
@@ -50,27 +50,15 @@ public class Contract {
     }
 
     public void contractInfo(int id) {
+        System.out.println("\n-------------------------------------------------------------------------");
         System.out.println("Contrato: " + id);
         System.out.print("Imovel: " + imovel + " | ");
         System.out.print("Inquilino: " + inquilino + " |\n");
-        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("\n-------------------------------------------------------------------------");
     }
 
     public void cadastrarInquilinoNoImovel(Tenant tenant, Property property, int idInquilino) {
-        if (property.getLimiteVagas() > 0) {
-            if (property.getOcupacao() == 2 || (property.getOcupacao() <= 0)) {
-                System.out.println("Imovel esta Ocupado. Não é possivel adicionar inquilino " + idInquilino);
-            } else {
-                if (property.getOcupacao() == 1) {
-                    imovel.add(property);
-                    inquilino.add(tenant);
-                    System.out.println("-----------------------------------------------");
-                    System.out.println(tenant.getNome() + " foi cadastrado em " + property.getTypesRent());
-                    property.setLimiteVagas(getVagas() - 1);
-                    tenant.tenantInfo(idInquilino);
-                }
-            }
-        }
+    
     }
 
 }

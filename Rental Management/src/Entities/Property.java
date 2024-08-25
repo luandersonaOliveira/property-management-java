@@ -13,10 +13,10 @@ public class Property {
 
     // CONSTRUCTOR
 
-    public Property(int limiteVagas, int tipo, int ocupacao) {
+    public Property(int limiteVagas, int tipo) {
         this.setLimiteVagas(limiteVagas);
         this.setTipo(tipo);
-        this.setOcupacao(ocupacao);
+        this.setOcupacao(1);
     }
 
     // METODOS ESPECIAS
@@ -34,7 +34,16 @@ public class Property {
     }
 
     public void setLimiteVagas(int limiteVagas) {
-        this.limiteVagas = limiteVagas;
+        int maxVagas = 200;
+        if (limiteVagas <= 0) {
+            this.limiteVagas = 0;
+            System.out.println("\n| Número de vagas inferior ou igual a zero! |");
+        } else if (limiteVagas >= maxVagas) {
+            this.limiteVagas = maxVagas;
+            System.out.println("\n| Limite de vagas atingido. Limite máximo foi adicionado! |");
+        } else if (limiteVagas >= 0 && limiteVagas <= maxVagas) {
+            this.limiteVagas = limiteVagas;
+        }
     }
 
     public int getTipo() {
@@ -43,16 +52,32 @@ public class Property {
 
     public void setTipo(int tipo) {
         if (tipo == 1) {
-            this.tipo = tipo;
-            this.typesRent = TypesRent.COMMERCIAL;
-            this.valorAluguel = valorAluguel + getValorAluguel() + 100;
+            if (getLimiteVagas() <= 0 || getLimiteVagas() > 200) {
+                this.tipo = 0;
+                setOcupacao(0);
+                setTypesRent(TypesRent.NENHUM);
+                setValorAluguel(0);
+            } else {
+                this.tipo = 1;
+                setTypesRent(TypesRent.COMMERCIAL);
+                setValorAluguel(100);
+            }
         } else if (tipo == 2) {
-            this.tipo = tipo;
-            this.typesRent = TypesRent.RESIDENTIAL;
-            this.valorAluguel = valorAluguel + getValorAluguel() + 80;
-        } else {
-            this.tipo = tipo;
-            this.typesRent = null;
+            if (getLimiteVagas() <= 0 || getLimiteVagas() > 200) {
+                this.tipo = 0;
+                setOcupacao(0);
+                setTypesRent(TypesRent.NENHUM);
+                setValorAluguel(0);
+            } else {
+                this.tipo = 2;
+                setTypesRent(TypesRent.RESIDENTIAL);
+                setValorAluguel(80);
+            }
+        } else if (tipo <= 0 || tipo > 2) {
+            this.tipo = 0;
+            setOcupacao(0);
+            setTypesRent(TypesRent.NENHUM);
+            setValorAluguel(0);
         }
     }
 
@@ -62,14 +87,14 @@ public class Property {
 
     public void setOcupacao(int ocupacao) {
         if (ocupacao == 1) {
-            this.ocupacao = ocupacao;
-            this.oProprietary = OccupationProprietary.VAGO;
+            this.ocupacao = 1;
+            setoProprietary(OccupationProprietary.VAGO);
         } else if (ocupacao == 2) {
-            this.ocupacao = ocupacao;
-            this.oProprietary = OccupationProprietary.OCUPADO;
-        } else {
-            this.ocupacao = ocupacao;
-            this.oProprietary = null;
+            this.ocupacao = 2;
+            setoProprietary(OccupationProprietary.OCUPADO);
+        } else if (ocupacao <= 0 || ocupacao > 2) {
+            this.ocupacao = 0;
+            setoProprietary(OccupationProprietary.NENHUM);
         }
     }
 
@@ -91,10 +116,6 @@ public class Property {
 
     // METODOS PERSONALIZADOS
 
-    public void calcularValorAluguel() {
-        
-    }
-
     public void alterarTipo(int novoTipo) {
         if (novoTipo == 1) {
             setTipo(novoTipo);
@@ -105,7 +126,7 @@ public class Property {
         }
     }
 
-    public void alterarStatus(int novoStatus) {
+    public void alterarOcupacao(int novoStatus) {
         if (novoStatus == 1) {
             setOcupacao(novoStatus);
         } else if (novoStatus == 2) {
@@ -116,16 +137,11 @@ public class Property {
     }
 
     public void alterarVagas(int limiteVagas) {
-        if (limiteVagas <= 0 || limiteVagas >= 200) {
-            System.out.println("| Limite de vagas atingido! |");
-        } else if (limiteVagas > getLimiteVagas()) {
-            this.limiteVagas = limiteVagas;
-            System.err.println("Numero de vagas: " + getLimiteVagas());
-        }
+
     }
 
     public void imovelInfo(int id) {
-        System.out.println("-------------------------------------------------------------------------------");
+        System.out.println("\n-------------------------------------------------------------------------------");
         System.out.print("Imovel " + id + "\n");
         System.out.print(" | Valor do Aluguel: " + this.getValorAluguel());
         System.out.print(" | Limite de Vagas: " + this.getLimiteVagas());

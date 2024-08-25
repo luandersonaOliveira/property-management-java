@@ -1,5 +1,5 @@
 package Enum;
 
 public enum OccupationProprietary {
-    VAGO, OCUPADO;
+    VAGO, OCUPADO, NENHUM;
 }

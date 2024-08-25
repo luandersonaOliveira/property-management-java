@@ -35,7 +35,7 @@ public class Main {
                     checarImoveis();
                     break;
                 case 6:
-
+                    alterarImoveis();
                     break;
                 case 0:
                     sair = true;
@@ -45,25 +45,26 @@ public class Main {
 
     // MENU
     public static void menuPrincipal() {
-        System.out.println("==========================");
-        System.out.println("SELECIONE SUA OPÇÃO");
-        System.out.print("| 1 para cadastrar Inquilinos |");
-        System.out.print(" 2 Para ver lista de Inquilinos |");
-        System.out.print(" 3 Para editar um Inquilino |");
+        System.out.println("\n--------------------------------");
+        System.out.println("SELECIONE SUA OPÇÃO:");
+        System.out.println("--------------------------------");
+        System.out.print("| 1 Para cadastrar Inquilinos. |");
+        System.out.print(" 2 Para Checar Inquilinos. |");
+        System.out.print(" 3 Para Editar um Inquilino. |");
         System.out.print("\n--------------------------------");
-        System.out.print("\n| 4 Para cadastrar Inquilino em um Imovel |"); // Cria o imovel e o contrato é feito.
-        System.out.print(" 5 Para checar Inquilino em um Imovel |"); // Lista de contrato.
-        System.out.print(" 6 Para deletar Contratos |"); // Remove o inquilino do imovel.
+        System.out.print("\n| 4 Para Cadastrar um Inquilino no Imovel. |"); // Cria o imovel e o contrato é feito.
+        System.out.print(" 5 Para Checar Inquilino no Imovel. |"); // Lista de contrato.
+        System.out.print(" 6 Para Deletar Contratos. |"); // Remove o inquilino do imovel.
         // OU Apaga o iquilino e o imovel.
         System.out.print("\n--------------------------------");
-        System.out.print("\n0 Para sair do menu");
-        System.out.println("\n===========================");
+        System.out.print("\n0 Para Sair do Menu.");
+        System.out.println("\n--------------------------------");
         System.out.print("Opção: ");
     }
 
     // CRIAR INQUILINOS
     public static void criarInquilinos() {
-        System.out.println("Nome: ");
+        System.out.println("\nNome: ");
         String nome = scanner.nextLine();
         System.out.println("CPF: ");
         String cpf = scanner.nextLine();
@@ -87,21 +88,20 @@ public class Main {
 
     // CRIAR IMOVEIS
     public static void criarImoveis() {
-        System.out.print("Limite de Vagas: ");
+        System.out.print("\nLimite de Vagas: ");
         int vagas = scanner.nextInt();
-        System.out.println("Tipo: \n1 Comercial | 2 Residencial |");
+        System.out.println("Tipo: 1 Comercial | 2 Residencial |");
+        System.out.print("Opção: ");
         int tipo = scanner.nextInt();
-        System.out.println("Ocupação: \n1 Vago | 2 Ocupado |");
-        int ocupacao = scanner.nextInt();
-        Property property = new Property(vagas, tipo, ocupacao);
+        Property property = new Property(vagas, tipo);
         propertyRepository.adicionarImoveis(property);
     }
-
+    
     // LISTA IMOVEIS
     public static void checarImoveis() {
         propertyRepository.listarImoveis();
     }
-
+    
     // EDITAR IMOVEIS
     public static void alterarImoveis() {
         System.out.print("\nInsira o índice do Imovel à editar: ");

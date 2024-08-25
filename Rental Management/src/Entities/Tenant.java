@@ -56,7 +56,7 @@ public class Tenant {
     }
 
     public void tenantInfo(int id) {
-        System.out.println("-------------------------------------------------------------------------------");
+        System.out.println("\n-------------------------------------------------------------------------------");
         System.out.print("Inquilino " + id + "\n");
         System.out.print(" | Nome: " + this.getNome());
         System.out.print(" | CPF: " + this.getCpf());

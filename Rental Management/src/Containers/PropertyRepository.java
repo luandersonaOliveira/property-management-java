@@ -33,13 +33,17 @@ public class PropertyRepository {
         System.out.println("\nDigite as novas informações do Imovel: ");
         System.out.print("Limite de Vagas: ");
         int novoLimiteVagas = scanner.nextInt();
-        System.out.print("Tipo: \n1 Comercial | 2 Residencial |");
+        System.out.println("Tipo: \n1 Comercial | 2 Residencial | ");
+        System.out.println("\n===========================");
+        System.out.print("Opção: ");
         int novoTipo = scanner.nextInt();
-        System.out.print("Ocupação: \n1 Vago | 2 Ocupado |");
-        int novoOcupacao= scanner.nextInt();
+        System.out.println("Ocupação: \n1 Vago | 2 Ocupado | ");
+        System.out.println("\n===========================");
+        System.out.print("Opção: ");
+        int novoOcupacao = scanner.nextInt();
         property.setLimiteVagas(novoLimiteVagas);
         property.setTipo(novoTipo);
         property.setOcupacao(novoOcupacao);
-        System.out.println("\nImovel " + id + " atualizado com sucesso!");
+        System.out.println("\nImovel atualizado com sucesso!");
     }
 }

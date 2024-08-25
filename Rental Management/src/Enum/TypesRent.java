@@ -1,5 +1,5 @@
 package Enum;
 
 public enum TypesRent {
-    COMMERCIAL, RESIDENTIAL;
+    COMMERCIAL, RESIDENTIAL, NENHUM;
 }
