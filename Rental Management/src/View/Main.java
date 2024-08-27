@@ -2,6 +2,8 @@
 
 import java.util.Scanner;
 
+import Exceptions.PropertyException;
+
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static boolean sair = false;
@@ -13,7 +15,7 @@ public class Main {
 
     // METODOS
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PropertyException {
         // OPÇÕES DO MENU
         do {
             menuPrincipal();
@@ -57,17 +59,15 @@ public class Main {
     public static void menuPrincipal() {
         System.out.println("\n--------------------------------");
         System.out.println("SELECIONE SUA OPÇÃO:");
-        System.out.println("--------------------------------");
-        System.out.print("| 1 Para cadastrar Inquilinos. |");
-        System.out.print(" 2 Para Checar Inquilinos. |");
-        System.out.print(" 3 Para Editar um Inquilino. |");
-        System.out.print("\n--------------------------------");
-        System.out.print("\n| 4 Para Cadastrar um Inquilino no Imovel. |"); // Cria o imovel e o contrato é feito.
-        System.out.print(" 5 Para Checar Inquilino no Imovel. |"); // Lista de contrato.
-        System.out.print(" 6 Para Deletar Contratos. |"); // Remove o inquilino do imovel.
+        System.out.print("| 1. Para cadastrar Inquilinos. |");
+        System.out.print(" 2. Para Checar Inquilinos. |");
+        System.out.print(" 3. Para Editar um Inquilino. |");
+        System.out.print("\n| 4. Para Cadastrar um Inquilino no Imovel. |"); // Cria o imovel e o contrato é feito.
+        System.out.print(" 5. Para Checar Inquilino no Imovel. |"); // Lista de contrato.
+        System.out.print(" 6. Para Deletar Contratos. |"); // Remove o inquilino do imovel.
         // OU Apaga o iquilino e o imovel.
         System.out.print("\n--------------------------------");
-        System.out.print("\n0 Para Sair do Menu.");
+        System.out.print("\n| 0. Para Sair do Menu.");
         System.out.println("\n--------------------------------");
         System.out.print("Opção: ");
     }
@@ -97,7 +97,7 @@ public class Main {
     }
 
     // CRIAR IMOVEIS
-    private static void criarImoveis() {
+    private static void criarImoveis() throws PropertyException {
         System.out.print("\nLimite de Vagas: ");
         int vagas = scanner.nextInt();
         System.out.print("Tipo: \n1 Comercial | 2 Residencial |");
@@ -127,14 +127,14 @@ public class Main {
     }
 
     // EDITAR IMOVEIS
-    private static void alterarImoveis() {
+    private static void alterarImoveis() throws PropertyException {
         System.out.print("\nInsira o índice do Imovel à editar: ");
         int id = scanner.nextInt();
         propertyRepository.alterarImoveis(id);
     }
 
     // CADASTRA INQUILINO NO IMOVEL
-    private static void cadastrarInquilinoNoImovel() {
+    private static void cadastrarInquilinoNoImovel() throws PropertyException {
         System.out.print("\nÍndice do inquilino: ");
         int idInquilino = scanner.nextInt();
         System.out.print("\nÍndice do imovel: ");

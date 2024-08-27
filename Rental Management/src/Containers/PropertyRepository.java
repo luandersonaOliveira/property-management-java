@@ -3,6 +3,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Exceptions.PropertyException;
+
 public class PropertyRepository {
     public ArrayList<Property> properties = new ArrayList<Property>();
 
@@ -20,7 +22,7 @@ public class PropertyRepository {
         }
     }
 
-    public void alterarImoveis(int id) {
+    public void alterarImoveis(int id) throws PropertyException {
         Scanner scanner = new Scanner(System.in);
         if (id < 0 || id >= properties.size()) {
             System.out.println("Índice Inválido. Tente novamente!");

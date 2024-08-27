@@ -1,6 +1,6 @@
 // CONTRATOS
 
-import java.util.ArrayList;
+import Exceptions.PropertyException;
 
 public class Contract {
     // ATRIBUTOS
@@ -34,10 +34,6 @@ public class Contract {
 
     // METODOS PERSONALIZADOS
 
-    private void renovarContrato(String novaData) {
-
-    }
-
     public void contractInfo(int id) {
         System.out.println("\n-------------------------------------------------------------------------");
         System.out.println("Contrato: " + id);
@@ -46,7 +42,7 @@ public class Contract {
         System.out.println("\n-------------------------------------------------------------------------");
     }
 
-    public void cadastrarInquilinoNoImovel(Tenant tenant, Property property, int idInquilino) {
+    public void cadastrarInquilinoNoImovel(Tenant tenant, Property property, int idInquilino) throws PropertyException {
         if (tenant != null && property != null) {
             property.adicionarInquilinos(idInquilino, tenant);
             System.out.println("Inquilino cadastrado com sucesso no imóvel!");
@@ -54,5 +50,4 @@ public class Contract {
             System.out.println("Erro: Inquilino ou imóvel não podem ser nulos.");
         }
     }
-
 }

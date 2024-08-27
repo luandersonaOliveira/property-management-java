@@ -1,10 +1,14 @@
 // IMOVEIS
 
 import Enum.TypesRent;
+import Exceptions.PropertyException;
 import Enum.OccupationProprietary;
+
+import java.util.ArrayList;
 
 public class Property {
     // ATRIBUTOS
+    public ArrayList<Contract> contract;
     private static final int maxVagas = 200;
     private int limiteVagas, tipo, ocupacao;
     private String data;
@@ -13,11 +17,12 @@ public class Property {
 
     // CONSTRUCTOR
 
-    public Property(int limiteVagas, int tipo, String data) {
+    public Property(int limiteVagas, int tipo, String data) throws PropertyException {
         this.setLimiteVagas(limiteVagas);
         this.setTipo(tipo);
         this.setOcupacao(1);
         this.setData(data);
+        this.contract = new ArrayList<>();
     }
 
     // METODOS ESPECIAS
@@ -26,15 +31,15 @@ public class Property {
         return limiteVagas;
     }
 
-    public void setLimiteVagas(int limiteVagas) {
+    public void setLimiteVagas(int limiteVagas) throws PropertyException {
         if (limiteVagas <= 0) {
             this.limiteVagas = 0;
             setOcupacao(0);
-            System.out.println("\n| Número de vagas inferior ou igual a zero! |");
+            throw new PropertyException("Número de vagas deve ser maior que zero.");
         } else if (limiteVagas >= maxVagas) {
             this.limiteVagas = maxVagas;
             setOcupacao(2);
-            System.out.println("\n| Limite de vagas atingido. Limite máximo foi adicionado! |");
+            throw new PropertyException("Limite de vagas excedido.");
         } else if (limiteVagas > 0 && limiteVagas <= maxVagas) {
             this.limiteVagas = limiteVagas;
         }
@@ -44,7 +49,7 @@ public class Property {
         return tipo;
     }
 
-    public void setTipo(int tipo) {
+    public void setTipo(int tipo) throws PropertyException {
         if (tipo == 1) {
             if (getLimiteVagas() <= 0 || getLimiteVagas() > maxVagas) {
                 this.tipo = 0;
@@ -63,10 +68,11 @@ public class Property {
                 this.tipo = 2;
                 setTypesRent(TypesRent.RESIDENTIAL);
             }
-        } else if (tipo <= 0 || tipo > 2) {
+        } else {
             this.tipo = 0;
             setOcupacao(0);
             setTypesRent(TypesRent.NENHUM);
+            throw new PropertyException("Tipo inválido. Deve ser 1 (comercial) ou 2 (residencial).");
         }
     }
 
@@ -118,6 +124,16 @@ public class Property {
 
     // METODOS PERSONALIZADOS
 
+    public void imovelInfo(int id) {
+        System.out.println("\n-------------------------------------------------------------------------------");
+        System.out.print("Imovel " + id + "\n");
+        System.out.print(" | Data: " + this.getData());
+        System.out.print(" | Limite de Vagas: " + this.getLimiteVagas());
+        System.out.print(" | Tipo: " + this.getTypesRent());
+        System.out.print(" | Ocupação: " + this.getoProprietary() + " |");
+        System.out.println("\n-------------------------------------------------------------------------------");
+    }
+
     private String formatarData(String data) {
         if (data.length() == 8) {
             String dia = data.substring(0, 2);
@@ -130,35 +146,35 @@ public class Property {
         }
     }
 
-    public void adicionarInquilinos(int idInquilino, Tenant tenant) {
-        if (getOcupacao() == 1) {
-            setTipo(getTipo());
-            setLimiteVagas(getLimiteVagas() - 1);
-            System.out.println("\n-------------------------------------------------------------------------------");
-            System.out.print("Imovel " + "\n");
-            System.out.print(" | Data: " + this.getData());
-            System.out.print(" | Limite de Vagas: " + this.getLimiteVagas());
-            System.out.print(" | Tipo: " + this.getTypesRent());
-            System.out.print(" | Ocupação: " + this.getoProprietary() + " |");
-            System.out.println("\n-------------------------------------------------------------------------------");
-            tenant.tenantInfo(idInquilino);
-        } else if (getOcupacao() == 2) {
-            setTipo(getTipo());
-            setLimiteVagas(0);
-        } else if (getOcupacao() <= 0 || getOcupacao() > 2) {
-            setTipo(getTipo());
-            setLimiteVagas(0);
+    public void adicionarInquilinos(int idInquilino, Tenant tenant) throws PropertyException {
+        if (contract.contains(tenant)) {
+            System.out.println(tenant.getNome() + " já está cadastrado em " + getTypesRent());
+        } else {
+            if (isPropertyVacant()) {
+                // Propriedade está vaga
+                setTipo(getTipo()); // Não tenho certeza sobre essa linha; você pode revisar se é necessária
+                setLimiteVagas(getLimiteVagas() - 1);
+                exibirInformacoesImovel();
+                tenant.tenantInfo(idInquilino);
+            } else {
+                // Propriedade está ocupada
+                setTipo(getTipo()); // Novamente, revise essa linha se necessário
+                setLimiteVagas(0);
+            }
         }
     }
 
-    public void imovelInfo(int id) {
+    private boolean isPropertyVacant() {
+        return getOcupacao() == 1;
+    }
+
+    private void exibirInformacoesImovel() {
         System.out.println("\n-------------------------------------------------------------------------------");
-        System.out.print("Imovel " + id + "\n");
+        System.out.print("Imóvel\n");
         System.out.print(" | Data: " + this.getData());
         System.out.print(" | Limite de Vagas: " + this.getLimiteVagas());
         System.out.print(" | Tipo: " + this.getTypesRent());
         System.out.print(" | Ocupação: " + this.getoProprietary() + " |");
         System.out.println("\n-------------------------------------------------------------------------------");
     }
-
 }
