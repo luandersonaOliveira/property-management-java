@@ -36,13 +36,13 @@ public class TenantRepository implements ITenantRepository {
         System.out.println("\nDigite as novas informações do Inquilino: ");
         System.out.print("Nome: ");
         String novoNome = scanner.nextLine();
+        System.out.print("CPF: ");
+        String novoCpf = scanner.nextLine();
         System.out.print("Telefone: ");
         String novoTelefone = scanner.nextLine();
-        System.out.print("Saldo: ");
-        double novoSaldo = scanner.nextDouble();
         tenant.setNome(novoNome);
         tenant.setTelefone(novoTelefone);
-        tenant.setSaldo(novoSaldo);
+        tenant.setCpf(novoCpf);
         System.out.println("\nInquilino " + tenant.getNome() + " atualizado com sucesso!");
     }
 }

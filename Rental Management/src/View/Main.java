@@ -36,16 +36,16 @@ public class Main {
                     checarImoveis();
                     break;
                 case 6:
-                    criarContratos();
+                    alterarImoveis();
                     break;
                 case 7:
-                    checarContratos();
+                    cadastrarInquilinoNoImovel();
                     break;
                 case 8:
-
+                    checarContratos();
                     break;
                 case 9:
-
+                    
                     break;
                 case 0:
                     sair = true;
@@ -73,76 +73,86 @@ public class Main {
     }
 
     // CRIAR INQUILINOS
-    public static void criarInquilinos() {
-        System.out.println("\nNome: ");
+    private static void criarInquilinos() {
+        System.out.print("\nNome: ");
         String nome = scanner.nextLine();
-        System.out.println("CPF: ");
+        System.out.print("CPF: ");
         String cpf = scanner.nextLine();
-        System.out.println("Telefone: ");
+        System.out.print("Telefone: ");
         String telefone = scanner.nextLine();
-        System.out.println("Saldo: ");
-        int saldo = scanner.nextInt();
-        Tenant tenant = new Tenant(nome, cpf, telefone, saldo);
+        Tenant tenant = new Tenant(nome, cpf, telefone);
         tenantRepository.adicionarInquilinos(tenant);
     }
 
     // LISTA INQUILINOS
-    public static void checarInquilinos() {
+    private static void checarInquilinos() {
         tenantRepository.listarInquilinos();
     }
 
     // EDITAR INQUILINOS
-    public static void alterarInquilinos() {
+    private static void alterarInquilinos() {
         System.out.print("\nInsira o índice do Inquilino à editar: ");
         int id = scanner.nextInt();
         tenantRepository.alterarInquilinos(id);
     }
 
     // CRIAR IMOVEIS
-    public static void criarImoveis() {
+    private static void criarImoveis() {
         System.out.print("\nLimite de Vagas: ");
         int vagas = scanner.nextInt();
-        System.out.println("Tipo: 1 Comercial | 2 Residencial |");
-        System.out.print("Opção: ");
+        System.out.print("Tipo: \n1 Comercial | 2 Residencial |");
+        System.out.print("\nOpção: ");
         int tipo = scanner.nextInt();
-        Property property = new Property(vagas, tipo);
+        System.out.print("Data: ");
+        String data = scanner.next();
+
+        Property property = null;
+        switch (tipo) {
+            case 1:
+                property = new CommercialRent(vagas, tipo, data);
+                break;
+            case 2:
+                property = new ResidentialRent(vagas, tipo, data);
+                break;
+            default:
+                System.out.println("Tipo inválido!");
+                break;
+        }
         propertyRepository.adicionarImoveis(property);
     }
 
     // LISTA IMOVEIS
-    public static void checarImoveis() {
+    private static void checarImoveis() {
         propertyRepository.listarImoveis();
     }
 
     // EDITAR IMOVEIS
-    public static void alterarImoveis() {
+    private static void alterarImoveis() {
         System.out.print("\nInsira o índice do Imovel à editar: ");
         int id = scanner.nextInt();
         propertyRepository.alterarImoveis(id);
     }
 
-    // CRIAR CONTRATO
-    public static void criarContratos() {
+    // CADASTRA INQUILINO NO IMOVEL
+    private static void cadastrarInquilinoNoImovel() {
         System.out.print("\nÍndice do inquilino: ");
         int idInquilino = scanner.nextInt();
         System.out.print("\nÍndice do imovel: ");
         int idImovel = scanner.nextInt();
+        Tenant tenant = tenantRepository.tenants.get(idImovel);
+        Property property = propertyRepository.properties.get(idImovel);
         Contract contract = new Contract(idImovel, idInquilino);
+        contract.cadastrarInquilinoNoImovel(tenant, property, idInquilino);
         contractRepository.adicionarContratos(contract);
     }
 
     // LISTA CONTRATOS
-    public static void checarContratos() {
+    private static void checarContratos() {
         contractRepository.listarContratos();
     }
 
-    // CADASTRA INQUILINO NO IMOVEL
-    public static void cadastrarInquilinoNoImovel() {
-
-    }
-
     // DELETAR CONTRATOS (INQUILINOS E IMOVEIS)
-    public static void excluirContrato() {
+    private static void excluirContrato() {
 
     }
 

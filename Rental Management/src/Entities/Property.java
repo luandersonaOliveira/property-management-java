@@ -5,17 +5,19 @@ import Enum.OccupationProprietary;
 
 public class Property {
     // ATRIBUTOS
-
+    private static final int maxVagas = 200;
     private int limiteVagas, tipo, ocupacao;
+    private String data;
     private TypesRent typesRent;
     private OccupationProprietary oProprietary;
 
     // CONSTRUCTOR
 
-    public Property(int limiteVagas, int tipo) {
+    public Property(int limiteVagas, int tipo, String data) {
         this.setLimiteVagas(limiteVagas);
         this.setTipo(tipo);
         this.setOcupacao(1);
+        this.setData(data);
     }
 
     // METODOS ESPECIAS
@@ -25,12 +27,13 @@ public class Property {
     }
 
     public void setLimiteVagas(int limiteVagas) {
-        int maxVagas = 200;
         if (limiteVagas <= 0) {
             this.limiteVagas = 0;
+            setOcupacao(0);
             System.out.println("\n| Número de vagas inferior ou igual a zero! |");
         } else if (limiteVagas >= maxVagas) {
             this.limiteVagas = maxVagas;
+            setOcupacao(2);
             System.out.println("\n| Limite de vagas atingido. Limite máximo foi adicionado! |");
         } else if (limiteVagas > 0 && limiteVagas <= maxVagas) {
             this.limiteVagas = limiteVagas;
@@ -43,7 +46,7 @@ public class Property {
 
     public void setTipo(int tipo) {
         if (tipo == 1) {
-            if (getLimiteVagas() <= 0 || getLimiteVagas() > 200) {
+            if (getLimiteVagas() <= 0 || getLimiteVagas() > maxVagas) {
                 this.tipo = 0;
                 setOcupacao(0);
                 setTypesRent(TypesRent.NENHUM);
@@ -52,7 +55,7 @@ public class Property {
                 setTypesRent(TypesRent.COMMERCIAL);
             }
         } else if (tipo == 2) {
-            if (getLimiteVagas() <= 0 || getLimiteVagas() > 200) {
+            if (getLimiteVagas() <= 0 || getLimiteVagas() > maxVagas) {
                 this.tipo = 0;
                 setOcupacao(0);
                 setTypesRent(TypesRent.NENHUM);
@@ -100,36 +103,58 @@ public class Property {
         this.oProprietary = oProprietary;
     }
 
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        String dataFormatada = formatarData(data);
+        if (dataFormatada != null) {
+            this.data = dataFormatada;
+        } else {
+            this.data = null;
+        }
+    }
+
     // METODOS PERSONALIZADOS
 
-    public void alterarTipo(int novoTipo) {
-        if (novoTipo == 1) {
-            setTipo(novoTipo);
-        } else if (novoTipo == 2) {
-            setTipo(novoTipo);
+    private String formatarData(String data) {
+        if (data.length() == 8) {
+            String dia = data.substring(0, 2);
+            String mes = data.substring(2, 4);
+            String ano = data.substring(4);
+            return dia + "/" + mes + "/" + ano;
         } else {
-            setTipo(novoTipo);
+            System.out.println("| Data inválida! O formato deve ser Dia/Mês/Ano. |");
+            return null;
         }
     }
 
-    public void alterarOcupacao(int novoStatus) {
-        if (novoStatus == 1) {
-            setOcupacao(novoStatus);
-        } else if (novoStatus == 2) {
-            setOcupacao(novoStatus);
-        } else {
-            setOcupacao(novoStatus);
+    public void adicionarInquilinos(int idInquilino, Tenant tenant) {
+        if (getOcupacao() == 1) {
+            setTipo(getTipo());
+            setLimiteVagas(getLimiteVagas() - 1);
+            System.out.println("\n-------------------------------------------------------------------------------");
+            System.out.print("Imovel " + "\n");
+            System.out.print(" | Data: " + this.getData());
+            System.out.print(" | Limite de Vagas: " + this.getLimiteVagas());
+            System.out.print(" | Tipo: " + this.getTypesRent());
+            System.out.print(" | Ocupação: " + this.getoProprietary() + " |");
+            System.out.println("\n-------------------------------------------------------------------------------");
+            tenant.tenantInfo(idInquilino);
+        } else if (getOcupacao() == 2) {
+            setTipo(getTipo());
+            setLimiteVagas(0);
+        } else if (getOcupacao() <= 0 || getOcupacao() > 2) {
+            setTipo(getTipo());
+            setLimiteVagas(0);
         }
-    }
-
-    public void alterarVagas(int limiteVagas) {
-
     }
 
     public void imovelInfo(int id) {
         System.out.println("\n-------------------------------------------------------------------------------");
         System.out.print("Imovel " + id + "\n");
-        System.out.print(" | Valor do Aluguel: ");
+        System.out.print(" | Data: " + this.getData());
         System.out.print(" | Limite de Vagas: " + this.getLimiteVagas());
         System.out.print(" | Tipo: " + this.getTypesRent());
         System.out.print(" | Ocupação: " + this.getoProprietary() + " |");

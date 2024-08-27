@@ -1,21 +1,16 @@
-
 // INQUILINOS
-import java.util.Locale;
-import java.text.NumberFormat;
 
 public class Tenant {
     // ATRIBUTOS
 
     private String nome, cpf, telefone;
-    private double saldo;
 
     // CONSTRUCTOR
 
-    public Tenant(String nome, String cpf, String telefone, double saldo) {
+    public Tenant(String nome, String cpf, String telefone) {
         this.setNome(nome);
         this.setCpf(cpf);
         this.setTelefone(telefone);
-        this.setSaldo(saldo);
     }
 
     // METODOS ESPECIAS
@@ -33,11 +28,11 @@ public class Tenant {
     }
 
     public void setCpf(String cpf) {
-        if (cpf.length() != 11) {
-            this.cpf = null;
-            System.out.println("\n| CPF invalido, Número de digitos incorreto! | ");
+        String cpfFormatado = formatarCpf(cpf);
+        if (cpfFormatado != null) {
+            this.cpf = cpfFormatado;
         } else {
-            this.cpf = cpf;
+            this.cpf = null;
         }
     }
 
@@ -52,14 +47,6 @@ public class Tenant {
         } else {
             this.telefone = null;
         }
-    }
-
-    public double getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
     }
 
     // METODOS PERSONALIZADOS
@@ -102,8 +89,7 @@ public class Tenant {
         System.out.print("Inquilino " + id + "\n");
         System.out.print(" | Nome: " + this.getNome());
         System.out.print(" | CPF: " + this.getCpf());
-        System.out.print(" | Telefone: " + this.getTelefone());
-        System.out.print(" | Saldo: " + this.getSaldo() + " |");
+        System.out.print(" | Telefone: " + this.getTelefone() + " |");
         System.out.println("\n-------------------------------------------------------------------------------");
     }
 

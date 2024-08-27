@@ -6,8 +6,6 @@ public class Contract {
     // ATRIBUTOS
 
     private int imovel, inquilino;
-    private double valor;
-    private String dataInicio, dataFim;
 
     // CONSTRUCTOR
 
@@ -34,47 +32,27 @@ public class Contract {
         this.inquilino = inquilino;
     }
 
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public String getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(String dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public String getDataFim() {
-        return dataFim;
-    }
-
-    public void setDataFim(String dataFim) {
-        this.dataFim = dataFim;
-    }
-
     // METODOS PERSONALIZADOS
 
     private void renovarContrato(String novaData) {
 
     }
 
-
     public void contractInfo(int id) {
         System.out.println("\n-------------------------------------------------------------------------");
         System.out.println("Contrato: " + id);
-        System.out.print("Imovel: " + this.getImovel() + " | ");
-        System.out.print("Inquilino: " + this.getInquilino() + " |\n");
+        System.out.print("Imovel: " + getImovel() + " | ");
+        System.out.print("Inquilino: " + getInquilino() + " |\n");
         System.out.println("\n-------------------------------------------------------------------------");
     }
 
     public void cadastrarInquilinoNoImovel(Tenant tenant, Property property, int idInquilino) {
-        
+        if (tenant != null && property != null) {
+            property.adicionarInquilinos(idInquilino, tenant);
+            System.out.println("Inquilino cadastrado com sucesso no imóvel!");
+        } else {
+            System.out.println("Erro: Inquilino ou imóvel não podem ser nulos.");
+        }
     }
 
 }
