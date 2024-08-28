@@ -1,82 +1,85 @@
 
 Sistema de Gerenciamento de Aluguéis:
-    Entidades: Contrato, Inquilino, Imóvel
+    Entidades: Contrato, Inquilino, Imóvel, proprietário
     Interfaces: Repositório de Contratos, Serviço de Cobrança
-    Herança: Aluguel Residencial, Aluguel Comercial
+    Herança: Aluguel Residencial (Imóvel), Aluguel Comercial (Imóvel)
 
-Classes Principais
+    Enums: Ocupação, Tipo
+    Repositórios: (Contrato, Inquilino, Imóvel, proprietário)
+    Exceptions: (Contrato, Inquilino, Imóvel, proprietário)
+    Service: (Contrato, Inquilino, Imóvel, proprietário)
+
+Sobre o assunto:
+    Gestão de Aluguéis: 
+    Essa é a base do sistema. Envolve o controle dos contratos de locação, datas de início e término, valores dos aluguéis e reajustes. Também inclui o registro de informações sobre os inquilinos e proprietários.
+
+    Controle Financeiro: 
+    Um bom sistema deve permitir o acompanhamento das finanças relacionadas aos aluguéis. Isso inclui registrar os pagamentos dos inquilinos, calcular multas por atraso e gerar relatórios financeiros.
+
+    Site Imobiliário Integrado: 
+    Muitos sistemas oferecem a possibilidade de criar um site para divulgar os imóveis disponíveis para aluguel. Isso facilita a exposição das propriedades e a comunicação com potenciais inquilinos.
+
+    Período de Teste Grátis: 
+    Antes de se comprometer com um sistema, é importante testá-lo. Muitas empresas oferecem um período de teste gratuito para que você possa avaliar se o sistema atende às suas necessidades.
+
+Classes Principais:
+
     Imóvel
-    Atributos: limiteVagas, tipo, ocupacao, TypesRent typesRent, oProprietary;
-    Métodos: calcularValorAluguel(), alterarStatus();
+    - Atributos: id, endereço, tipo, valorAluguel, status
+    - Métodos: calcularValorAluguel(), alterarStatus()
 
     Inquilino
-    Atributos: nome, cpf, telefone;
-    Métodos: tenantInfo(); atualizarDados(), verificarHistorico()
+    - Atributos: id, nome, cpf, telefone, email
+    - Métodos: atualizarDados(), verificarHistorico()
 
     Contrato
-    Atributos: vagas, dataInicio, dataFim, valor, Inquilino, Imovel; 
-    Métodos: listarImoveis(), listarInquilinos(); calcularValorTotal(), renovarContrato()
+    - Atributos: id, dataInicio, dataFim, valor, imóvel, inquilino
+    - Métodos: calcularValorTotal(), renovarContrato()
 
-Interfaces
-    Repositório de Contratos
-    Métodos: adicionarContrato(), removerContrato()
+    Pagamento
+    - Atributos: id, dataPagamento, valor, contrato
+    - Métodos: registrarPagamento(), verificarAtraso()
 
-    Serviço de Cobrança
-    Métodos: gerarCobranca(), enviarCobranca()
+    Proprietário
+    - Atributos: id, nome, cpf, telefone, email
+    - Métodos: adicionarImóvel(), removerImóvel()
 
-Herança
-    Aluguel Residencial (herda de Contrato)
-    Atributos: tipoResidencia
-    Métodos: calcularDescontoResidencial()
+Relacionamentos:
+    - Imóvel tem um Proprietário.
+    - Contrato associa um Imóvel a um Inquilino.
+    - Pagamento está relacionado a um Contrato.
 
-    Aluguel Comercial (herda de Contrato)
-    Atributos: tipoComercio
-    Métodos: calcularTaxaComercial()
-
-Relacionamentos
-    Imóvel tem um Proprietário.
-    Contrato associa um Imóvel a um Inquilino.
-    Aluguel Residencial e Aluguel Comercial herdam de Contrato.
-    Repositório de Contratos gerencia Contrato.
-    Serviço de Cobrança gera cobranças para Contrato.
+Diagrama UML de Classes:
 
 +----------------+       +----------------+       +----------------+
-|    Imóvel      |       |   Inquilino    |       |   Contrato     |
+|    Imóvel      |       |   Inquilino    |       |   Proprietário |
 +----------------+       +----------------+       +----------------+
-| - id: int      |       | - id: int      |       | - id: int      |
-| - endereço:... |       | - nome: String |       | - dataInicio:..|
-| - tipo: String |       | - cpf: String  |       | - dataFim: Date|
-| - valorAluguel:|       | - telefone:... |       | - valor: double|
-| - status: String|      | - email: String|       | - imóvel: Imóvel|
-+----------------+       +----------------+       | - inquilino:...|
-| + calcular...  |       | + atualizar... |       +----------------+
-| + alterar...   |       | + verificar... |       | + calcular...  |
-+----------------+       +----------------+       | + renovar...   |
-        |                        |                +----------------+
+| - id           |       | - id           |       | - id           |
+| - endereço     |       | - nome         |       | - nome         |
+| - tipo         |       | - cpf          |       | - cpf          |
+| - valorAluguel |       | - telefone     |       | - telefone     |
+| - status       |       | - email        |       | - email        |
++----------------+       +----------------+       +----------------+
+| + calcular...  |       | + atualizar... |       | + adicionar... |
+| + alterar...   |       | + verificar... |       | + remover...   |
++----------------+       +----------------+       +----------------+
+        |                        |                        |
         |                        |                        |
         |                        |                        |
         |                        |                        |
         |                        |                        |
         v                        v                        v
 +----------------+       +----------------+       +----------------+
-| Aluguel Res.   |       | Aluguel Com.   |       | Repositório de |
-+----------------+       +----------------+       | Contratos      |
-| - tipoResid... |       | - tipoComercio |       +----------------+
-+----------------+       +----------------+       | + adicionar... |
-| + calcular...  |       | + calcular...  |       | + remover...   |
-+----------------+       +----------------+       | + buscar...    |
-        ^                        ^                +----------------+
-        |                        |                        |
-        |                        |                        |
-        |                        |                        |
-        |                        |                        |
-        +------------------------+                        |
-                 herda de                                  |
-                                                         v
-                                                  +----------------+
-                                                  | Serviço de     |
-                                                  | Cobrança       |
-                                                  +----------------+
-                                                  | + gerarCobr... |
-                                                  | + enviarCobr...|
-                                                  +----------------+
+|    Contrato    |<------|   Pagamento    |       |                |
++----------------+       +----------------+       |                |
+| - id           |       | - id           |       |                |
+| - dataInicio   |       | - dataPag...   |       |                |
+| - dataFim      |       | - valor        |       |                |
+| - valor        |       | - contrato     |       |                |
+| - imóvel       |       +----------------+       |                |
+| - inquilino    |       | + registrar... |       |                |
++----------------+       | + verificar... |       |                |
+| + calcular...  |       +----------------+       |                |
+| + renovar...   |                                |                |
++----------------+                                +----------------+
+

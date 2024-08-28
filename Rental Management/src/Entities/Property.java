@@ -1,0 +1,5 @@
+// Imovel
+
+public class Property {
+
+}
