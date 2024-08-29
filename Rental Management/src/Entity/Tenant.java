@@ -5,16 +5,18 @@ public class Tenant {
     // ATRIBUTOS
 
     private int id;
+    private double balance; // Saldo
     private String name, cpf, telephone, email;
     
     // CONSTRUCTOR
 
-    public Tenant(int id, String name, String cpf, String telephone, String email) {
+    public Tenant(int id, String name, String cpf, String telephone, String email, double balance) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.telephone = telephone;
         this.email = email;
+        this.balance = balance;
     }
 
     // METODOS ESPECIAS 
@@ -58,6 +60,15 @@ public class Tenant {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
 
     // METODOS PERSONALIZADOS
 }
