@@ -3,6 +3,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Interface.ITenantRepository;
+
 public class TenantRepository implements ITenantRepository {
     public ArrayList<Tenant> tenants = new ArrayList<Tenant>();
 

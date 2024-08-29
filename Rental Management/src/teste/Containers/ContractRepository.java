@@ -2,7 +2,9 @@
 
 import java.util.ArrayList;
 
-public class ContractRepository implements IContractRepository {
+import Interface.ILeaseRepository;
+
+public class ContractRepository implements ILeaseRepository {
     public ArrayList<Contract> contracts = new ArrayList<Contract>();
 
     @Override
