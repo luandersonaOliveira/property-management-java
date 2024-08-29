@@ -1,5 +1,0 @@
-// Inquilino
-
-public class Tenant {
-
-}

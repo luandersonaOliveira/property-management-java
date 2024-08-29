@@ -41,7 +41,7 @@ Classes Principais:
     - Métodos: registrarPagamento(), verificarAtraso()
 
     Proprietário
-    - Atributos: id, nome, cpf, telefone, email
+    - Atributos: id, nome, cpf, cnpj, telefone, email
     - Métodos: adicionarImóvel(), removerImóvel()
 
 Relacionamentos:

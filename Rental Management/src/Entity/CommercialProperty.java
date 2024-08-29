@@ -1,7 +1,7 @@
-package View;
-// MAIN
+package Entity;
+//HERANÇA ALUGUEL COMERCIAL
 
-public class Main {
+public class CommercialProperty {
     // ATRIBUTOS
 
     // CONSTRUCTOR
