@@ -1,8 +1,8 @@
 package Entity;
 // Imovel
 
-import Enum.PropertyType;
 import Enum.PropertyOccupation;
+import Enum.PropertyType;
 
 public class Property {
     // ATRIBUTOS
@@ -15,8 +15,7 @@ public class Property {
 
     // CONSTRUCTOR
 
-    public Property(int id, String anddress, double rentalValue, PropertyType type, PropertyOccupation occupation) {
-        this.id = id;
+    public Property(String anddress, double rentalValue, PropertyType type, PropertyOccupation occupation) {
         this.anddress = anddress;
         this.rentalValue = rentalValue;
         this.type = type;

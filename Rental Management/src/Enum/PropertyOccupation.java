@@ -1,5 +1,6 @@
 package Enum;
+// Ocupação de Imovel
 
 public enum PropertyOccupation {
-    VAGO, OCUPADO;
+    UNOCCUPIED, OCCUPIED; // Desocupado, Ocupado
 }

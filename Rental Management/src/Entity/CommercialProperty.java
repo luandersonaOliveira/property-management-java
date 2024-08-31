@@ -1,7 +1,17 @@
 package Entity;
 //HERANÇA ALUGUEL COMERCIAL
 
-public class CommercialProperty {
+import Enum.PropertyOccupation;
+import Enum.PropertyType;
+
+public class CommercialProperty extends Property{
+
+    public CommercialProperty(String anddress, double rentalValue, PropertyType type,
+            PropertyOccupation occupation) {
+        super(anddress, rentalValue, type, occupation);
+        //TODO Auto-generated constructor stub
+    }
+
     // ATRIBUTOS
 
     // CONSTRUCTOR

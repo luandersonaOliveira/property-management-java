@@ -10,7 +10,7 @@ public class PropertyRepository implements IPropertyRepository {
     public ArrayList<Property> properties = new ArrayList<>();
 
     @Override
-    public void addPropery(Property property) {
+    public void addProperty(Property property) {
         properties.add(property);
     }
 

@@ -1,5 +1,6 @@
 package Enum;
+// Tipo de Imovel
 
 public enum PropertyType {
-    COMMERCIAL, RESIDENTIAL;
+    RESIDENTIAL, COMMERCIAL; // Residencial, Comercial
 }
