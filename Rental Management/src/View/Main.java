@@ -18,7 +18,7 @@ public class Main {
 
     // CONTAINERS
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PropertyInvalidTypeException, PropertyInvalidOccupationException {
         // OPÇÕES DO MENU
         boolean sair = false;
         do {
@@ -27,31 +27,32 @@ public class Main {
             scanner.nextLine();
             switch (opcao) {
                 case 1:
-                    createProperty();
                     break;
                 case 2:
-                    propertyService.listProperty();
                     break;
                 case 3:
-
                     break;
                 case 4:
-
+                    createProperty();
                     break;
                 case 5:
-
+                    propertyService.listProperty();
                     break;
                 case 6:
-
+                    changeProperty();
                     break;
                 case 7:
-
                     break;
                 case 8:
-
                     break;
                 case 9:
-
+                    break;
+                case 10:
+                    break;
+                case 11:
+                    break;
+                case 12:
+                    removeProperty();
                     break;
                 case 0:
                     sair = true;
@@ -65,12 +66,18 @@ public class Main {
     public static void menuPrincipal() {
         System.out.println("\n--------------------------------");
         System.out.println("SELECIONE SUA OPÇÃO:");
-        System.out.print("| 1. Para cadastrar Inquilinos. |");
-        System.out.print(" 2. Para Checar Inquilinos. |");
-        System.out.print(" 3. Para Editar um Inquilino. |");
-        System.out.print("\n| 4. Para Cadastrar um Inquilino no Imovel. |");
-        System.out.print(" 5. Para Checar Inquilino no Imovel. |");
-        System.out.print(" 6. Para Deletar Contratos. |");
+        System.out.print("| 1. Para Cadastrar Inquilinos |");
+        System.out.print(" 2. Para Checar Inquilinos |");
+        System.out.println(" 3. Para Editar Inquilinos |");
+        System.out.print("\n| 4. Para Cadastrar Imoveis |");
+        System.out.print(" 5. Para Checar Imoveis |");
+        System.out.println(" 6. Para Editar Imoveis |");
+        System.out.print("\n| 7. Para Cadastrar Proprietários |");
+        System.out.print(" 8. Para Checar Proprietários |");
+        System.out.println(" 9. Para Editar Proprietários |");
+        System.out.print("\n| 10. |");
+        System.out.print(" 11. |");
+        System.out.print(" 12. Para Remover Imoveis |");
         System.out.print("\n--------------------------------");
         System.out.print("\n| 0. Para Sair do Menu.");
         System.out.println("\n--------------------------------");
@@ -95,14 +102,14 @@ public class Main {
     // CRIAR IMOVEIS
     private static void createProperty() {
         try {
-            System.out.print("\nAnddress: ");
+            System.out.print("\nEndereço: ");
             String anddress = scanner.nextLine();
-            System.out.print("RentalValue: ");
+            System.out.print("Valor do Aluguel: ");
             double rentalValue = scanner.nextDouble();
-            System.out.print("Type: \n1.Residencial | 2.Comercial |");
+            System.out.print("Tipo: \n1.Residencial | 2.Comercial |");
             System.out.print("\nOpção: ");
             int type = scanner.nextInt();
-            System.out.print("\nOccupation: \n1.Desocupado | 2.Ocupado |");
+            System.out.print("Ocupação: \n1.Desocupado | 2.Ocupado |");
             System.out.print("\nOpção: ");
             int occupation = scanner.nextInt();
 
@@ -132,19 +139,24 @@ public class Main {
 
             propertyService.addProperty(anddress, rentalValue, propertyType, propertyOccupation);
         } catch (PropertyInvalidTypeException | PropertyInvalidOccupationException e) {
-            System.out.println("Erro: " + e.getMessage());
+            System.out.println("\nErro: " + e.getMessage());
         }
 
     }
 
-    // LISTA IMOVEIS
-    private static void listProperty() {
-
+    // EDITAR IMOVEIS
+    private static void changeProperty() throws PropertyInvalidTypeException, PropertyInvalidOccupationException {
+        System.out.print("\nInsira o índice do Imovel à editar: ");
+        int id = scanner.nextInt();
+        propertyService.changeProperty(id);
     }
 
-    // EDITAR IMOVEIS
-    private static void changeProperty() {
+    // REMOVE IMOVEIS
 
+    private static void removeProperty() {
+        System.out.print("\nInsira o índice do Imovel para remover: ");
+        int id = scanner.nextInt();
+        propertyService.removeProperty(id);
     }
 
     // CRIAR PROPRIETARIO
