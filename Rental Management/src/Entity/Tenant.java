@@ -10,8 +10,7 @@ public class Tenant {
     
     // CONSTRUCTOR
 
-    public Tenant(int id, String name, String cpf, String telephone, String email, double balance) {
-        this.id = id;
+    public Tenant(String name, String cpf, String telephone, String email, double balance) {
         this.name = name;
         this.cpf = cpf;
         this.telephone = telephone;

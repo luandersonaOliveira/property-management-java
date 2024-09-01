@@ -4,17 +4,20 @@ package View;
 import java.util.Scanner;
 
 import Containers.PropertyRepository;
-import Entity.Property;
+import Containers.TenantRepository;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 import Exceptions.PropertyInvalidOccupationException;
 import Exceptions.PropertyInvalidTypeException;
 import Services.PropertyService;
+import Services.TenantService;
 
 public class Main {
-    private static PropertyRepository propertyRepository = new PropertyRepository();
-    private static PropertyService propertyService = new PropertyService(propertyRepository);
     private static final Scanner scanner = new Scanner(System.in);
+    private static PropertyRepository propertyRepository = new PropertyRepository();
+    private static TenantRepository tenantRepository = new TenantRepository();
+    private static PropertyService propertyService = new PropertyService(propertyRepository);
+    private static TenantService tenantService = new TenantService(tenantRepository);
 
     // CONTAINERS
 
@@ -27,6 +30,7 @@ public class Main {
             scanner.nextLine();
             switch (opcao) {
                 case 1:
+                    createTenants();
                     break;
                 case 2:
                     break;
@@ -44,6 +48,7 @@ public class Main {
                 case 7:
                     break;
                 case 8:
+                    tenantService.listTenant();
                     break;
                 case 9:
                     break;
@@ -86,7 +91,20 @@ public class Main {
 
     // CRIAR INQUILINOS
     private static void createTenants() {
-
+        try {
+            System.out.print("\nNome: ");
+            String name = scanner.nextLine();
+            System.out.print("CPF: ");
+            String cpf = scanner.nextLine();
+            System.out.print("Telefone: ");
+            String telephone = scanner.nextLine();
+            System.out.print("Email: ");
+            String email = scanner.nextLine();
+            System.out.print("Saldo: ");
+            double balance = scanner.nextDouble();
+        } catch (Exception e) {
+            System.out.println("\nErro: " + e.getMessage());
+        }
     }
 
     // LISTA INQUILINOS

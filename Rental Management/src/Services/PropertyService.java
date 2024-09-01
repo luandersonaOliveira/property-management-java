@@ -12,10 +12,10 @@ import Enum.PropertyOccupation;
 import Enum.PropertyType;
 import Exceptions.PropertyInvalidOccupationException;
 import Exceptions.PropertyInvalidTypeException;
-import Interface.IPropertyRepository;
 
 public class PropertyService {
     // ATRIBUTOS
+    private static final Scanner scanner = new Scanner(System.in);
     private PropertyRepository propertyRepository = new PropertyRepository();
 
     // CONSTRUCTOR
@@ -84,7 +84,6 @@ public class PropertyService {
     }
 
     public void changeProperty(int id) throws PropertyInvalidTypeException, PropertyInvalidOccupationException {
-        Scanner scanner = new Scanner(System.in);
         if (propertyRepository.properties.isEmpty()) {
             System.out.println("\n| Nenhum Imovel cadastrado! |");
         } else {
