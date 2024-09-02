@@ -10,6 +10,7 @@ import Entity.Property;
 import Entity.ResidentialProperty;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
+import Exceptions.PropertyException;
 import Exceptions.PropertyInvalidOccupationException;
 import Exceptions.PropertyInvalidTypeException;
 
@@ -28,10 +29,14 @@ public class PropertyService {
 
     // METODOS PERSONALIZADOS
 
+    // CREATE
     public void addProperty(String anddress, double rentalValue, PropertyType type,
-            PropertyOccupation occupation) throws PropertyInvalidTypeException, PropertyInvalidOccupationException {
+            PropertyOccupation occupation)
+            throws PropertyException, PropertyInvalidTypeException, PropertyInvalidOccupationException {
         if (type == null) {
             throw new PropertyInvalidTypeException("| Tipo Inválido! Deve ser Residencial ou Comercial. |");
+        } else if (rentalValue < 0) {
+            throw new PropertyException("| Valor Inválido! Não pode ser negativo. |");
         }
 
         Property property = createProperty(anddress, rentalValue, type, occupation);
@@ -47,23 +52,30 @@ public class PropertyService {
             PropertyOccupation occupation) {
         switch (type) {
             case RESIDENTIAL:
-                return new ResidentialProperty(anddress, rentalValue, type, occupation);
+                return new ResidentialProperty(anddressFormart(anddress), rentalValue, type, occupation);
             case COMMERCIAL:
-                return new CommercialProperty(anddress, rentalValue, type, occupation);
+                return new CommercialProperty(anddressFormart(anddress), rentalValue, type, occupation);
             default:
                 return null;
         }
     }
 
+    private String anddressFormart(String anddress) {
+        String anddressFormart = anddress.toUpperCase();
+        return anddressFormart;
+    }
+
+    // REMOVE
     public void removeProperty(int id) {
         if (propertyRepository.properties.isEmpty()) {
             System.out.println("\n| Nenhum Imovel cadastrado! |");
         } else {
             propertyRepository.properties.remove(id);
-            System.out.println("\nImovel removido com sucesso!");
+            System.out.println("\nImovel: " + id + ". Removido com sucesso!");
         }
     }
 
+    // LIST
     public void listProperty() {
         ArrayList<Property> properties = propertyRepository.listProperty();
         if (properties.isEmpty()) {
@@ -74,15 +86,16 @@ public class PropertyService {
                 p.setId(i);
                 System.out.println("\n-------------------------------------------------------------------------------");
                 System.out.print("Imovel: " + p.getId() + "\n");
-                System.out.print(" | Anddress: " + p.getAnddress());
-                System.out.print(" | RentalValue: " + p.getRentalValue() + " |");
-                System.out.print("\n | Type: " + p.getType());
-                System.out.print(" | Occupation: " + p.getOccupation() + " |");
+                System.out.print(" | Endereço: " + p.getAnddress());
+                System.out.print(" | Valor do Aluguel: " + p.getRentalValue() + " |");
+                System.out.print("\n | Tipo: " + p.getType());
+                System.out.print(" | Ocupação: " + p.getOccupation() + " |");
                 System.out.println("\n-------------------------------------------------------------------------------");
             }
         }
     }
 
+    // CHANGE
     public void changeProperty(int id) throws PropertyInvalidTypeException, PropertyInvalidOccupationException {
         if (propertyRepository.properties.isEmpty()) {
             System.out.println("\n| Nenhum Imovel cadastrado! |");
@@ -112,7 +125,7 @@ public class PropertyService {
                 PropertyType propertyType = PropertyType.COMMERCIAL;
                 property.setType(propertyType);
             } else {
-                throw new PropertyInvalidTypeException("Type Property Invalid!");
+                throw new PropertyInvalidTypeException("Tipo do Imovel Inválido!");
             }
 
             if (newOccupation == 1) {
@@ -122,10 +135,10 @@ public class PropertyService {
                 PropertyOccupation propertyOccupation = PropertyOccupation.OCCUPIED;
                 property.setOccupation(propertyOccupation);
             } else {
-                throw new PropertyInvalidOccupationException("Occupation Property Invalid!");
+                throw new PropertyInvalidOccupationException("Ocupação do Imovel Inválida!");
             }
 
-            property.setAnddress(newAnddress);
+            property.setAnddress(anddressFormart(newAnddress));
             property.setRentalValue(newRentalValue);
             System.out.println("\nImovel atualizado com sucesso!");
         }

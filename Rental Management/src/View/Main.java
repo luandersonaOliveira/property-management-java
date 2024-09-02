@@ -7,8 +7,10 @@ import Containers.PropertyRepository;
 import Containers.TenantRepository;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
+import Exceptions.PropertyException;
 import Exceptions.PropertyInvalidOccupationException;
 import Exceptions.PropertyInvalidTypeException;
+import Exceptions.TenantException;
 import Services.PropertyService;
 import Services.TenantService;
 
@@ -21,7 +23,8 @@ public class Main {
 
     // CONTAINERS
 
-    public static void main(String[] args) throws PropertyInvalidTypeException, PropertyInvalidOccupationException {
+    public static void main(String[] args)
+            throws TenantException, PropertyInvalidTypeException, PropertyInvalidOccupationException {
         // OPÇÕES DO MENU
         boolean sair = false;
         do {
@@ -33,8 +36,10 @@ public class Main {
                     createTenants();
                     break;
                 case 2:
+                    tenantService.listTenant();
                     break;
                 case 3:
+                    changeTenants();
                     break;
                 case 4:
                     createProperty();
@@ -48,7 +53,6 @@ public class Main {
                 case 7:
                     break;
                 case 8:
-                    tenantService.listTenant();
                     break;
                 case 9:
                     break;
@@ -57,7 +61,6 @@ public class Main {
                 case 11:
                     break;
                 case 12:
-                    removeProperty();
                     break;
                 case 0:
                     sair = true;
@@ -82,7 +85,7 @@ public class Main {
         System.out.println(" 9. Para Editar Proprietários |");
         System.out.print("\n| 10. |");
         System.out.print(" 11. |");
-        System.out.print(" 12. Para Remover Imoveis |");
+        System.out.print(" 12. Para Remover Algo |");
         System.out.print("\n--------------------------------");
         System.out.print("\n| 0. Para Sair do Menu.");
         System.out.println("\n--------------------------------");
@@ -90,7 +93,7 @@ public class Main {
     }
 
     // CRIAR INQUILINOS
-    private static void createTenants() {
+    private static void createTenants() throws TenantException {
         try {
             System.out.print("\nNome: ");
             String name = scanner.nextLine();
@@ -102,19 +105,25 @@ public class Main {
             String email = scanner.nextLine();
             System.out.print("Saldo: ");
             double balance = scanner.nextDouble();
-        } catch (Exception e) {
+
+            tenantService.addTenant(name, cpf, telephone, email, balance);
+        } catch (TenantException e) {
             System.out.println("\nErro: " + e.getMessage());
         }
     }
 
-    // LISTA INQUILINOS
-    private static void listTenants() {
-
-    }
-
     // EDITAR INQUILINOS
     private static void changeTenants() {
+        System.out.print("\nInsira o índice do Inquilino à editar: ");
+        int id = scanner.nextInt();
+        tenantService.changeTenant(id);
+    }
 
+    // REMOVER INQUILINOS
+    private static void removeTenants() {
+        System.out.print("\nInsira o índice do Inquilino para remover: ");
+        int id = scanner.nextInt();
+        tenantService.removeTenant(id);
     }
 
     // CRIAR IMOVEIS
@@ -156,7 +165,7 @@ public class Main {
             }
 
             propertyService.addProperty(anddress, rentalValue, propertyType, propertyOccupation);
-        } catch (PropertyInvalidTypeException | PropertyInvalidOccupationException e) {
+        } catch (PropertyException | PropertyInvalidTypeException | PropertyInvalidOccupationException e) {
             System.out.println("\nErro: " + e.getMessage());
         }
 
@@ -170,7 +179,6 @@ public class Main {
     }
 
     // REMOVE IMOVEIS
-
     private static void removeProperty() {
         System.out.print("\nInsira o índice do Imovel para remover: ");
         int id = scanner.nextInt();
@@ -193,7 +201,7 @@ public class Main {
     }
 
     // REMOVE INQUILINO DO IMOVEL
-    private static void removeTenants() {
+    private static void removeTenantsProperty() {
 
     }
 
