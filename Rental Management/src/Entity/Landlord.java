@@ -5,15 +5,13 @@ public class Landlord {
     // ATRIBUTOS
 
     private int id;
-    private String name, cpf, cnpj, telephone, email;
+    private String name, cpf, telephone, email;
 
     // CONSTRUCTOR
 
-    public Landlord(int id, String name, String cpf, String cnpj, String telephone, String email) {
-        this.id = id;
+    public Landlord(String name, String cpf, String telephone, String email) {
         this.name = name;
         this.cpf = cpf;
-        this.cnpj = cnpj;
         this.telephone = telephone;
         this.email = email;
     }
@@ -42,14 +40,6 @@ public class Landlord {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
     }
 
     public String getTelephone() {

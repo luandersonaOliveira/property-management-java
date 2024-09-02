@@ -3,14 +3,17 @@ package View;
 
 import java.util.Scanner;
 
+import Containers.LandlordRepository;
 import Containers.PropertyRepository;
 import Containers.TenantRepository;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
+import Exceptions.LandlordException;
 import Exceptions.PropertyException;
 import Exceptions.PropertyInvalidOccupationException;
 import Exceptions.PropertyInvalidTypeException;
 import Exceptions.TenantException;
+import Services.LandlordService;
 import Services.PropertyService;
 import Services.TenantService;
 
@@ -18,13 +21,16 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static PropertyRepository propertyRepository = new PropertyRepository();
     private static TenantRepository tenantRepository = new TenantRepository();
+    private static LandlordRepository landlordRepository = new LandlordRepository();
     private static PropertyService propertyService = new PropertyService(propertyRepository);
     private static TenantService tenantService = new TenantService(tenantRepository);
+    private static LandlordService landlordService = new LandlordService(landlordRepository);
 
     // CONTAINERS
 
     public static void main(String[] args)
-            throws TenantException, PropertyInvalidTypeException, PropertyInvalidOccupationException {
+            throws TenantException, LandlordException, PropertyInvalidTypeException,
+            PropertyInvalidOccupationException {
         // OPÇÕES DO MENU
         boolean sair = false;
         do {
@@ -51,10 +57,13 @@ public class Main {
                     changeProperty();
                     break;
                 case 7:
+                    createLandlord();
                     break;
                 case 8:
+                    landlordService.listLandlord();
                     break;
                 case 9:
+                    changeLandlord();
                     break;
                 case 10:
                     break;
@@ -186,23 +195,35 @@ public class Main {
     }
 
     // CRIAR PROPRIETARIO
-    private static void createLandlord() {
+    private static void createLandlord() throws LandlordException {
+        try {
+            System.out.print("\nNome: ");
+            String name = scanner.nextLine();
+            System.out.print("CPF: ");
+            String cpf = scanner.nextLine();
+            System.out.print("Telefone: ");
+            String telephone = scanner.nextLine();
+            System.out.print("Email: ");
+            String email = scanner.nextLine();
 
-    }
-
-    // LISTA PROPRIETARIO
-    private static void listLandlord() {
-
+            landlordService.addLandlord(name, cpf, telephone, email);
+        } catch (LandlordException e) {
+            System.out.println("\nErro: " + e.getMessage());
+        }
     }
 
     // EDITAR PROPRIETARIO
     private static void changeLandlord() {
-
+        System.out.print("\nInsira o índice do Proprietário à editar: ");
+        int id = scanner.nextInt();
+        landlordService.changeLandlord(id);
     }
 
     // REMOVE INQUILINO DO IMOVEL
     private static void removeTenantsProperty() {
-
+        System.out.print("\nInsira o índice do Proprietário à editar: ");
+        int id = scanner.nextInt();
+        landlordService.removeLandlord(id);
     }
 
     // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
