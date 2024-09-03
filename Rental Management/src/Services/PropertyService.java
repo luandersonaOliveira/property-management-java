@@ -10,9 +10,8 @@ import Entity.Property;
 import Entity.ResidentialProperty;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
+import Enum.EnumPropertyException;
 import Exceptions.PropertyException;
-import Exceptions.PropertyInvalidOccupationException;
-import Exceptions.PropertyInvalidTypeException;
 
 public class PropertyService {
     // ATRIBUTOS
@@ -32,11 +31,11 @@ public class PropertyService {
     // CREATE
     public void addProperty(String anddress, double rentalValue, PropertyType type,
             PropertyOccupation occupation)
-            throws PropertyException, PropertyInvalidTypeException, PropertyInvalidOccupationException {
+            throws PropertyException {
         if (type == null) {
-            throw new PropertyInvalidTypeException("| Tipo Inválido! Deve ser Residencial ou Comercial. |");
+            throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidType);
         } else if (rentalValue < 0) {
-            throw new PropertyException("| Valor Inválido! Não pode ser negativo. |");
+            throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidRentalValue);
         }
 
         Property property = createProperty(anddress, rentalValue, type, occupation);
@@ -44,7 +43,7 @@ public class PropertyService {
             propertyRepository.addProperty(property);
             System.out.println("\nImovel adicionado com sucesso!");
         } else {
-            throw new PropertyInvalidOccupationException("| Ocupação Inválida! Deve estar Desocupado ou Ocupado. |");
+            throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalid);
         }
     }
 
@@ -66,20 +65,23 @@ public class PropertyService {
     }
 
     // REMOVE
-    public void removeProperty(int id) {
+    public void removeProperty(int id) throws PropertyException {
         if (propertyRepository.properties.isEmpty()) {
-            System.out.println("\n| Nenhum Imovel cadastrado! |");
+            throw new PropertyException("Erro: " + EnumPropertyException.PropertyNoRegistered);
         } else {
             propertyRepository.properties.remove(id);
+            Property removed = new Property(null, 0, null, null);
+            removed.setId(id);
+            propertyRepository.addProperty(removed);
             System.out.println("\nImovel: " + id + ". Removido com sucesso!");
         }
     }
 
     // LIST
-    public void listProperty() {
+    public void listProperty() throws PropertyException {
         ArrayList<Property> properties = propertyRepository.listProperty();
         if (properties.isEmpty()) {
-            System.out.println("\n| Nenhum Imovel cadastrado! |");
+            throw new PropertyException("Erro: " + EnumPropertyException.PropertyNoRegistered);
         } else {
             for (int i = 0; i < properties.size(); i++) {
                 Property p = properties.get(i);
@@ -96,13 +98,12 @@ public class PropertyService {
     }
 
     // CHANGE
-    public void changeProperty(int id) throws PropertyInvalidTypeException, PropertyInvalidOccupationException {
+    public void changeProperty(int id) throws PropertyException {
         if (propertyRepository.properties.isEmpty()) {
-            System.out.println("\n| Nenhum Imovel cadastrado! |");
+            throw new PropertyException("Erro: " + EnumPropertyException.PropertyNoRegistered);
         } else {
             if (id < 0 || id >= propertyRepository.properties.size()) {
-                System.out.println("Índice Inválido. Tente novamente!");
-                return;
+                throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidIndex);
             }
 
             Property property = propertyRepository.properties.get(id);
@@ -125,7 +126,7 @@ public class PropertyService {
                 PropertyType propertyType = PropertyType.COMMERCIAL;
                 property.setType(propertyType);
             } else {
-                throw new PropertyInvalidTypeException("Tipo do Imovel Inválido!");
+                throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidType);
             }
 
             if (newOccupation == 1) {
@@ -135,7 +136,7 @@ public class PropertyService {
                 PropertyOccupation propertyOccupation = PropertyOccupation.OCCUPIED;
                 property.setOccupation(propertyOccupation);
             } else {
-                throw new PropertyInvalidOccupationException("Ocupação do Imovel Inválida!");
+                throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
             }
 
             property.setAnddress(anddressFormart(newAnddress));

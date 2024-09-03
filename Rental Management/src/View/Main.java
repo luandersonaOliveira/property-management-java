@@ -10,8 +10,6 @@ import Enum.PropertyOccupation;
 import Enum.PropertyType;
 import Exceptions.LandlordException;
 import Exceptions.PropertyException;
-import Exceptions.PropertyInvalidOccupationException;
-import Exceptions.PropertyInvalidTypeException;
 import Exceptions.TenantException;
 import Services.LandlordService;
 import Services.PropertyService;
@@ -29,8 +27,7 @@ public class Main {
     // CONTAINERS
 
     public static void main(String[] args)
-            throws TenantException, LandlordException, PropertyInvalidTypeException,
-            PropertyInvalidOccupationException {
+            throws TenantException, PropertyException, LandlordException {
         // OPÇÕES DO MENU
         boolean sair = false;
         do {
@@ -117,19 +114,19 @@ public class Main {
 
             tenantService.addTenant(name, cpf, telephone, email, balance);
         } catch (TenantException e) {
-            System.out.println("\nErro: " + e.getMessage());
+            System.out.println("\n" + e.getMessage());
         }
     }
 
     // EDITAR INQUILINOS
-    private static void changeTenants() {
+    private static void changeTenants() throws TenantException {
         System.out.print("\nInsira o índice do Inquilino à editar: ");
         int id = scanner.nextInt();
         tenantService.changeTenant(id);
     }
 
     // REMOVER INQUILINOS
-    private static void removeTenants() {
+    private static void removeTenants() throws TenantException {
         System.out.print("\nInsira o índice do Inquilino para remover: ");
         int id = scanner.nextInt();
         tenantService.removeTenant(id);
@@ -158,7 +155,7 @@ public class Main {
                     propertyType = PropertyType.COMMERCIAL;
                     break;
                 default:
-                    throw new PropertyInvalidTypeException("Type Property Invalid!");
+                    throw new PropertyException("Type Property Invalid!");
             }
 
             PropertyOccupation propertyOccupation = null;
@@ -170,25 +167,25 @@ public class Main {
                     propertyOccupation = PropertyOccupation.OCCUPIED;
                     break;
                 default:
-                    throw new PropertyInvalidOccupationException("Occupation Property Invalid!");
+                    throw new PropertyException("Occupation Property Invalid!");
             }
 
             propertyService.addProperty(anddress, rentalValue, propertyType, propertyOccupation);
-        } catch (PropertyException | PropertyInvalidTypeException | PropertyInvalidOccupationException e) {
-            System.out.println("\nErro: " + e.getMessage());
+        } catch (PropertyException e) {
+            System.out.println("\n" + e.getMessage());
         }
 
     }
 
     // EDITAR IMOVEIS
-    private static void changeProperty() throws PropertyInvalidTypeException, PropertyInvalidOccupationException {
+    private static void changeProperty() throws PropertyException {
         System.out.print("\nInsira o índice do Imovel à editar: ");
         int id = scanner.nextInt();
         propertyService.changeProperty(id);
     }
 
     // REMOVE IMOVEIS
-    private static void removeProperty() {
+    private static void removeProperty() throws PropertyException {
         System.out.print("\nInsira o índice do Imovel para remover: ");
         int id = scanner.nextInt();
         propertyService.removeProperty(id);
@@ -208,37 +205,39 @@ public class Main {
 
             landlordService.addLandlord(name, cpf, telephone, email);
         } catch (LandlordException e) {
-            System.out.println("\nErro: " + e.getMessage());
+            System.out.println("\n" + e.getMessage());
         }
     }
 
     // EDITAR PROPRIETARIO
-    private static void changeLandlord() {
+    private static void changeLandlord() throws LandlordException {
         System.out.print("\nInsira o índice do Proprietário à editar: ");
         int id = scanner.nextInt();
         landlordService.changeLandlord(id);
     }
 
     // REMOVE INQUILINO DO IMOVEL
-    private static void removeTenantsProperty() {
+    private static void removeTenantsProperty() throws LandlordException {
         System.out.print("\nInsira o índice do Proprietário à editar: ");
         int id = scanner.nextInt();
         landlordService.removeLandlord(id);
     }
 
-    // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
-    private static void createLease() {
-
-    }
-
-    // LISTA CONTRATOS
-    private static void listLease() {
-
-    }
-
-    // DELETAR CONTRATOS
-    private static void deleteLease() {
-
-    }
+    /*
+     * // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
+     * private static void createLease() {
+     * 
+     * }
+     * 
+     * // LISTA CONTRATOS
+     * private static void listLease() {
+     * 
+     * }
+     * 
+     * // DELETAR CONTRATOS
+     * private static void deleteLease() {
+     * 
+     * }
+     */
 
 }

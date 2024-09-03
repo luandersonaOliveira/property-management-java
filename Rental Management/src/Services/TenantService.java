@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import Containers.TenantRepository;
 import Entity.Tenant;
+import Enum.EnumTenantException;
 import Exceptions.TenantException;
 
 public class TenantService {
@@ -27,11 +28,11 @@ public class TenantService {
     public void addTenant(String name, String cpf, String telephone, String email, double balance)
             throws TenantException {
         if (cpf.length() != 11) {
-            throw new TenantException("| CPF Inválido! Deve conter 11 digitos. |");
+            throw new TenantException("Erro: " + EnumTenantException.TenantInvalidCPF);
         } else if (telephone.length() != 9 && telephone.length() != 11) {
-            throw new TenantException("| Telefone Inválido! Deve conter 9 a 11 digitos. |");
+            throw new TenantException("Erro: " + EnumTenantException.TenantInvalidTelephone);
         } else if (balance < 0) {
-            throw new TenantException("| Saldo Inválido! Não pode ser negativo. |");
+            throw new TenantException("Erro: " + EnumTenantException.TenantInvalidBalance);
         }
 
         Tenant tenant = createTenant(name, cpf, telephone, email, balance);
@@ -39,11 +40,12 @@ public class TenantService {
             tenantRepository.addTenant(tenant);
             System.out.println("\nInquilino adicionado com sucesso!");
         } else {
-            throw new TenantException("| Inquilino Inválido! |");
+            throw new TenantException("Erro: " + EnumTenantException.TenantInvalid);
         }
     }
 
-    private Tenant createTenant(String name, String cpf, String telephone, String email, double balance) {
+    private Tenant createTenant(String name, String cpf, String telephone, String email, double balance)
+            throws TenantException {
         return new Tenant(nameFormart(name), cpfFormart(cpf), telephoneFormart(telephone), email, balance);
     }
 
@@ -52,7 +54,7 @@ public class TenantService {
         return nameFormart;
     }
 
-    private String cpfFormart(String cpf) {
+    private String cpfFormart(String cpf) throws TenantException {
         if (cpf.length() == 11) {
             return String.format("%s.%s.%s-%s",
                     cpf.substring(0, 3),
@@ -60,12 +62,12 @@ public class TenantService {
                     cpf.substring(6, 9),
                     cpf.substring(9, 11));
         } else {
-            System.out.println("| CPF inválido, número de dígitos incorreto! |");
-            return null;
+            cpf = null;
+            throw new TenantException("Erro: " + EnumTenantException.TenantInvalidCPF);
         }
     }
 
-    private String telephoneFormart(String telephone) {
+    private String telephoneFormart(String telephone) throws TenantException {
         if (telephone.length() == 9) {
             return String.format("%s-%s",
                     telephone.substring(0, 5),
@@ -76,26 +78,29 @@ public class TenantService {
                     telephone.substring(2, 7),
                     telephone.substring(7, 11));
         } else {
-            System.out.println("\n| Telefone inválido, número de dígitos incorreto! |");
-            return null;
+            telephone = null;
+            throw new TenantException("Erro: " + EnumTenantException.TenantInvalidTelephone);
         }
     }
 
     // REMOVE
-    public void removeTenant(int id) {
+    public void removeTenant(int id) throws TenantException {
         if (tenantRepository.tenants.isEmpty()) {
-            System.out.println("\n| Nenhum Inquilino cadastrado! |");
+            throw new TenantException("Erro: " + EnumTenantException.TenantNoRegistered);
         } else {
             tenantRepository.tenants.remove(id);
+            Tenant removed = new Tenant(null, null, null, null, 0);
+            removed.setId(id);
+            tenantRepository.addTenant(removed);
             System.out.println("\nInquilino: " + id + ". Removido com sucesso!");
         }
     }
 
     // LIST
-    public void listTenant() {
+    public void listTenant() throws TenantException {
         ArrayList<Tenant> tenants = tenantRepository.listTenant();
         if (tenants.isEmpty()) {
-            System.out.println("\n| Nenhum Inquilino cadastrado! |");
+            throw new TenantException("Erro: " + EnumTenantException.TenantNoRegistered);
         } else {
             for (int i = 0; i < tenants.size(); i++) {
                 Tenant t = tenants.get(i);
@@ -113,13 +118,12 @@ public class TenantService {
     }
 
     // CHANGE
-    public void changeTenant(int id) {
+    public void changeTenant(int id) throws TenantException {
         if (tenantRepository.tenants.isEmpty()) {
-            System.out.println("\n| Nenhum Inquilino cadastrado! |");
+            throw new TenantException("Erro: " + EnumTenantException.TenantNoRegistered);
         } else {
             if (id < 0 || id >= tenantRepository.tenants.size()) {
-                System.out.println("Índice Inválido. Tente novamente!");
-                return;
+                throw new TenantException("Erro: " + EnumTenantException.TenantInvalidIndex);
             }
 
             Tenant tenant = tenantRepository.tenants.get(id);
