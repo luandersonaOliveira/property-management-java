@@ -55,6 +55,7 @@ public class TenantService {
     }
 
     private String cpfFormart(String cpf) throws TenantException {
+        validarCPF(cpf);
         if (cpf.length() == 11) {
             return String.format("%s.%s.%s-%s",
                     cpf.substring(0, 3),
@@ -64,6 +65,23 @@ public class TenantService {
         } else {
             cpf = null;
             throw new TenantException("Erro: " + EnumTenantException.TenantInvalidCPF);
+        }
+    }
+
+    public static String validarCPF(String cpf) {
+        while (true) {
+            String CPF = cpf.trim();
+            if (CPF.length() != 11 || CPF.contains(" ") || CPF.isBlank() || CPF.isEmpty()) {
+                System.out.print("\nCPF inválido, tente novamente: ");
+                return null;
+            } else {
+                for (int i = 0; i < CPF.length(); i++) {
+                    if (!Character.isDigit(CPF.charAt(i))) {
+                        return null;
+                    }
+                }
+                return CPF;
+            }
         }
     }
 

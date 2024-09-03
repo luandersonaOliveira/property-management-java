@@ -9,6 +9,12 @@ Sistema de Gerenciamento de Aluguéis:
     Exceptions: (Contrato, Inquilino, Imóvel, proprietário)
     Service: (Contrato, Inquilino, Imóvel, proprietário)
 
+Adição de informações: 
+    - Cpf não poder conter espaços em branco, nem letras e somente numeros inteiros, o mesmo vale para o telefone.
+    - Email deve conter @gmail.com; @hotmail; @ru.
+    - Usuario escolhe qual informação mudar.
+    - 
+
 Sobre o assunto:
     Gestão de Aluguéis: 
     Essa é a base do sistema. Envolve o controle dos contratos de locação, datas de início e término, valores dos aluguéis e reajustes. Também inclui o registro de informações sobre os inquilinos e proprietários.
@@ -18,9 +24,6 @@ Sobre o assunto:
 
     Site Imobiliário Integrado: 
     Muitos sistemas oferecem a possibilidade de criar um site para divulgar os imóveis disponíveis para aluguel. Isso facilita a exposição das propriedades e a comunicação com potenciais inquilinos.
-
-    Período de Teste Grátis: 
-    Antes de se comprometer com um sistema, é importante testá-lo. Muitas empresas oferecem um período de teste gratuito para que você possa avaliar se o sistema atende às suas necessidades.
 
 Classes Principais:
 
@@ -82,4 +85,3 @@ Diagrama UML de Classes:
 | + calcular...  |       +----------------+       |                |
 | + renovar...   |                                |                |
 +----------------+                                +----------------+
-

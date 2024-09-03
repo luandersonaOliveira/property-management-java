@@ -63,6 +63,7 @@ public class Main {
                     changeLandlord();
                     break;
                 case 10:
+                    createLease();
                     break;
                 case 11:
                     break;
@@ -111,7 +112,6 @@ public class Main {
             String email = scanner.nextLine();
             System.out.print("Saldo: ");
             double balance = scanner.nextDouble();
-
             tenantService.addTenant(name, cpf, telephone, email, balance);
         } catch (TenantException e) {
             System.out.println("\n" + e.getMessage());
@@ -223,21 +223,21 @@ public class Main {
         landlordService.removeLandlord(id);
     }
 
-    /*
-     * // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
-     * private static void createLease() {
-     * 
-     * }
-     * 
-     * // LISTA CONTRATOS
-     * private static void listLease() {
-     * 
-     * }
-     * 
-     * // DELETAR CONTRATOS
-     * private static void deleteLease() {
-     * 
-     * }
-     */
+    // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
+    private static void createLease() {
+        System.out.print("\nInsira o índice do Inquilino: ");
+        System.out.print("\nInsira o índice do Proprietário: ");
+        int idTenant = scanner.nextInt();
+        int idLandlord = scanner.nextInt();
+    }
 
+    // LISTA CONTRATOS
+    private static void listLease() {
+
+    }
+
+    // DELETAR CONTRATOS
+    private static void deleteLease() {
+        
+    }
 }

@@ -1,27 +1,27 @@
 package Entity;
 // Locação (Contrato)
 
+import java.util.Date;
+
 public class Lease {
     // ATRIBUTOS
 
     private int id;
-    private String starDate, endDate;
+    private Date starDate, endDate;
     private double value;
+    private Landlord landlord;
     private Property property;
     private Tenant tenant;
-    private Landlord landlord;
 
     // CONSTRUCTOR
 
-    public Lease(int id, String starDate, String endDate, double value, Property property, Tenant tenant,
-            Landlord landlord) {
-        this.id = id;
+    public Lease(Date starDate, Date endDate, double value, Landlord landlord, Property property, Tenant tenant) {
         this.starDate = starDate;
         this.endDate = endDate;
         this.value = value;
+        this.landlord = landlord;
         this.property = property;
         this.tenant = tenant;
-        this.landlord = landlord;
     }
 
     // METODOS ESPECIAS
@@ -34,19 +34,19 @@ public class Lease {
         this.id = id;
     }
 
-    public String getStarDate() {
+    public Date getStarDate() {
         return starDate;
     }
 
-    public void setStarDate(String starDate) {
+    public void setStarDate(Date starDate) {
         this.starDate = starDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -56,6 +56,14 @@ public class Lease {
 
     public void setValue(double value) {
         this.value = value;
+    }
+
+    public Landlord getLandlord() {
+        return landlord;
+    }
+
+    public void setLandlord(Landlord landlord) {
+        this.landlord = landlord;
     }
 
     public Property getProperty() {
@@ -72,14 +80,6 @@ public class Lease {
 
     public void setTenant(Tenant tenant) {
         this.tenant = tenant;
-    }
-
-    public Landlord getLandlord() {
-        return landlord;
-    }
-
-    public void setLandlord(Landlord landlord) {
-        this.landlord = landlord;
     }
 
     // METODOS PERSONALIZADOS
