@@ -1,8 +1,6 @@
 package Entity;
 // Locação (Contrato)
 
-import java.util.Date;
-
 public class Lease {
     // ATRIBUTOS
 
