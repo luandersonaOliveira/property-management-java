@@ -66,7 +66,7 @@ public class Main {
                     createLease();
                     break;
                 case 11:
-                    searchTenant();
+                    searchLandlord();
                     break;
                 case 12:
                     break;
@@ -228,8 +228,8 @@ public class Main {
     private static void createLease() {
         System.out.print("\nInsira o índice do Inquilino: ");
         int idTenant = scanner.nextInt();
-        System.out.print("\nInsira o índice do Proprietário: ");
-        int idLandlord = scanner.nextInt();
+        System.out.print("\nInsira o índice do Imovel: ");
+        int idProperty = scanner.nextInt();
         System.out.print("\nInforme a Data de Inicio: ");
         String startDate = scanner.nextLine();
         System.out.print("\nInforme a Data de Fim: ");
@@ -253,5 +253,17 @@ public class Main {
         System.out.print("\nInsira o índice do Inquilino: ");
         int idTenant = scanner.nextInt();
         tenantService.searchTenant(idTenant);
+    }
+
+    private static void searchProperty() {
+        System.out.print("\nInsira o índice do Imovel: ");
+        int idProperty = scanner.nextInt();
+        propertyService.searchProperty(idProperty);
+    }
+
+    private static void searchLandlord() {
+        System.out.print("\nInsira o índice do Proprietario: ");
+        int idLandlord = scanner.nextInt();
+        landlordService.searchLandlord(idLandlord);
     }
 }

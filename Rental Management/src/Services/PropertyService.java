@@ -8,6 +8,7 @@ import Containers.PropertyRepository;
 import Entity.CommercialProperty;
 import Entity.Property;
 import Entity.ResidentialProperty;
+import Entity.Tenant;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 import Enum.EnumPropertyException;
@@ -41,7 +42,7 @@ public class PropertyService {
         Property property = createProperty(anddress, rentalValue, type, occupation);
         if (property != null) {
             propertyRepository.addProperty(property);
-            System.out.println("\nImovel adicionado com sucesso!");
+            System.out.println("\nImovel adicionado com sucesso! ID: " + property.getId());
         } else {
             throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalid);
         }
@@ -85,7 +86,6 @@ public class PropertyService {
         } else {
             for (int i = 0; i < properties.size(); i++) {
                 Property p = properties.get(i);
-                p.setId(i);
                 System.out.println("\n-------------------------------------------------------------------------------");
                 System.out.print("Imovel: " + p.getId() + "\n");
                 System.out.print(" | Endereço: " + p.getAnddress());
@@ -145,8 +145,14 @@ public class PropertyService {
         }
     }
 
-    public void addTenant(){
-        
+    public Property addTenant(Tenant tenant){
+        return new Property(null, 0, null, null);
+    }
+
+    public void searchProperty(int id) {
+        Property property = propertyRepository.searchProperty(id);
+        System.out.println(property.getOccupation());
+        System.out.println(property.getId());
     }
 
 }

@@ -36,7 +36,7 @@ public class LandlordService {
         Landlord landlord = createLandlord(name, cpf, telephone, email);
         if (landlord != null) {
             landlordRepository.addLandlord(landlord);
-            System.out.println("\nProprietário adicionado com sucesso!");
+            System.out.println("\nProprietário adicionado com sucesso! ID: " + landlord.getId());
         } else {
             throw new LandlordException("Erro: " + EnumLandlordException.LandlordInvalid);
         }
@@ -101,7 +101,6 @@ public class LandlordService {
         } else {
             for (int i = 0; i < landlords.size(); i++) {
                 Landlord l = landlords.get(i);
-                l.setId(i);
                 System.out.println("\n-------------------------------------------------------------------------------");
                 System.out.print("Proprietário " + l.getId() + "\n");
                 System.out.print(" | Nome: " + l.getName());
@@ -140,5 +139,11 @@ public class LandlordService {
 
     public Landlord addProperty(Property property){
         return new Landlord(null, null, null, null);
+    }
+
+    public void searchLandlord(int id){
+        Landlord landlord = landlordRepository.searchLandlord(id);
+        System.out.println(landlord.getName());
+        System.out.println(landlord.getId());
     }
 }
