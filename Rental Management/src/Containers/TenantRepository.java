@@ -10,7 +10,7 @@ public class TenantRepository implements ITenantRepository {
     public ArrayList<Tenant> tenants = new ArrayList<>();
     private static int nextTenantId = 0;
 
-    public int getNextTenantId() {
+    private int getNextTenantId() {
         return nextTenantId++;
     }
 

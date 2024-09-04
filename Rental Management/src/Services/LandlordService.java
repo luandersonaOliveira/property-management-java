@@ -28,7 +28,7 @@ public class LandlordService {
     // CREATE
     public void addLandlord(String name, String cpf, String telephone, String email) throws LandlordException {
         if (cpf.length() != 11) {
-            throw new LandlordException("Erro: " + EnumLandlordException.LandlorInvalidCPF);
+            throw new LandlordException("Erro: " + EnumLandlordException.LandlordInvalidCPF);
         } else if (telephone.length() != 9 && telephone.length() != 11) {
             throw new LandlordException("Erro: " + EnumLandlordException.LandlordInvalidTelephone);
         }
@@ -60,7 +60,7 @@ public class LandlordService {
                     cpf.substring(9, 11));
         } else {
             cpf = null;
-            throw new LandlordException("Erro: " + EnumLandlordException.LandlorInvalidCPF);
+            throw new LandlordException("Erro: " + EnumLandlordException.LandlordInvalidCPF);
         }
     }
 
@@ -137,11 +137,11 @@ public class LandlordService {
         }
     }
 
-    public Landlord addProperty(Property property){
+    public Landlord addProperty(Property property) {
         return new Landlord(null, null, null, null);
     }
 
-    public void searchLandlord(int id){
+    public void searchLandlord(int id) {
         Landlord landlord = landlordRepository.searchLandlord(id);
         System.out.println(landlord.getName());
         System.out.println(landlord.getId());

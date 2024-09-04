@@ -9,5 +9,5 @@ public enum EnumTenantException {
 
     // NO REGISTERED
     TenantInvalid,
-    TenantNoRegistered,;
+    TenantNoRegistered;
 }

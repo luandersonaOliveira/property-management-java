@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Containers.PropertyRepository;
+import Containers.TenantRepository;
 import Entity.CommercialProperty;
 import Entity.Property;
 import Entity.ResidentialProperty;
@@ -145,8 +146,8 @@ public class PropertyService {
         }
     }
 
-    public Property addTenant(Tenant tenant){
-        return new Property(null, 0, null, null);
+    public Property addTenant(int id){
+        return new Property(null, id, null, null);
     }
 
     public void searchProperty(int id) {

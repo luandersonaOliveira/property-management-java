@@ -1,7 +1,6 @@
 package Services;
 // Sreviço Contrato
 
-import java.util.Date;
 import java.util.Scanner;
 
 import Containers.LeaseRepository;
@@ -15,6 +14,11 @@ public class LeaseService {
     // ATRIBUTOS
     private static final Scanner scanner = new Scanner(System.in);
     private LeaseRepository leaseRepository = new LeaseRepository();
+    /*
+     * private LandlordRepository landlordRepository = new LandlordRepository();
+     * private PropertyRepository propertyRepository = new PropertyRepository();
+     * private TenantRepository tenantRepository = new TenantRepository();
+     */
 
     // CONSTRUCTOR
 

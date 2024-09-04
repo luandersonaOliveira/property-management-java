@@ -2,12 +2,12 @@ package Enum;
 
 public enum EnumLandlordException {
     // INVALID
-    LandlorInvalidCPF,
+    LandlordInvalidCPF,
     LandlordInvalidTelephone,
     LandlordInvalidBalance,
     LandlordInvalidIndex,
 
     // NO REGISTERED
     LandlordInvalid,
-    LandlordNoRegistered,;
+    LandlordNoRegistered;
 }
