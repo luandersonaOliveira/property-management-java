@@ -1,4 +1,6 @@
 
+// Em resumo, essa classe pode ser usada para criar dados fictícios ou de teste, como nomes de usuários ou números de identificação, de forma aleatória e controlada. É útil em cenários de desenvolvimento ou testes onde dados realistas são necessários, mas não precisam ser reais. 
+
 import java.util.Random;
 
 public class DataGenerator {

@@ -7,7 +7,7 @@ public class Lease {
     // ATRIBUTOS
 
     private int id;
-    private Date starDate, endDate;
+    private String startDate, endDate;
     private double value;
     private Landlord landlord;
     private Property property;
@@ -15,8 +15,8 @@ public class Lease {
 
     // CONSTRUCTOR
 
-    public Lease(Date starDate, Date endDate, double value, Landlord landlord, Property property, Tenant tenant) {
-        this.starDate = starDate;
+    public Lease(String startDate, String endDate, double value, Landlord landlord, Property property, Tenant tenant) {
+        this.startDate = startDate;
         this.endDate = endDate;
         this.value = value;
         this.landlord = landlord;
@@ -34,19 +34,19 @@ public class Lease {
         this.id = id;
     }
 
-    public Date getStarDate() {
-        return starDate;
+    public String getstartDate() {
+        return startDate;
     }
 
-    public void setStarDate(Date starDate) {
-        this.starDate = starDate;
+    public void setstartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

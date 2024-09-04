@@ -27,17 +27,18 @@ public class LeaseService {
     // METODOS PERSONALIZADOS
 
     // CREATE
-    public void addLease(Date starDate, Date endDate, double value, Landlord landlord, Property property, Tenant tenant)
+    public void addLease(String startDate, String endDate, double value, Landlord landlord, Property property,
+            Tenant tenant)
             throws LeaseException {
         if (value < 0) {
             throw new LeaseException("Erro: Valor negativo!");
-        } else if (starDate != null || endDate != null) {
+        } else if (startDate != null || endDate != null) {
             throw new LeaseException("Erro: Data de inicio ou fim estão vazio!");
         } else if (landlord != null || property != null || tenant != null) {
             throw new LeaseException("Erro: Proprietário, Imovel ou Inquilino estão vazios!");
         }
 
-        Lease lease = createLease(starDate, endDate, value, landlord, property, tenant);
+        Lease lease = createLease(startDate, endDate, value, landlord, property, tenant);
         if (lease != null) {
             leaseRepository.addLease(lease);
             System.out.println("\nContrato adicionado com sucesso!");
@@ -46,9 +47,9 @@ public class LeaseService {
         }
     }
 
-    public Lease createLease(Date starDate, Date endDate, double value, Landlord landlord, Property property,
+    public Lease createLease(String startDate, String endDate, double value, Landlord landlord, Property property,
             Tenant tenant) {
-        return new Lease(starDate, endDate, value, landlord, property, tenant);
+        return new Lease(startDate, endDate, value, landlord, property, tenant);
     }
 
     // REOMVE

@@ -66,6 +66,7 @@ public class Main {
                     createLease();
                     break;
                 case 11:
+                    searchTenant();
                     break;
                 case 12:
                     break;
@@ -226,9 +227,16 @@ public class Main {
     // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
     private static void createLease() {
         System.out.print("\nInsira o índice do Inquilino: ");
-        System.out.print("\nInsira o índice do Proprietário: ");
         int idTenant = scanner.nextInt();
+        System.out.print("\nInsira o índice do Proprietário: ");
         int idLandlord = scanner.nextInt();
+        System.out.print("\nInforme a Data de Inicio: ");
+        String startDate = scanner.nextLine();
+        System.out.print("\nInforme a Data de Fim: ");
+        String endDate = scanner.nextLine();
+        System.out.print("\nInforme o valor: ");
+        double value = scanner.nextDouble();
+
     }
 
     // LISTA CONTRATOS
@@ -238,6 +246,12 @@ public class Main {
 
     // DELETAR CONTRATOS
     private static void deleteLease() {
-        
+
+    }
+
+    private static void searchTenant() {
+        System.out.print("\nInsira o índice do Inquilino: ");
+        int idTenant = scanner.nextInt();
+        tenantService.searchTenant(idTenant);
     }
 }

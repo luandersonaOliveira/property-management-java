@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import Containers.LandlordRepository;
 import Entity.Landlord;
+import Entity.Property;
 import Enum.EnumLandlordException;
 import Exceptions.LandlordException;
 
@@ -135,5 +136,9 @@ public class LandlordService {
             landlord.setEmail(newEmail);
             System.out.println("\nProprietário atualizado com sucesso!");
         }
+    }
+
+    public Landlord addProperty(Property property){
+        return new Landlord(null, null, null, null);
     }
 }

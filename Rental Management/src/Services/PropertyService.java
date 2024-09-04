@@ -145,4 +145,8 @@ public class PropertyService {
         }
     }
 
+    public void addTenant(){
+        
+    }
+
 }
