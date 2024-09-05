@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Containers.PropertyRepository;
-import Containers.TenantRepository;
 import Entity.CommercialProperty;
 import Entity.Property;
 import Entity.ResidentialProperty;
-import Entity.Tenant;
+import Enum.EnumPropertyException;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
-import Enum.EnumPropertyException;
 import Exceptions.PropertyException;
 
 public class PropertyService {
@@ -145,14 +143,32 @@ public class PropertyService {
             System.out.println("\nImovel atualizado com sucesso!");
         }
     }
+    /*
+     * public void listProperties() {
+     * Property property01 =
+     * createProperty("Rua Gonçalo de Carvalho – Porto Alegre (RS)", 500,
+     * PropertyType.RESIDENTIAL, PropertyOccupation.UNOCCUPIED);
+     * Property property02 = createProperty("Rua do Mucugê – Arraial d’Ajuda (BA)",
+     * 800, PropertyType.COMMERCIAL,
+     * PropertyOccupation.UNOCCUPIED);
+     * Property property03 = createProperty("Rua das Pedras – Búzios (RJ)", 480,
+     * PropertyType.RESIDENTIAL,
+     * PropertyOccupation.UNOCCUPIED);
+     * Property property04 = createProperty("Rua da Aurora – Recife (PE)", 780,
+     * PropertyType.COMMERCIAL,
+     * PropertyOccupation.UNOCCUPIED);
+     * Property property05 = createProperty("Rua Bento Gonçalves – Erechim (RS)",
+     * 550, PropertyType.RESIDENTIAL,
+     * PropertyOccupation.UNOCCUPIED);
+     * }
+     */
 
-    public Property addTenant(int id){
-        return new Property(null, id, null, null);
+    public void addTenantProperty(int idTenant, int idProperty) {
+     
     }
 
-    public void searchProperty(int id) {
+    public void searchProperty(int id) throws PropertyException {
         Property property = propertyRepository.searchProperty(id);
-        System.out.println(property.getOccupation());
         System.out.println(property.getId());
     }
 

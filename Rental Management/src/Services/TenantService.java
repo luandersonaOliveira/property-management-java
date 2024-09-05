@@ -1,8 +1,8 @@
 package Services;
 // Sreviço Inquilino
 
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import Containers.TenantRepository;
 import Entity.Tenant;

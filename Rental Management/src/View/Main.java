@@ -66,7 +66,7 @@ public class Main {
                     createLease();
                     break;
                 case 11:
-                    searchLandlord();
+                    searchTenant();
                     break;
                 case 12:
                     break;
@@ -249,13 +249,13 @@ public class Main {
 
     }
 
-    private static void searchTenant() {
+    private static void searchTenant() throws TenantException {
         System.out.print("\nInsira o índice do Inquilino: ");
         int idTenant = scanner.nextInt();
         tenantService.searchTenant(idTenant);
     }
 
-    private static void searchProperty() {
+    private static void searchProperty() throws PropertyException {
         System.out.print("\nInsira o índice do Imovel: ");
         int idProperty = scanner.nextInt();
         propertyService.searchProperty(idProperty);

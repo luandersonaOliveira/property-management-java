@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import Containers.LandlordRepository;
 import Entity.Landlord;
-import Entity.Property;
 import Enum.EnumLandlordException;
 import Exceptions.LandlordException;
 
@@ -136,11 +135,7 @@ public class LandlordService {
             System.out.println("\nProprietário atualizado com sucesso!");
         }
     }
-
-    public Landlord addProperty(Property property) {
-        return new Landlord(null, null, null, null);
-    }
-
+    
     public void searchLandlord(int id) {
         Landlord landlord = landlordRepository.searchLandlord(id);
         System.out.println(landlord.getName());

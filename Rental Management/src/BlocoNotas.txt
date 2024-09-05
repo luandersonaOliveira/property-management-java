@@ -53,9 +53,12 @@ Classes Principais:
 Relacionamentos:
     - Proprietário pode ter nenhum ou varios Imoveis.
         - Proprietário, NÃO depende de imovel.
+        - Proprietário pode ser um inquilino? (Implementar, se possivel no proximo semestre)
     - Imóvel tem somente um Proprietário.
         - Imóvel, SIM depende de Proprietário.
+        - Lista de Imoveis pronta, pode ser atribuída ao Proprietário.
     - Contrato associa um Imóvel a um Inquilino.
+        - Contrato, pode remover Inquilino do Imóvel. (Gerenado o fim do contrato)
     - Pagamento está relacionado a um Contrato.
 
 Explicação: 
