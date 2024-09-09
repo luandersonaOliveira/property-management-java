@@ -4,7 +4,10 @@ package Services;
 import java.text.ParseException;
 import java.util.Scanner;
 
+import Containers.LandlordRepository;
 import Containers.LeaseRepository;
+import Containers.PropertyRepository;
+import Containers.TenantRepository;
 import Entity.Landlord;
 import Entity.Lease;
 import Entity.Property;
@@ -20,11 +23,9 @@ public class LeaseService {
     // ATRIBUTOS
     private static final Scanner scanner = new Scanner(System.in);
     private LeaseRepository leaseRepository = new LeaseRepository();
-    /*
-     * private LandlordRepository landlordRepository = new LandlordRepository();
-     * private PropertyRepository propertyRepository = new PropertyRepository();
-     * private TenantRepository tenantRepository = new TenantRepository();
-     */
+    private static LandlordRepository landlordRepository = new LandlordRepository();
+    private static PropertyRepository propertyRepository = new PropertyRepository();
+    private static TenantRepository tenantRepository = new TenantRepository();
 
     // CONSTRUCTOR
 
@@ -65,6 +66,8 @@ public class LeaseService {
             throw new LeaseException("Erro: " + EnumTenantException.TenantInvalidBalance);
         } else if (property.getOccupation() == PropertyOccupation.OCCUPIED) {
             throw new LeaseException("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
+        } else if (!toCheckId()) {
+            throw new LeaseException("Erro: " + EnumLeaseException.LeaseNoRegistered);
         }
         return new Lease(dateTimeExtensions(startDate), dateTimeExtensions(endDate), value, landlord, property, tenant);
     }
@@ -74,9 +77,24 @@ public class LeaseService {
         return date;
     }
 
+    public boolean toCheckId() throws LeaseException {
+        System.out.print("\nInsira o índice do Inquilino: ");
+        int tenant = scanner.nextInt();
+        System.out.print("\nInsira o índice do Imovel: ");
+        int property = scanner.nextInt();
+        Property properties = propertyRepository.searchProperty(property);
+        Tenant tenants = tenantRepository.searchTenant(tenant);
+        if (properties.getId() != property) {
+            throw new LeaseException("Erro: " + EnumLeaseException.LeaseNoRegistered);
+        } else if (tenants.getId() != tenant) {
+            throw new LeaseException("Erro: " + EnumLeaseException.LeaseNoRegistered);
+        }
+        return true;
+    }
+
     // REOMVE
 
-    // LIST 
+    // LIST
 
     // CHANGE
 
