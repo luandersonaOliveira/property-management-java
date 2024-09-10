@@ -10,9 +10,13 @@ import Entity.CommercialProperty;
 import Entity.Landlord;
 import Entity.Property;
 import Entity.ResidentialProperty;
+import Entity.Tenant;
+import Enum.EnumLandlordException;
 import Enum.EnumPropertyException;
+import Enum.EnumTenantException;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
+import Exceptions.LandlordException;
 import Exceptions.PropertyException;
 
 public class PropertyService {
@@ -180,6 +184,26 @@ public class PropertyService {
      * PropertyOccupation.UNOCCUPIED);
      * }
      */
+
+    public void assignTenantToProperty(int propertyId, Tenant tenant) throws PropertyException {
+        Property property = propertyRepository.searchProperty(propertyId);
+
+        if (property == null) {
+            throw new PropertyException("Erro: " + EnumPropertyException.PropertyNoRegistered);
+        } else if (tenant == null) {
+            throw new PropertyException("Erro: " + EnumTenantException.TenantNoRegistered);
+        }
+
+        if (property.getTenant() != null) {
+            throw new PropertyException("Erro: O imóvel já tem um inquilino associado");
+        }
+
+        property.setTenant(tenant);
+        tenant.setProperty(property);
+
+        System.out.println(
+            "Inquilino: " + tenant.getName() + " adicionado ao Imovel " + property.getId() + " com sucesso!");
+    }
 
     public void searchProperty(int id) throws PropertyException {
         Property property = propertyRepository.searchProperty(id);

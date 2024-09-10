@@ -7,6 +7,7 @@ import Containers.LandlordRepository;
 import Containers.PropertyRepository;
 import Containers.TenantRepository;
 import Entity.Property;
+import Entity.Tenant;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 import Exceptions.LandlordException;
@@ -46,7 +47,7 @@ public class Main {
                     changeTenants();
                     break;
                 case 4:
-
+                    assignTenantToProperty();
                     break;
                 case 5:
 
@@ -132,6 +133,16 @@ public class Main {
         System.out.print("\nInsira o índice do Inquilino para remover: ");
         int id = scanner.nextInt();
         tenantService.removeTenant(id);
+    }
+
+    private static void assignTenantToProperty() throws PropertyException {
+        System.out.print("\nAtribuir Inquilino ao Imovel");
+        System.out.print("\nInsira o índice do inquilino: ");
+        int idTenant = scanner.nextInt();
+        System.out.print("\nInsira o índice do Imovel: ");
+        int idProperty = scanner.nextInt();
+        Tenant tenant = tenantRepository.tenants.get(idTenant);
+        propertyService.assignTenantToProperty(idProperty, tenant);
     }
 
     // CRIAR IMOVEIS

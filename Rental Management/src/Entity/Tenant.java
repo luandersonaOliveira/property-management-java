@@ -7,7 +7,8 @@ public class Tenant {
     private int id;
     private double balance; // Saldo
     private String name, cpf, telephone, email;
-    
+    private Property property;
+
     // CONSTRUCTOR
 
     public Tenant(String name, String cpf, String telephone, String email, double balance) {
@@ -18,7 +19,7 @@ public class Tenant {
         this.balance = balance;
     }
 
-    // METODOS ESPECIAS 
+    // METODOS ESPECIAS
 
     public int getId() {
         return id;
@@ -66,6 +67,14 @@ public class Tenant {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public Property getProperty() {
+        return property;
+    }
+
+    public void setProperty(Property property) {
+        this.property = property;
     }
 
     // METODOS PERSONALIZADOS
