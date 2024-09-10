@@ -4,8 +4,10 @@ package Services;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Containers.LandlordRepository;
 import Containers.PropertyRepository;
 import Entity.CommercialProperty;
+import Entity.Landlord;
 import Entity.Property;
 import Entity.ResidentialProperty;
 import Enum.EnumPropertyException;
@@ -106,40 +108,56 @@ public class PropertyService {
             }
 
             Property property = propertyRepository.properties.get(id);
-            System.out.println("\nDigite as novas informações do Imovel: ");
-            System.out.print("\nEndereço: ");
-            String newAnddress = scanner.nextLine();
-            System.out.print("Valor do Aluguel: ");
-            double newRentalValue = scanner.nextDouble();
-            System.out.print("Tipo: \n1.Residencial | 2.Comercial |");
+            System.out.println(
+                    "\nQuais as novas informações do Imovel deseja mudar? \n0.Nenhum | 1.Endereço | 2.Valor do Aluguel | 3.Tipo | 4.Ocupação |");
             System.out.print("\nOpção: ");
-            int newType = scanner.nextInt();
-            System.out.print("Ocupação: \n1.Desocupado | 2.Ocupado |");
-            System.out.print("\nOpção: ");
-            int newOccupation = scanner.nextInt();
+            int option = scanner.nextInt();
+            switch (option) {
+                case 1:
+                    System.out.println("\nDigite as novas informações: ");
+                    System.out.print("\nEndereço: ");
+                    String newAnddress = scanner.nextLine();
+                    property.setAnddress(anddressFormart(newAnddress));
+                    break;
+                case 2:
+                    System.out.println("\nDigite as novas informações: ");
+                    System.out.print("Valor do Aluguel: ");
+                    double newRentalValue = scanner.nextDouble();
+                    property.setRentalValue(newRentalValue);
+                    break;
+                case 3:
+                    System.out.print("Tipo: \n1.Residencial | 2.Comercial |");
+                    System.out.print("\nOpção: ");
+                    int newType = scanner.nextInt();
 
-            if (newType == 1) {
-                PropertyType propertyType = PropertyType.RESIDENTIAL;
-                property.setType(propertyType);
-            } else if (newType == 2) {
-                PropertyType propertyType = PropertyType.COMMERCIAL;
-                property.setType(propertyType);
-            } else {
-                throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidType);
+                    if (newType == 1) {
+                        PropertyType propertyType = PropertyType.RESIDENTIAL;
+                        property.setType(propertyType);
+                    } else if (newType == 2) {
+                        PropertyType propertyType = PropertyType.COMMERCIAL;
+                        property.setType(propertyType);
+                    } else {
+                        throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidType);
+                    }
+                    break;
+                case 4:
+                    System.out.print("Ocupação: \n1.Desocupado | 2.Ocupado |");
+                    System.out.print("\nOpção: ");
+                    int newOccupation = scanner.nextInt();
+
+                    if (newOccupation == 1) {
+                        PropertyOccupation propertyOccupation = PropertyOccupation.UNOCCUPIED;
+                        property.setOccupation(propertyOccupation);
+                    } else if (newOccupation == 2) {
+                        PropertyOccupation propertyOccupation = PropertyOccupation.OCCUPIED;
+                        property.setOccupation(propertyOccupation);
+                    } else {
+                        throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
+                    }
+                    break;
+                default:
+                    throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalid);
             }
-
-            if (newOccupation == 1) {
-                PropertyOccupation propertyOccupation = PropertyOccupation.UNOCCUPIED;
-                property.setOccupation(propertyOccupation);
-            } else if (newOccupation == 2) {
-                PropertyOccupation propertyOccupation = PropertyOccupation.OCCUPIED;
-                property.setOccupation(propertyOccupation);
-            } else {
-                throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
-            }
-
-            property.setAnddress(anddressFormart(newAnddress));
-            property.setRentalValue(newRentalValue);
             System.out.println("\nImovel atualizado com sucesso!");
         }
     }
@@ -162,10 +180,6 @@ public class PropertyService {
      * PropertyOccupation.UNOCCUPIED);
      * }
      */
-
-    public void addTenantProperty(int idTenant, int idProperty) {
-     
-    }
 
     public void searchProperty(int id) throws PropertyException {
         Property property = propertyRepository.searchProperty(id);

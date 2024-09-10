@@ -6,7 +6,9 @@ import java.util.Scanner;
 
 import Containers.LandlordRepository;
 import Entity.Landlord;
+import Entity.Property;
 import Enum.EnumLandlordException;
+import Enum.EnumPropertyException;
 import Exceptions.LandlordException;
 
 public class LandlordService {
@@ -135,7 +137,30 @@ public class LandlordService {
             System.out.println("\nProprietário atualizado com sucesso!");
         }
     }
-    
+
+    public void assignPropertyToLandlord(int landlordId, Property property) throws LandlordException {
+        // Primeiro, buscamos o proprietário pelo ID
+        Landlord landlord = landlordRepository.searchLandlord(landlordId);
+
+        if (landlord == null) {
+            throw new LandlordException("Erro: " + EnumLandlordException.LandlordNoRegistered);
+        } else if (property == null) {
+            throw new LandlordException("Erro: " + EnumPropertyException.PropertyNoRegistered);
+        }
+
+        // Verificamos se o imóvel já tem um proprietário associado
+        if (property.getLandlord() != null) {
+            throw new LandlordException("Erro: O imóvel já tem um proprietário associado");
+        }
+
+        // Associamos o imóvel ao proprietário
+        landlord.setProperty(property);
+        property.setLandlord(landlord);
+
+        System.out.println(
+                "Imóvel: " + property.getId() + " adicionado ao proprietário: " + landlord.getName() + " com sucesso!");
+    }
+
     public void searchLandlord(int id) {
         Landlord landlord = landlordRepository.searchLandlord(id);
         System.out.println(landlord.getName());

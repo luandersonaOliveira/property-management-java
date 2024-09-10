@@ -10,7 +10,7 @@ public class PropertyRepository implements IPropertyRepository {
     public ArrayList<Property> properties = new ArrayList<>();
     private static int nextPropertyId = 0;
 
-    private int getNextPropertyId() {
+    public int getNextPropertyId() {
         return nextPropertyId++;
     }
 

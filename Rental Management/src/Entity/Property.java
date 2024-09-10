@@ -12,6 +12,7 @@ public class Property {
     private double rentalValue;
     private PropertyType type;
     private PropertyOccupation occupation;
+    private Landlord landlord;
 
     // CONSTRUCTOR
 
@@ -62,6 +63,14 @@ public class Property {
 
     public void setOccupation(PropertyOccupation occupation) {
         this.occupation = occupation;
+    }
+
+    public Landlord getLandlord() {
+        return landlord;
+    }
+
+    public void setLandlord(Landlord landlord) {
+        this.landlord = landlord;
     }
 
     // METODOS PERSONALIZADOS

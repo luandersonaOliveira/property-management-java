@@ -6,6 +6,7 @@ public class Landlord {
 
     private int id;
     private String name, cpf, telephone, email;
+    private Property property;
 
     // CONSTRUCTOR
 
@@ -17,11 +18,11 @@ public class Landlord {
     }
 
     // METODOS ESPECIAS
-    
+
     public int getId() {
         return id;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
@@ -56,6 +57,14 @@ public class Landlord {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Property getProperty() {
+        return property;
+    }
+
+    public void setProperty(Property property) {
+        this.property = property;
     }
 
     // METODOS PERSONALIZADOS

@@ -10,7 +10,7 @@ public class LandlordRepository implements ILandlordRepository {
     public ArrayList<Landlord> landlords = new ArrayList<>();
     private static int nextLandlordId = 0;
 
-    private int getNextLandlordId() {
+    public int getNextLandlordId() {
         return nextLandlordId++;
     }
 

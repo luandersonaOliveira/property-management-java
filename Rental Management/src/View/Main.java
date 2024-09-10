@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Containers.LandlordRepository;
 import Containers.PropertyRepository;
 import Containers.TenantRepository;
+import Entity.Property;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 import Exceptions.LandlordException;
@@ -45,13 +46,13 @@ public class Main {
                     changeTenants();
                     break;
                 case 4:
-                    createProperty();
+
                     break;
                 case 5:
-                    propertyService.listProperty();
+
                     break;
                 case 6:
-                    changeProperty();
+
                     break;
                 case 7:
                     createLandlord();
@@ -138,6 +139,7 @@ public class Main {
         try {
             System.out.print("\nEndereço: ");
             String anddress = scanner.nextLine();
+            scanner.nextLine();
             System.out.print("Valor do Aluguel: ");
             double rentalValue = scanner.nextDouble();
             System.out.print("Tipo: \n1.Residencial | 2.Comercial |");
@@ -203,8 +205,23 @@ public class Main {
             String telephone = scanner.nextLine();
             System.out.print("Email: ");
             String email = scanner.nextLine();
-
             landlordService.addLandlord(name, cpf, telephone, email);
+
+            System.out.println("\nDeseja Criar um imovel? \n1.Sim | 2.Não |");
+            System.out.print("Opção: ");
+            int option = scanner.nextInt();
+
+            if (option == 1) {
+                createProperty();
+                System.out.print("\nAtribuir Imovel ao Proprietário");
+                System.out.print("\nInsira o índice do Proprietário: ");
+                int idLandlord = scanner.nextInt();
+                System.out.print("\nInsira o índice do Imovel: ");
+                int idProperty = scanner.nextInt();
+                Property property = propertyRepository.properties.get(idProperty);
+                landlordService.assignPropertyToLandlord(idLandlord, property);
+            }
+
         } catch (LandlordException e) {
             System.out.println("\n" + e.getMessage());
         }
