@@ -17,6 +17,7 @@ import Enum.EnumPropertyException;
 import Enum.EnumTenantException;
 import Enum.PropertyOccupation;
 import Exceptions.LeaseException;
+import Exceptions.PropertyException;
 import Utils.DatetimeExtensions;
 
 public class LeaseService {
@@ -77,20 +78,40 @@ public class LeaseService {
         return date;
     }
 
-    public boolean toCheckId() throws LeaseException {
+    public boolean toCheckId() {
+        System.out.print("\nAtribuir Inquilino ao Imovel");
         System.out.print("\nInsira o índice do Inquilino: ");
         int tenant = scanner.nextInt();
         System.out.print("\nInsira o índice do Imovel: ");
         int property = scanner.nextInt();
         Property properties = propertyRepository.searchProperty(property);
         Tenant tenants = tenantRepository.searchTenant(tenant);
-        if (properties.getId() != property) {
-            throw new LeaseException("Erro: " + EnumLeaseException.LeaseNoRegistered);
-        } else if (tenants.getId() != tenant) {
-            throw new LeaseException("Erro: " + EnumLeaseException.LeaseNoRegistered);
+        if (properties.getId() != property || tenants.getId() != tenant) {
+            return false;
         }
         return true;
     }
+
+    public void assignTenantToProperty(int propertyId, Tenant tenant) throws PropertyException {
+        Property property = propertyRepository.searchProperty(propertyId);
+
+        if (property == null) {
+            throw new PropertyException("Erro: " + EnumPropertyException.PropertyNoRegistered);
+        } else if (tenant == null) {
+            throw new PropertyException("Erro: " + EnumTenantException.TenantNoRegistered);
+        }
+
+        if (property.getTenant() != null) {
+            throw new PropertyException("Erro: O imóvel já tem um inquilino associado");
+        }
+
+        property.setTenant(tenant);
+        tenant.setProperty(property);
+
+        System.out.println(
+                "Inquilino: " + tenant.getName() + " adicionado ao Imovel " + property.getId() + " com sucesso!");
+    }
+    
 
     // REOMVE
 

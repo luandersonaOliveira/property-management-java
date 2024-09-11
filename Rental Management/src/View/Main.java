@@ -47,7 +47,7 @@ public class Main {
                     changeTenants();
                     break;
                 case 4:
-                    assignTenantToProperty();
+                    
                     break;
                 case 5:
 
@@ -134,8 +134,8 @@ public class Main {
         int id = scanner.nextInt();
         tenantService.removeTenant(id);
     }
-
-    private static void assignTenantToProperty() throws PropertyException {
+/*
+ * private static void assignTenantToProperty() throws PropertyException {
         System.out.print("\nAtribuir Inquilino ao Imovel");
         System.out.print("\nInsira o índice do inquilino: ");
         int idTenant = scanner.nextInt();
@@ -144,6 +144,8 @@ public class Main {
         Tenant tenant = tenantRepository.tenants.get(idTenant);
         propertyService.assignTenantToProperty(idProperty, tenant);
     }
+ */
+    
 
     // CRIAR IMOVEIS
     private static void createProperty() {

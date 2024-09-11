@@ -122,12 +122,14 @@ public class PropertyService {
                     System.out.print("\nEndereço: ");
                     String newAnddress = scanner.nextLine();
                     property.setAnddress(anddressFormart(newAnddress));
+                    System.out.println("\nImovel atualizado com sucesso!");
                     break;
                 case 2:
                     System.out.println("\nDigite as novas informações: ");
                     System.out.print("Valor do Aluguel: ");
                     double newRentalValue = scanner.nextDouble();
                     property.setRentalValue(newRentalValue);
+                    System.out.println("\nImovel atualizado com sucesso!");
                     break;
                 case 3:
                     System.out.print("Tipo: \n1.Residencial | 2.Comercial |");
@@ -143,6 +145,7 @@ public class PropertyService {
                     } else {
                         throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidType);
                     }
+                    System.out.println("\nImovel atualizado com sucesso!");
                     break;
                 case 4:
                     System.out.print("Ocupação: \n1.Desocupado | 2.Ocupado |");
@@ -158,11 +161,13 @@ public class PropertyService {
                     } else {
                         throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
                     }
+                    System.out.println("\nImovel atualizado com sucesso!");
                     break;
                 default:
-                    throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalid);
+                    option = 0;
+                    System.out.println("\nImovel não foi atualizado!");
+                    break;
             }
-            System.out.println("\nImovel atualizado com sucesso!");
         }
     }
     /*
@@ -184,26 +189,6 @@ public class PropertyService {
      * PropertyOccupation.UNOCCUPIED);
      * }
      */
-
-    public void assignTenantToProperty(int propertyId, Tenant tenant) throws PropertyException {
-        Property property = propertyRepository.searchProperty(propertyId);
-
-        if (property == null) {
-            throw new PropertyException("Erro: " + EnumPropertyException.PropertyNoRegistered);
-        } else if (tenant == null) {
-            throw new PropertyException("Erro: " + EnumTenantException.TenantNoRegistered);
-        }
-
-        if (property.getTenant() != null) {
-            throw new PropertyException("Erro: O imóvel já tem um inquilino associado");
-        }
-
-        property.setTenant(tenant);
-        tenant.setProperty(property);
-
-        System.out.println(
-            "Inquilino: " + tenant.getName() + " adicionado ao Imovel " + property.getId() + " com sucesso!");
-    }
 
     public void searchProperty(int id) throws PropertyException {
         Property property = propertyRepository.searchProperty(id);

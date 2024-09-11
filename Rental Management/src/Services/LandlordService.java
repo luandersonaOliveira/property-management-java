@@ -123,18 +123,34 @@ public class LandlordService {
             }
 
             Landlord landlord = landlordRepository.landlords.get(id);
-            System.out.println("\nDigite as novas informações do Inquilino: ");
-            System.out.print("\nNome: ");
-            String newName = scanner.nextLine();
-            System.out.print("Telefone: ");
-            String newTelephone = scanner.nextLine();
-            System.out.print("Email: ");
-            String newEmail = scanner.nextLine();
-
-            landlord.setName(nameFormart(newName));
-            landlord.setTelephone(telephoneFormart(newTelephone));
-            landlord.setEmail(newEmail);
-            System.out.println("\nProprietário atualizado com sucesso!");
+            System.out.println(
+                    "\nQuais as novas informações do Proprietário deseja mudar? \n0.Nenhum | 1.Nome | 2.Telefone | 3.Email |");
+            System.out.print("\nOpção: ");
+            int option = scanner.nextInt();
+            switch (option) {
+                case 1:
+                    System.out.println("\nDigite as novas informações: ");
+                    System.out.print("\nNome: ");
+                    String newName = scanner.nextLine();
+                    landlord.setName(nameFormart(newName));
+                    break;
+                case 2:
+                    System.out.println("\nDigite as novas informações: ");
+                    System.out.print("Telefone: ");
+                    String newTelephone = scanner.nextLine();
+                    landlord.setTelephone(telephoneFormart(newTelephone));
+                    break;
+                case 3:
+                    System.out.println("\nDigite as novas informações: ");
+                    System.out.print("Email: ");
+                    String newEmail = scanner.nextLine();
+                    landlord.setEmail(newEmail);
+                    break;
+                default:
+                    option = 0;
+                    System.out.println("\nProprietário não foi atualizado!");
+                    break;
+            }
         }
     }
 
