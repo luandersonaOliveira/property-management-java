@@ -7,7 +7,6 @@ import Containers.LandlordRepository;
 import Containers.PropertyRepository;
 import Containers.TenantRepository;
 import Entity.Property;
-import Entity.Tenant;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 import Exceptions.LandlordException;
@@ -47,13 +46,10 @@ public class Main {
                     changeTenants();
                     break;
                 case 4:
-                    
                     break;
                 case 5:
-
                     break;
                 case 6:
-
                     break;
                 case 7:
                     createLandlord();
@@ -65,10 +61,8 @@ public class Main {
                     changeLandlord();
                     break;
                 case 10:
-                    createLease();
                     break;
                 case 11:
-                    searchTenant();
                     break;
                 case 12:
                     break;
@@ -128,25 +122,6 @@ public class Main {
         tenantService.changeTenant(id);
     }
 
-    // REMOVER INQUILINOS
-    private static void removeTenants() throws TenantException {
-        System.out.print("\nInsira o índice do Inquilino para remover: ");
-        int id = scanner.nextInt();
-        tenantService.removeTenant(id);
-    }
-/*
- * private static void assignTenantToProperty() throws PropertyException {
-        System.out.print("\nAtribuir Inquilino ao Imovel");
-        System.out.print("\nInsira o índice do inquilino: ");
-        int idTenant = scanner.nextInt();
-        System.out.print("\nInsira o índice do Imovel: ");
-        int idProperty = scanner.nextInt();
-        Tenant tenant = tenantRepository.tenants.get(idTenant);
-        propertyService.assignTenantToProperty(idProperty, tenant);
-    }
- */
-    
-
     // CRIAR IMOVEIS
     private static void createProperty() {
         try {
@@ -200,13 +175,6 @@ public class Main {
         propertyService.changeProperty(id);
     }
 
-    // REMOVE IMOVEIS
-    private static void removeProperty() throws PropertyException {
-        System.out.print("\nInsira o índice do Imovel para remover: ");
-        int id = scanner.nextInt();
-        propertyService.removeProperty(id);
-    }
-
     // CRIAR PROPRIETARIO
     private static void createLandlord() throws LandlordException {
         try {
@@ -247,13 +215,19 @@ public class Main {
         landlordService.changeLandlord(id);
     }
 
-    // REMOVE INQUILINO DO IMOVEL
-    private static void removeTenantsProperty() throws LandlordException {
-        System.out.print("\nInsira o índice do Proprietário à editar: ");
-        int id = scanner.nextInt();
-        landlordService.removeLandlord(id);
+    /*
+    private static void assignTenantToProperty() throws PropertyException {
+        System.out.print("\nAtribuir Inquilino ao Imovel");
+        System.out.print("\nInsira o índice do inquilino: ");
+        int idTenant = scanner.nextInt();
+        System.out.print("\nInsira o índice do Imovel: ");
+        int idProperty = scanner.nextInt();
+        Tenant tenant = tenantRepository.tenants.get(idTenant);
+        propertyService.assignTenantToProperty(idProperty, tenant);
     }
+    */
 
+    /*
     // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
     private static void createLease() {
         System.out.print("\nInsira o índice do Inquilino: ");
@@ -266,26 +240,46 @@ public class Main {
         String endDate = scanner.nextLine();
         System.out.print("\nInforme o valor: ");
         double value = scanner.nextDouble();
-
     }
 
     // LISTA CONTRATOS
     private static void listLease() {
-
     }
 
     // DELETAR CONTRATOS
     private static void deleteLease() {
-
+    }
+    */
+    
+    // REMOVER INQUILINOS
+    private static void removeTenants() throws TenantException {
+        System.out.print("\nInsira o índice do Inquilino para remover: ");
+        int id = scanner.nextInt();
+        tenantService.removeTenant(id);
     }
 
-    private static void searchTenant() throws TenantException {
+    // REMOVE IMOVEIS
+    private static void removeProperty() throws PropertyException {
+        System.out.print("\nInsira o índice do Imovel para remover: ");
+        int id = scanner.nextInt();
+        propertyService.removeProperty(id);
+    }
+
+    // REMOVE INQUILINO DO IMOVEL
+    private static void removeTenantsProperty() throws LandlordException {
+        System.out.print("\nInsira o índice do Proprietário à editar: ");
+        int id = scanner.nextInt();
+        landlordService.removeLandlord(id);
+    }
+
+    // BUSCA
+    private static void searchTenant() {
         System.out.print("\nInsira o índice do Inquilino: ");
         int idTenant = scanner.nextInt();
         tenantService.searchTenant(idTenant);
     }
 
-    private static void searchProperty() throws PropertyException {
+    private static void searchProperty() {
         System.out.print("\nInsira o índice do Imovel: ");
         int idProperty = scanner.nextInt();
         propertyService.searchProperty(idProperty);

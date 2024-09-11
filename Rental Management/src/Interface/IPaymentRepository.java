@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import Entity.Payment;
 
 public interface IPaymentRepository {
-    public abstract void addPayment(Payment payment);
+    public void addPayment(Payment payment);
 
-    public abstract void removePayment(int id);
+    public void removePayment(int id);
 
-    public abstract void changePayment(int id);
+    public void changePayment(int id);
 
     public ArrayList<Payment> listPayment();
 

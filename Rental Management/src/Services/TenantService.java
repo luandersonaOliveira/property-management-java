@@ -49,13 +49,14 @@ public class TenantService {
         return new Tenant(nameFormart(name), cpfFormart(cpf), telephoneFormart(telephone), email, balance);
     }
 
+    // FORMART
     private String nameFormart(String name) {
         String nameFormart = name.toUpperCase();
         return nameFormart;
     }
 
     private String cpfFormart(String cpf) throws TenantException {
-        validarCPF(cpf);
+        validateCPF(cpf);
         if (cpf.length() == 11) {
             return String.format("%s.%s.%s-%s",
                     cpf.substring(0, 3),
@@ -68,7 +69,7 @@ public class TenantService {
         }
     }
 
-    public static String validarCPF(String cpf) {
+    public static String validateCPF(String cpf) {
         while (true) {
             String CPF = cpf.trim();
             if (CPF.length() != 11 || CPF.contains(" ") || CPF.isBlank() || CPF.isEmpty()) {
@@ -148,30 +149,28 @@ public class TenantService {
                     "\nQuais as novas informações do Inquilino deseja mudar? \n0.Nenhum | 1.Nome | 2.Telefone | 3.Email | 4.Saldo |");
             System.out.print("\nOpção: ");
             int option = scanner.nextInt();
+            scanner.nextLine();
             switch (option) {
                 case 1:
-                    System.out.println("\nDigite as novas informações: ");
-                    System.out.print("\nNome: ");
+                    System.out.print("Novo Nome: ");
                     String newName = scanner.nextLine();
                     tenant.setName(nameFormart(newName));
                     System.out.println("\nInquilino atualizado com sucesso!");
                     break;
                 case 2:
-                    System.out.println("\nDigite as novas informações: ");
-                    System.out.print("Telefone: ");
+                    System.out.print("Novo Telefone: ");
                     String newTelephone = scanner.nextLine();
                     tenant.setTelephone(telephoneFormart(newTelephone));
                     System.out.println("\nInquilino atualizado com sucesso!");
                     break;
                 case 3:
-                    System.out.println("\nDigite as novas informações: ");
-                    System.out.print("Email: ");
+                    System.out.print("Novo Email: ");
                     String newEmail = scanner.nextLine();
                     tenant.setEmail(newEmail);
                     System.out.println("\nInquilino atualizado com sucesso!");
                     break;
                 case 4:
-                    System.out.print("Saldo: ");
+                    System.out.print("Novo Saldo: ");
                     double newBalance = scanner.nextDouble();
                     tenant.setBalance(newBalance);
                     System.out.println("\nInquilino atualizado com sucesso!");
@@ -184,6 +183,7 @@ public class TenantService {
         }
     }
 
+    // BUSCA
     public void searchTenant(int id) {
         Tenant tenant = tenantRepository.searchTenant(id);
         System.out.println(tenant.getName());

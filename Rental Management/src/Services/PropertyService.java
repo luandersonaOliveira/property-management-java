@@ -4,19 +4,13 @@ package Services;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Containers.LandlordRepository;
 import Containers.PropertyRepository;
 import Entity.CommercialProperty;
-import Entity.Landlord;
 import Entity.Property;
 import Entity.ResidentialProperty;
-import Entity.Tenant;
-import Enum.EnumLandlordException;
 import Enum.EnumPropertyException;
-import Enum.EnumTenantException;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
-import Exceptions.LandlordException;
 import Exceptions.PropertyException;
 
 public class PropertyService {
@@ -113,26 +107,25 @@ public class PropertyService {
 
             Property property = propertyRepository.properties.get(id);
             System.out.println(
-                    "\nQuais as novas informações do Imovel deseja mudar? \n0.Nenhum | 1.Endereço | 2.Valor do Aluguel | 3.Tipo | 4.Ocupação |");
+                    "\nQuais as novas informações do Imovel deseja mudar? \n| 0.Nenhum | 1.Endereço | 2.Valor do Aluguel | 3.Tipo | 4.Ocupação |");
             System.out.print("\nOpção: ");
             int option = scanner.nextInt();
+            scanner.nextLine();
             switch (option) {
                 case 1:
-                    System.out.println("\nDigite as novas informações: ");
-                    System.out.print("\nEndereço: ");
+                    System.out.print("Novo Endereço: ");
                     String newAnddress = scanner.nextLine();
                     property.setAnddress(anddressFormart(newAnddress));
                     System.out.println("\nImovel atualizado com sucesso!");
                     break;
                 case 2:
-                    System.out.println("\nDigite as novas informações: ");
-                    System.out.print("Valor do Aluguel: ");
+                    System.out.print("Novo Valor do Aluguel: ");
                     double newRentalValue = scanner.nextDouble();
                     property.setRentalValue(newRentalValue);
                     System.out.println("\nImovel atualizado com sucesso!");
                     break;
                 case 3:
-                    System.out.print("Tipo: \n1.Residencial | 2.Comercial |");
+                    System.out.print("Novo Tipo: \n1.Residencial | 2.Comercial |");
                     System.out.print("\nOpção: ");
                     int newType = scanner.nextInt();
 
@@ -148,7 +141,7 @@ public class PropertyService {
                     System.out.println("\nImovel atualizado com sucesso!");
                     break;
                 case 4:
-                    System.out.print("Ocupação: \n1.Desocupado | 2.Ocupado |");
+                    System.out.print("Nova Ocupação: \n1.Desocupado | 2.Ocupado |");
                     System.out.print("\nOpção: ");
                     int newOccupation = scanner.nextInt();
 
@@ -170,27 +163,8 @@ public class PropertyService {
             }
         }
     }
-    /*
-     * public void listProperties() {
-     * Property property01 =
-     * createProperty("Rua Gonçalo de Carvalho – Porto Alegre (RS)", 500,
-     * PropertyType.RESIDENTIAL, PropertyOccupation.UNOCCUPIED);
-     * Property property02 = createProperty("Rua do Mucugê – Arraial d’Ajuda (BA)",
-     * 800, PropertyType.COMMERCIAL,
-     * PropertyOccupation.UNOCCUPIED);
-     * Property property03 = createProperty("Rua das Pedras – Búzios (RJ)", 480,
-     * PropertyType.RESIDENTIAL,
-     * PropertyOccupation.UNOCCUPIED);
-     * Property property04 = createProperty("Rua da Aurora – Recife (PE)", 780,
-     * PropertyType.COMMERCIAL,
-     * PropertyOccupation.UNOCCUPIED);
-     * Property property05 = createProperty("Rua Bento Gonçalves – Erechim (RS)",
-     * 550, PropertyType.RESIDENTIAL,
-     * PropertyOccupation.UNOCCUPIED);
-     * }
-     */
 
-    public void searchProperty(int id) throws PropertyException {
+    public void searchProperty(int id) {
         Property property = propertyRepository.searchProperty(id);
         System.out.println(property.getId());
     }

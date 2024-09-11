@@ -124,27 +124,27 @@ public class LandlordService {
 
             Landlord landlord = landlordRepository.landlords.get(id);
             System.out.println(
-                    "\nQuais as novas informações do Proprietário deseja mudar? \n0.Nenhum | 1.Nome | 2.Telefone | 3.Email |");
+                    "\nQuais as novas informações do Proprietário deseja mudar? \n| 0.Nenhum | 1.Nome | 2.Telefone | 3.Email |");
             System.out.print("\nOpção: ");
             int option = scanner.nextInt();
             switch (option) {
                 case 1:
-                    System.out.println("\nDigite as novas informações: ");
-                    System.out.print("\nNome: ");
+                    System.out.print("Novo Nome: ");
                     String newName = scanner.nextLine();
                     landlord.setName(nameFormart(newName));
+                    System.out.println("\nProprietário atualizado com sucesso!");
                     break;
                 case 2:
-                    System.out.println("\nDigite as novas informações: ");
-                    System.out.print("Telefone: ");
+                    System.out.print("Novo Telefone: ");
                     String newTelephone = scanner.nextLine();
                     landlord.setTelephone(telephoneFormart(newTelephone));
+                    System.out.println("\nProprietário atualizado com sucesso!");
                     break;
                 case 3:
-                    System.out.println("\nDigite as novas informações: ");
-                    System.out.print("Email: ");
+                    System.out.print("Novo Email: ");
                     String newEmail = scanner.nextLine();
                     landlord.setEmail(newEmail);
+                    System.out.println("\nProprietário atualizado com sucesso!");
                     break;
                 default:
                     option = 0;
@@ -154,8 +154,8 @@ public class LandlordService {
         }
     }
 
+    // ATRIBUIR IMOVEL AO PROPRIETÁRIO
     public void assignPropertyToLandlord(int landlordId, Property property) throws LandlordException {
-        // Primeiro, buscamos o proprietário pelo ID
         Landlord landlord = landlordRepository.searchLandlord(landlordId);
 
         if (landlord == null) {
@@ -164,12 +164,10 @@ public class LandlordService {
             throw new LandlordException("Erro: " + EnumPropertyException.PropertyNoRegistered);
         }
 
-        // Verificamos se o imóvel já tem um proprietário associado
         if (property.getLandlord() != null) {
             throw new LandlordException("Erro: O imóvel já tem um proprietário associado");
         }
 
-        // Associamos o imóvel ao proprietário
         landlord.setProperty(property);
         property.setLandlord(landlord);
 
@@ -182,4 +180,24 @@ public class LandlordService {
         System.out.println(landlord.getName());
         System.out.println(landlord.getId());
     }
+
+    /*
+     * public void listProperties() {
+     * Property property01 =
+     * createProperty("Rua Gonçalo de Carvalho – Porto Alegre (RS)", 500,
+     * PropertyType.RESIDENTIAL, PropertyOccupation.UNOCCUPIED);
+     * Property property02 = createProperty("Rua do Mucugê – Arraial d’Ajuda (BA)",
+     * 800, PropertyType.COMMERCIAL,
+     * PropertyOccupation.UNOCCUPIED);
+     * Property property03 = createProperty("Rua das Pedras – Búzios (RJ)", 480,
+     * PropertyType.RESIDENTIAL,
+     * PropertyOccupation.UNOCCUPIED);
+     * Property property04 = createProperty("Rua da Aurora – Recife (PE)", 780,
+     * PropertyType.COMMERCIAL,
+     * PropertyOccupation.UNOCCUPIED);
+     * Property property05 = createProperty("Rua Bento Gonçalves – Erechim (RS)",
+     * 550, PropertyType.RESIDENTIAL,
+     * PropertyOccupation.UNOCCUPIED);
+     * }
+     */
 }

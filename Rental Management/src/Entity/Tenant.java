@@ -5,7 +5,7 @@ public class Tenant {
     // ATRIBUTOS
 
     private int id;
-    private double balance; // Saldo
+    private double balance;
     private String name, cpf, telephone, email;
     private Property property;
 

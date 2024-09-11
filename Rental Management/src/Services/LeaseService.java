@@ -112,7 +112,6 @@ public class LeaseService {
                 "Inquilino: " + tenant.getName() + " adicionado ao Imovel " + property.getId() + " com sucesso!");
     }
     
-
     // REOMVE
 
     // LIST

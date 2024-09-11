@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import Entity.Property;
 
 public interface IPropertyRepository {
-    public abstract void addProperty(Property property);
+    public void addProperty(Property property);
 
-    public abstract void removeProperty(int id);
+    public void removeProperty(int id);
 
-    public abstract void changeProperty(int id);
+    public void changeProperty(int id);
 
     public ArrayList<Property> listProperty();
 

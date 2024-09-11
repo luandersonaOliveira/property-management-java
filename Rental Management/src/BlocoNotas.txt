@@ -10,13 +10,14 @@ Sistema de Gerenciamento de Aluguéis:
     Service: (Todas as Entidades);
 
 Inovações: 
-    - Cpf: 
+    - Cpf: FALTA
         - Não poder conter espaços em branco, letras, numeros double e float. (Telefone segue a mesma regra!)
-    - Email:
+    - Email: FALTA
         - Deve conter @gmail, @hotmail e @ru.
-    - Inquilino:
-        - Pode escolhe qual informação alterar após cadrastro.
-    - 
+    - Inquilino: FEITO
+        - Pode escolhe qual informação alterar após cadrastro. (Proprietário segue a mesma regra!)
+    - Proprietário: 
+        - Pode ser um Inquilino. (Implementar, se possivel depois!)
 
 Sobre o assunto:
     Gestão de Aluguéis: 
@@ -31,15 +32,15 @@ Sobre o assunto:
 Classes Principais:
 
     Proprietário
-    - Atributos: id, nome, cpf, telefone, email
+    - Atributos: id, nome, cpf, telefone, email, Imóvel
     - Métodos: adicionarImóvel(), removerImóvel()
 
     Imóvel
-    - Atributos: id, endereço, valorAluguel, tipo, ocupação
+    - Atributos: id, endereço, valorAluguel, tipo, ocupação, Proprietário, Inquilino
     - Métodos: calcularValorAluguel(), alterarStatus()
 
     Inquilino
-    - Atributos: id, nome, cpf, telefone, email, saldo
+    - Atributos: id, nome, cpf, telefone, email, saldo, imovel
     - Métodos: atualizarDados(), verificarHistorico()
 
     Contrato
@@ -53,7 +54,6 @@ Classes Principais:
 Relacionamentos:
     - Proprietário pode ter nenhum ou varios Imoveis.
         - Proprietário, NÃO depende de imovel.
-        - Proprietário pode ser um inquilino? (Implementar, se possivel no proximo semestre)
     - Imóvel tem somente um Proprietário.
         - Imóvel, SIM depende de Proprietário.
         - Lista de Imoveis pronta, pode ser atribuída ao Proprietário.

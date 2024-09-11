@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import Entity.Landlord;
 
 public interface ILandlordRepository {
-    public abstract void addLandlord(Landlord landlord);
+    public void addLandlord(Landlord landlord);
 
-    public abstract void removeLandlord(int id);
+    public void removeLandlord(int id);
 
-    public abstract void changeLandlord(int id);
+    public void changeLandlord(int id);
 
     public ArrayList<Landlord> listLandlord();
 
