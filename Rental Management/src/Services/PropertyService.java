@@ -6,8 +6,10 @@ import java.util.Scanner;
 
 import Containers.PropertyRepository;
 import Entity.CommercialProperty;
+import Entity.Landlord;
 import Entity.Property;
 import Entity.ResidentialProperty;
+import Enum.EnumLandlordException;
 import Enum.EnumPropertyException;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
@@ -29,16 +31,19 @@ public class PropertyService {
     // METODOS PERSONALIZADOS
 
     // CREATE
-    public void addProperty(String anddress, double rentalValue, PropertyType type,
+    public void addProperty(Landlord landlord, String anddress, double rentalValue, PropertyType type,
             PropertyOccupation occupation)
             throws PropertyException {
-        if (type == null) {
+        if (landlord == null) {
+            throw new PropertyException("Erro: " + EnumLandlordException.LandlordInvalid);
+        } else if (type == null) {
             throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidType);
         } else if (rentalValue < 0) {
             throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidRentalValue);
         }
 
-        Property property = createProperty(anddress, rentalValue, type, occupation);
+        Property property = createProperty(landlord, anddress, rentalValue, type, occupation);
+        property.setLandlord(landlord);
         if (property != null) {
             propertyRepository.addProperty(property);
             System.out.println("\nImovel adicionado com sucesso! ID: " + property.getId());
@@ -47,13 +52,13 @@ public class PropertyService {
         }
     }
 
-    private Property createProperty(String anddress, double rentalValue, PropertyType type,
+    private Property createProperty(Landlord landlord, String anddress, double rentalValue, PropertyType type,
             PropertyOccupation occupation) {
         switch (type) {
             case RESIDENTIAL:
-                return new ResidentialProperty(anddressFormart(anddress), rentalValue, type, occupation);
+                return new ResidentialProperty(landlord, anddressFormart(anddress), rentalValue, type, occupation);
             case COMMERCIAL:
-                return new CommercialProperty(anddressFormart(anddress), rentalValue, type, occupation);
+                return new CommercialProperty(landlord, anddressFormart(anddress), rentalValue, type, occupation);
             default:
                 return null;
         }
@@ -86,7 +91,7 @@ public class PropertyService {
             for (int i = 0; i < properties.size(); i++) {
                 Property p = properties.get(i);
                 System.out.println("\n-------------------------------------------------------------------------------");
-                System.out.print("Imovel: " + p.getId() + "\n");
+                System.out.print("Imovel: " + p.getId() + " | Proprietário: " + p.getLandlord().getId() + "\n");
                 System.out.print(" | Endereço: " + p.getAnddress());
                 System.out.print(" | Valor do Aluguel: " + p.getRentalValue() + " |");
                 System.out.print("\n | Tipo: " + p.getType());

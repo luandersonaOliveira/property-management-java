@@ -1,6 +1,8 @@
 package Entity;
 // Imovel
 
+import java.util.List;
+
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 
@@ -13,7 +15,7 @@ public class Property {
     private PropertyType type;
     private PropertyOccupation occupation;
     private Landlord landlord;
-    private Tenant tenant;
+    private List<Tenant> tenant;
 
     // CONSTRUCTOR
 
@@ -74,11 +76,11 @@ public class Property {
         this.landlord = landlord;
     }
 
-    public Tenant getTenant() {
+    public List<Tenant> getTenant() {
         return tenant;
     }
 
-    public void setTenant(Tenant tenant) {
+    public void setTenant(List<Tenant> tenant) {
         this.tenant = tenant;
     }
 

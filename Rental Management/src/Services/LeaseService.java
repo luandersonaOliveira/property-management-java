@@ -105,7 +105,7 @@ public class LeaseService {
             throw new PropertyException("Erro: O imóvel já tem um inquilino associado");
         }
 
-        property.setTenant(tenant);
+        property.getTenant().add(tenant);
         tenant.setProperty(property);
 
         System.out.println(

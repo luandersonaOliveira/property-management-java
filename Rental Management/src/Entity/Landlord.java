@@ -1,12 +1,14 @@
 package Entity;
 // Proprietário (Espefico de imovel)
 
+import java.util.List;
+
 public class Landlord {
     // ATRIBUTOS
 
     private int id;
     private String name, cpf, telephone, email;
-    private Property property;
+    private List<Property> property;
 
     // CONSTRUCTOR
 
@@ -59,11 +61,11 @@ public class Landlord {
         this.email = email;
     }
 
-    public Property getProperty() {
+    public List<Property> getProperty() {
         return property;
     }
 
-    public void setProperty(Property property) {
+    public void setProperty(List<Property> property) {
         this.property = property;
     }
 

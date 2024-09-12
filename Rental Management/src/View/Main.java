@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Containers.LandlordRepository;
 import Containers.PropertyRepository;
 import Containers.TenantRepository;
+import Entity.Landlord;
 import Entity.Property;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
@@ -48,8 +49,10 @@ public class Main {
                 case 4:
                     break;
                 case 5:
+                    createProperty();
                     break;
                 case 6:
+                    propertyService.listProperty();
                     break;
                 case 7:
                     createLandlord();
@@ -125,43 +128,51 @@ public class Main {
     // CRIAR IMOVEIS
     private static void createProperty() {
         try {
-            System.out.print("\nEndereço: ");
-            String anddress = scanner.nextLine();
+            System.out.print("\nInsira o índice do Proprietario: ");
+            int idLandlord = scanner.nextInt();
+            Landlord landlord = landlordRepository.searchLandlord(idLandlord);
             scanner.nextLine();
-            System.out.print("Valor do Aluguel: ");
-            double rentalValue = scanner.nextDouble();
-            System.out.print("Tipo: \n1.Residencial | 2.Comercial |");
-            System.out.print("\nOpção: ");
-            int type = scanner.nextInt();
-            System.out.print("Ocupação: \n1.Desocupado | 2.Ocupado |");
-            System.out.print("\nOpção: ");
-            int occupation = scanner.nextInt();
+            if (landlord != null) {
+                System.out.print("\nEndereço: ");
+                String anddress = scanner.nextLine();
+                System.out.print("Valor do Aluguel: ");
+                double rentalValue = scanner.nextDouble();
+                System.out.print("Tipo: \n1.Residencial | 2.Comercial |");
+                System.out.print("\nOpção: ");
+                int type = scanner.nextInt();
+                System.out.print("Ocupação: \n1.Desocupado | 2.Ocupado |");
+                System.out.print("\nOpção: ");
+                int occupation = scanner.nextInt();
 
-            PropertyType propertyType = null;
-            switch (type) {
-                case 1:
-                    propertyType = PropertyType.RESIDENTIAL;
-                    break;
-                case 2:
-                    propertyType = PropertyType.COMMERCIAL;
-                    break;
-                default:
-                    throw new PropertyException("Type Property Invalid!");
+                PropertyType propertyType = null;
+                switch (type) {
+                    case 1:
+                        propertyType = PropertyType.RESIDENTIAL;
+                        break;
+                    case 2:
+                        propertyType = PropertyType.COMMERCIAL;
+                        break;
+                    default:
+                        throw new PropertyException("Type Property Invalid!");
+                }
+
+                PropertyOccupation propertyOccupation = null;
+                switch (occupation) {
+                    case 1:
+                        propertyOccupation = PropertyOccupation.UNOCCUPIED;
+                        break;
+                    case 2:
+                        propertyOccupation = PropertyOccupation.OCCUPIED;
+                        break;
+                    default:
+                        throw new PropertyException("Occupation Property Invalid!");
+                }
+
+                propertyService.addProperty(landlord, anddress, rentalValue, propertyType, propertyOccupation);
+            }else{
+                System.out.println("\nErro: Proprietário não foi cadastrado!");
             }
 
-            PropertyOccupation propertyOccupation = null;
-            switch (occupation) {
-                case 1:
-                    propertyOccupation = PropertyOccupation.UNOCCUPIED;
-                    break;
-                case 2:
-                    propertyOccupation = PropertyOccupation.OCCUPIED;
-                    break;
-                default:
-                    throw new PropertyException("Occupation Property Invalid!");
-            }
-
-            propertyService.addProperty(anddress, rentalValue, propertyType, propertyOccupation);
         } catch (PropertyException e) {
             System.out.println("\n" + e.getMessage());
         }
@@ -187,22 +198,6 @@ public class Main {
             System.out.print("Email: ");
             String email = scanner.nextLine();
             landlordService.addLandlord(name, cpf, telephone, email);
-
-            System.out.println("\nDeseja Criar um imovel? \n1.Sim | 2.Não |");
-            System.out.print("Opção: ");
-            int option = scanner.nextInt();
-
-            if (option == 1) {
-                createProperty();
-                System.out.print("\nAtribuir Imovel ao Proprietário");
-                System.out.print("\nInsira o índice do Proprietário: ");
-                int idLandlord = scanner.nextInt();
-                System.out.print("\nInsira o índice do Imovel: ");
-                int idProperty = scanner.nextInt();
-                Property property = propertyRepository.properties.get(idProperty);
-                landlordService.assignPropertyToLandlord(idLandlord, property);
-            }
-
         } catch (LandlordException e) {
             System.out.println("\n" + e.getMessage());
         }
@@ -216,41 +211,60 @@ public class Main {
     }
 
     /*
-    private static void assignTenantToProperty() throws PropertyException {
-        System.out.print("\nAtribuir Inquilino ao Imovel");
-        System.out.print("\nInsira o índice do inquilino: ");
-        int idTenant = scanner.nextInt();
-        System.out.print("\nInsira o índice do Imovel: ");
-        int idProperty = scanner.nextInt();
-        Tenant tenant = tenantRepository.tenants.get(idTenant);
-        propertyService.assignTenantToProperty(idProperty, tenant);
-    }
-    */
+     * System.out.println("\nDeseja Criar um imovel? \n1.Sim | 2.Não |");
+     * System.out.print("Opção: ");
+     * int option = scanner.nextInt();
+     * 
+     * if (option == 1) {
+     * createProperty();
+     * System.out.println("Atribuir Imovel ao Proprietário");
+     * System.out.print("\nInsira o índice do Proprietário: ");
+     * int idLandlord = scanner.nextInt();
+     * System.out.print("\nInsira o índice do Imovel: ");
+     * int idProperty = scanner.nextInt();
+     * Property property = propertyRepository.properties.get(idProperty);
+     * landlordService.assignPropertyToLandlord(idLandlord, property);
+     * } else if (option != 1) {
+     * System.out.println("\nImovel Não foi cadastrado!");
+     * }
+     */
 
     /*
-    // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
-    private static void createLease() {
-        System.out.print("\nInsira o índice do Inquilino: ");
-        int idTenant = scanner.nextInt();
-        System.out.print("\nInsira o índice do Imovel: ");
-        int idProperty = scanner.nextInt();
-        System.out.print("\nInforme a Data de Inicio: ");
-        String startDate = scanner.nextLine();
-        System.out.print("\nInforme a Data de Fim: ");
-        String endDate = scanner.nextLine();
-        System.out.print("\nInforme o valor: ");
-        double value = scanner.nextDouble();
-    }
+     * private static void assignTenantToProperty() throws PropertyException {
+     * System.out.print("\nAtribuir Inquilino ao Imovel");
+     * System.out.print("\nInsira o índice do inquilino: ");
+     * int idTenant = scanner.nextInt();
+     * System.out.print("\nInsira o índice do Imovel: ");
+     * int idProperty = scanner.nextInt();
+     * Tenant tenant = tenantRepository.tenants.get(idTenant);
+     * propertyService.assignTenantToProperty(idProperty, tenant);
+     * }
+     */
 
-    // LISTA CONTRATOS
-    private static void listLease() {
-    }
+    /*
+     * // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
+     * private static void createLease() {
+     * System.out.print("\nInsira o índice do Inquilino: ");
+     * int idTenant = scanner.nextInt();
+     * System.out.print("\nInsira o índice do Imovel: ");
+     * int idProperty = scanner.nextInt();
+     * System.out.print("\nInforme a Data de Inicio: ");
+     * String startDate = scanner.nextLine();
+     * System.out.print("\nInforme a Data de Fim: ");
+     * String endDate = scanner.nextLine();
+     * System.out.print("\nInforme o valor: ");
+     * double value = scanner.nextDouble();
+     * }
+     * 
+     * // LISTA CONTRATOS
+     * private static void listLease() {
+     * }
+     * 
+     * // DELETAR CONTRATOS
+     * private static void deleteLease() {
+     * }
+     */
 
-    // DELETAR CONTRATOS
-    private static void deleteLease() {
-    }
-    */
-    
     // REMOVER INQUILINOS
     private static void removeTenants() throws TenantException {
         System.out.print("\nInsira o índice do Inquilino para remover: ");

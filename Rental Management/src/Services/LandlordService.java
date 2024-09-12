@@ -127,6 +127,7 @@ public class LandlordService {
                     "\nQuais as novas informações do Proprietário deseja mudar? \n| 0.Nenhum | 1.Nome | 2.Telefone | 3.Email |");
             System.out.print("\nOpção: ");
             int option = scanner.nextInt();
+            scanner.nextLine();
             switch (option) {
                 case 1:
                     System.out.print("Novo Nome: ");
@@ -168,7 +169,7 @@ public class LandlordService {
             throw new LandlordException("Erro: O imóvel já tem um proprietário associado");
         }
 
-        landlord.setProperty(property);
+        landlord.getProperty().add(property);
         property.setLandlord(landlord);
 
         System.out.println(
