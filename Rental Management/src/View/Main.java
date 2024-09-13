@@ -7,7 +7,6 @@ import Containers.LandlordRepository;
 import Containers.PropertyRepository;
 import Containers.TenantRepository;
 import Entity.Landlord;
-import Entity.Property;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 import Exceptions.LandlordException;
@@ -134,7 +133,7 @@ public class Main {
             scanner.nextLine();
             if (landlord != null) {
                 System.out.print("\nEndereço: ");
-                String anddress = scanner.nextLine();
+                String address = scanner.nextLine();
                 System.out.print("Valor do Aluguel: ");
                 double rentalValue = scanner.nextDouble();
                 System.out.print("Tipo: \n1.Residencial | 2.Comercial |");
@@ -168,8 +167,8 @@ public class Main {
                         throw new PropertyException("Occupation Property Invalid!");
                 }
 
-                propertyService.addProperty(landlord, anddress, rentalValue, propertyType, propertyOccupation);
-            }else{
+                propertyService.addProperty(landlord, address, rentalValue, propertyType, propertyOccupation);
+            } else {
                 System.out.println("\nErro: Proprietário não foi cadastrado!");
             }
 
@@ -242,20 +241,6 @@ public class Main {
      */
 
     /*
-     * // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
-     * private static void createLease() {
-     * System.out.print("\nInsira o índice do Inquilino: ");
-     * int idTenant = scanner.nextInt();
-     * System.out.print("\nInsira o índice do Imovel: ");
-     * int idProperty = scanner.nextInt();
-     * System.out.print("\nInforme a Data de Inicio: ");
-     * String startDate = scanner.nextLine();
-     * System.out.print("\nInforme a Data de Fim: ");
-     * String endDate = scanner.nextLine();
-     * System.out.print("\nInforme o valor: ");
-     * double value = scanner.nextDouble();
-     * }
-     * 
      * // LISTA CONTRATOS
      * private static void listLease() {
      * }
@@ -264,6 +249,20 @@ public class Main {
      * private static void deleteLease() {
      * }
      */
+
+    // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
+    private static void createLease() {
+        System.out.print("\nInsira o índice do Inquilino: ");
+        int idTenant = scanner.nextInt();
+        System.out.print("\nInsira o índice do Imovel: ");
+        int idProperty = scanner.nextInt();
+        System.out.print("\nInforme a Data de Inicio: ");
+        String startDate = scanner.nextLine();
+        System.out.print("\nInforme a Data de Fim: ");
+        String endDate = scanner.nextLine();
+        System.out.print("\nInforme o valor: ");
+        double value = scanner.nextDouble();
+    }
 
     // REMOVER INQUILINOS
     private static void removeTenants() throws TenantException {

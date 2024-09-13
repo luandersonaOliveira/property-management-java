@@ -10,7 +10,7 @@ public class Property {
     // ATRIBUTOS
 
     private int id;
-    private String anddress;
+    private String address;
     private double rentalValue;
     private PropertyType type;
     private PropertyOccupation occupation;
@@ -19,8 +19,8 @@ public class Property {
 
     // CONSTRUCTOR
 
-    public Property(String anddress, double rentalValue, PropertyType type, PropertyOccupation occupation) {
-        this.anddress = anddress;
+    public Property(String address, double rentalValue, PropertyType type, PropertyOccupation occupation) {
+        this.address = address;
         this.rentalValue = rentalValue;
         this.type = type;
         this.occupation = occupation;
@@ -36,12 +36,12 @@ public class Property {
         this.id = id;
     }
 
-    public String getAnddress() {
-        return anddress;
+    public String getaddress() {
+        return address;
     }
 
-    public void setAnddress(String anddress) {
-        this.anddress = anddress;
+    public void setaddress(String address) {
+        this.address = address;
     }
 
     public double getRentalValue() {

@@ -4,14 +4,14 @@ package Entity;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 
-public class ResidentialProperty extends Property{
+public class ResidentialProperty extends Property {
 
-    public ResidentialProperty(Landlord landlord, String anddress, double rentalValue, PropertyType type,
+    public ResidentialProperty(Landlord landlord, String address, double rentalValue, PropertyType type,
             PropertyOccupation occupation) {
-        super(anddress, rentalValue, type, occupation);
-        //TODO Auto-generated constructor stub
+        super(address, rentalValue, type, occupation);
+        // TODO Auto-generated constructor stub
     }
-    
+
     // ATRIBUTOS
 
     // CONSTRUCTOR

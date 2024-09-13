@@ -6,9 +6,7 @@ import java.util.Scanner;
 
 import Containers.LandlordRepository;
 import Entity.Landlord;
-import Entity.Property;
 import Enum.EnumLandlordException;
-import Enum.EnumPropertyException;
 import Exceptions.LandlordException;
 
 public class LandlordService {
@@ -155,50 +153,10 @@ public class LandlordService {
         }
     }
 
-    // ATRIBUIR IMOVEL AO PROPRIETÁRIO
-    public void assignPropertyToLandlord(int landlordId, Property property) throws LandlordException {
-        Landlord landlord = landlordRepository.searchLandlord(landlordId);
-
-        if (landlord == null) {
-            throw new LandlordException("Erro: " + EnumLandlordException.LandlordNoRegistered);
-        } else if (property == null) {
-            throw new LandlordException("Erro: " + EnumPropertyException.PropertyNoRegistered);
-        }
-
-        if (property.getLandlord() != null) {
-            throw new LandlordException("Erro: O imóvel já tem um proprietário associado");
-        }
-
-        landlord.getProperty().add(property);
-        property.setLandlord(landlord);
-
-        System.out.println(
-                "Imóvel: " + property.getId() + " adicionado ao proprietário: " + landlord.getName() + " com sucesso!");
-    }
-
+    // BUSCA
     public void searchLandlord(int id) {
         Landlord landlord = landlordRepository.searchLandlord(id);
         System.out.println(landlord.getName());
         System.out.println(landlord.getId());
     }
-
-    /*
-     * public void listProperties() {
-     * Property property01 =
-     * createProperty("Rua Gonçalo de Carvalho – Porto Alegre (RS)", 500,
-     * PropertyType.RESIDENTIAL, PropertyOccupation.UNOCCUPIED);
-     * Property property02 = createProperty("Rua do Mucugê – Arraial d’Ajuda (BA)",
-     * 800, PropertyType.COMMERCIAL,
-     * PropertyOccupation.UNOCCUPIED);
-     * Property property03 = createProperty("Rua das Pedras – Búzios (RJ)", 480,
-     * PropertyType.RESIDENTIAL,
-     * PropertyOccupation.UNOCCUPIED);
-     * Property property04 = createProperty("Rua da Aurora – Recife (PE)", 780,
-     * PropertyType.COMMERCIAL,
-     * PropertyOccupation.UNOCCUPIED);
-     * Property property05 = createProperty("Rua Bento Gonçalves – Erechim (RS)",
-     * 550, PropertyType.RESIDENTIAL,
-     * PropertyOccupation.UNOCCUPIED);
-     * }
-     */
 }

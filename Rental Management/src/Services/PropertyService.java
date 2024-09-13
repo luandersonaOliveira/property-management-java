@@ -31,7 +31,7 @@ public class PropertyService {
     // METODOS PERSONALIZADOS
 
     // CREATE
-    public void addProperty(Landlord landlord, String anddress, double rentalValue, PropertyType type,
+    public void addProperty(Landlord landlord, String address, double rentalValue, PropertyType type,
             PropertyOccupation occupation)
             throws PropertyException {
         if (landlord == null) {
@@ -42,31 +42,31 @@ public class PropertyService {
             throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidRentalValue);
         }
 
-        Property property = createProperty(landlord, anddress, rentalValue, type, occupation);
-        property.setLandlord(landlord);
+        Property property = createProperty(landlord, address, rentalValue, type, occupation);
         if (property != null) {
             propertyRepository.addProperty(property);
+            property.setLandlord(landlord);
             System.out.println("\nImovel adicionado com sucesso! ID: " + property.getId());
         } else {
             throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalid);
         }
     }
 
-    private Property createProperty(Landlord landlord, String anddress, double rentalValue, PropertyType type,
+    private Property createProperty(Landlord landlord, String address, double rentalValue, PropertyType type,
             PropertyOccupation occupation) {
         switch (type) {
             case RESIDENTIAL:
-                return new ResidentialProperty(landlord, anddressFormart(anddress), rentalValue, type, occupation);
+                return new ResidentialProperty(landlord, addressFormat(address), rentalValue, type, occupation);
             case COMMERCIAL:
-                return new CommercialProperty(landlord, anddressFormart(anddress), rentalValue, type, occupation);
+                return new CommercialProperty(landlord, addressFormat(address), rentalValue, type, occupation);
             default:
                 return null;
         }
     }
 
-    private String anddressFormart(String anddress) {
-        String anddressFormart = anddress.toUpperCase();
-        return anddressFormart;
+    private String addressFormat(String address) {
+        String addressFormat = address.toUpperCase();
+        return addressFormat;
     }
 
     // REMOVE
@@ -92,7 +92,7 @@ public class PropertyService {
                 Property p = properties.get(i);
                 System.out.println("\n-------------------------------------------------------------------------------");
                 System.out.print("Imovel: " + p.getId() + " | Proprietário: " + p.getLandlord().getId() + "\n");
-                System.out.print(" | Endereço: " + p.getAnddress());
+                System.out.print(" | Endereço: " + p.getaddress());
                 System.out.print(" | Valor do Aluguel: " + p.getRentalValue() + " |");
                 System.out.print("\n | Tipo: " + p.getType());
                 System.out.print(" | Ocupação: " + p.getOccupation() + " |");
@@ -119,8 +119,8 @@ public class PropertyService {
             switch (option) {
                 case 1:
                     System.out.print("Novo Endereço: ");
-                    String newAnddress = scanner.nextLine();
-                    property.setAnddress(anddressFormart(newAnddress));
+                    String newaddress = scanner.nextLine();
+                    property.setaddress(addressFormat(newaddress));
                     System.out.println("\nImovel atualizado com sucesso!");
                     break;
                 case 2:
