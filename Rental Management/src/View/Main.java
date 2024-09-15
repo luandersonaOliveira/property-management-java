@@ -1,18 +1,24 @@
 package View;
 // MAIN
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 import Containers.LandlordRepository;
+import Containers.LeaseRepository;
 import Containers.PropertyRepository;
 import Containers.TenantRepository;
 import Entity.Landlord;
+import Entity.Property;
+import Entity.Tenant;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 import Exceptions.LandlordException;
+import Exceptions.LeaseException;
 import Exceptions.PropertyException;
 import Exceptions.TenantException;
 import Services.LandlordService;
+import Services.LeaseService;
 import Services.PropertyService;
 import Services.TenantService;
 
@@ -21,14 +27,16 @@ public class Main {
     private static PropertyRepository propertyRepository = new PropertyRepository();
     private static TenantRepository tenantRepository = new TenantRepository();
     private static LandlordRepository landlordRepository = new LandlordRepository();
+    private static LeaseRepository leaseRepository = new LeaseRepository();
     private static PropertyService propertyService = new PropertyService(propertyRepository);
     private static TenantService tenantService = new TenantService(tenantRepository);
     private static LandlordService landlordService = new LandlordService(landlordRepository);
+    private static LeaseService leaseService = new LeaseService(leaseRepository);
 
     // CONTAINERS
 
     public static void main(String[] args)
-            throws TenantException, PropertyException, LandlordException {
+            throws TenantException, PropertyException, LandlordException, LeaseException, ParseException {
         // OPÇÕES DO MENU
         boolean sair = false;
         do {
@@ -63,6 +71,7 @@ public class Main {
                     changeLandlord();
                     break;
                 case 10:
+                    createLease();
                     break;
                 case 11:
                     break;
@@ -251,7 +260,7 @@ public class Main {
      */
 
     // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
-    private static void createLease() {
+    private static void createLease() throws LeaseException, ParseException, PropertyException, LandlordException {
         System.out.print("\nInsira o índice do Inquilino: ");
         int idTenant = scanner.nextInt();
         System.out.print("\nInsira o índice do Imovel: ");
@@ -262,6 +271,14 @@ public class Main {
         String endDate = scanner.nextLine();
         System.out.print("\nInforme o valor: ");
         double value = scanner.nextDouble();
+
+        Tenant tenant = tenantRepository.searchTenant(idTenant);
+        Property property = propertyRepository.searchProperty(idProperty);
+        if (tenant != null && property != null) {
+            leaseService.addLease(startDate, endDate, value, property.getLandlord(), property, tenant);
+            leaseService.assignTenantToProperty(idProperty, tenant);
+            leaseService.assignPropertyToLandlord(property.getLandlord().getId(), property);
+        }
     }
 
     // REMOVER INQUILINOS
