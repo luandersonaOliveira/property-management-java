@@ -7,7 +7,7 @@ import Entity.Payment;
 import Interface.IPaymentRepository;
 
 public class PaymentRepository implements IPaymentRepository {
-    public ArrayList<Payment> payments = new ArrayList<>(); 
+    public ArrayList<Payment> payments = new ArrayList<>();
 
     @Override
     public void addPayment(Payment payment) {

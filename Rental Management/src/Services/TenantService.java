@@ -38,7 +38,7 @@ public class TenantService {
         Tenant tenant = createTenant(name, cpf, telephone, email, balance);
         if (tenant != null) {
             tenantRepository.addTenant(tenant);
-            System.out.println("\nInquilino adicionado com sucesso!");
+            System.out.println("\nInquilino adicionado com sucesso! ID: " + tenant.getId());
         } else {
             throw new TenantException("Erro: " + EnumTenantException.TenantInvalid);
         }
@@ -120,7 +120,6 @@ public class TenantService {
         } else {
             for (int i = 0; i < tenants.size(); i++) {
                 Tenant t = tenants.get(i);
-                t.setId(i);
                 System.out.println("\n-------------------------------------------------------------------------------");
                 System.out.print("Inquilino " + t.getId() + "\n");
                 System.out.print(" | Nome: " + t.getName());

@@ -2,6 +2,7 @@ package Services;
 // Sreviço Contrato
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Containers.LandlordRepository;
@@ -17,9 +18,7 @@ import Enum.EnumLeaseException;
 import Enum.EnumPropertyException;
 import Enum.EnumTenantException;
 import Enum.PropertyOccupation;
-import Exceptions.LandlordException;
 import Exceptions.LeaseException;
-import Exceptions.PropertyException;
 import Utils.DatetimeExtensions;
 
 public class LeaseService {
@@ -57,7 +56,7 @@ public class LeaseService {
         Lease lease = createLease(startDate, endDate, value, landlord, property, tenant);
         if (lease != null) {
             leaseRepository.addLease(lease);
-            System.out.println("\nContrato adicionado com sucesso!");
+            System.out.println("\nContrato adicionado com sucesso! ID: " + lease.getId());
         } else {
             throw new LeaseException("Erro: " + EnumLeaseException.LeaseInvalid);
         }
@@ -71,8 +70,6 @@ public class LeaseService {
             throw new LeaseException("Erro: " + EnumTenantException.TenantInvalidBalance);
         } else if (property.getOccupation() == PropertyOccupation.OCCUPIED) {
             throw new LeaseException("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
-        } else if (!toCheckId()) {
-            throw new LeaseException("Erro: " + EnumLeaseException.LeaseNoRegistered);
         }
         return new Lease(dateTimeExtensions(startDate), dateTimeExtensions(endDate), value, landlord, property, tenant);
     }
@@ -140,7 +137,24 @@ public class LeaseService {
     // REOMVE
 
     // LIST
-
+    public void listLease() {
+        ArrayList<Lease> leases = leaseRepository.listLease();
+        if (leases.isEmpty()) {
+            System.out.println(("Erro: " + EnumPropertyException.PropertyNoRegistered));
+        } else {
+            for (int i = 0; i < leases.size(); i++) {
+                Lease l = leases.get(i);
+                System.out.println("\n-------------------------------------------------------------------------------");
+                System.out
+                        .print("Contrato: " + l.getId() + " | Imovel: " + l.getProperty().getId() + " | Proprietário: "
+                                + l.getLandlord().getId() + "\n");
+                System.out.print(" | Data de Inicio: " + l.getstartDate());
+                System.out.print(" | Data de Fim: " + l.getEndDate() + " |");
+                System.out.print("\n | Valor: " + l.getValue() + " |");
+                System.out.println("\n-------------------------------------------------------------------------------");
+            }
+        }
+    }
     // CHANGE
 
     /*

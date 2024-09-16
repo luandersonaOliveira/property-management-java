@@ -76,8 +76,10 @@ public class Main {
                     changeProperty();
                     break;
                 case 10:
+                    createLease();
                     break;
                 case 11:
+                    leaseService.listLease();
                     break;
                 case 12:
                     removeSomething();
@@ -101,11 +103,11 @@ public class Main {
         System.out.print("\n| 4. Para Cadastrar Proprietários |");
         System.out.print(" 5. Para Checar Proprietários |");
         System.out.println(" 6. Para Editar Proprietários |");
-        System.out.print("\n| 7. Para Cadastrar Imoveis |");
+        System.out.print("\n| 7. Para Cadastrar Imoveis aos Proprietários |");
         System.out.print(" 8. Para Checar Imoveis |");
         System.out.println(" 9. Para Editar Imoveis |");
-        System.out.print("\n| 10. |");
-        System.out.print(" 11. |");
+        System.out.print("\n| 10. Para Criar Contratos |");
+        System.out.print(" 11. Para Checar Contratos |");
         System.out.print(" 12. Para Remover Algo |");
         System.out.print("\n--------------------------------");
         System.out.print("\n| 0. Para Sair do Menu.");
@@ -270,9 +272,11 @@ public class Main {
         int idTenant = scanner.nextInt();
         System.out.print("\nInsira o índice do Imovel: ");
         int idProperty = scanner.nextInt();
-        System.out.print("\nInforme a Data de Inicio: ");
+        scanner.nextLine();
+
+        System.out.print("\nData de Inicio: ");
         String startDate = scanner.nextLine();
-        System.out.print("\nInforme a Data de Fim: ");
+        System.out.print("\nData de Fim: ");
         String endDate = scanner.nextLine();
         System.out.print("\nInforme o valor: ");
         double value = scanner.nextDouble();

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import Entity.Lease;
 import Interface.ILeaseRepository;
 
-public class LeaseRepository implements ILeaseRepository{
+public class LeaseRepository implements ILeaseRepository {
     public ArrayList<Lease> leases = new ArrayList<>();
     private static int nextLeaseId = 0;
 
@@ -38,7 +38,7 @@ public class LeaseRepository implements ILeaseRepository{
 
     @Override
     public Lease searchLease(int id) {
-        if(id >= 0 && id < leases.size()){
+        if (id >= 0 && id < leases.size()) {
             return leases.get(id);
         }
         return null;
