@@ -8,16 +8,10 @@ import Interface.ILandlordRepository;
 
 public class LandlordRepository implements ILandlordRepository {
     public ArrayList<Landlord> landlords = new ArrayList<>();
-    private static int nextLandlordId = 0;
-
-    public int getNextLandlordId() {
-        return nextLandlordId++;
-    }
 
     @Override
     public void addLandlord(Landlord landlord) {
         landlords.add(landlord);
-        landlord.setId(getNextLandlordId());
     }
 
     @Override
@@ -38,7 +32,7 @@ public class LandlordRepository implements ILandlordRepository {
 
     @Override
     public Landlord searchLandlord(int id) {
-        if(id >= 0 && id < landlords.size()){
+        if (id >= 0 && id < landlords.size()) {
             return landlords.get(id);
         }
         return null;

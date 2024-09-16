@@ -38,7 +38,7 @@ public class TenantService {
         Tenant tenant = createTenant(name, cpf, telephone, email, balance);
         if (tenant != null) {
             tenantRepository.addTenant(tenant);
-            System.out.println("\nInquilino adicionado com sucesso! ID: " + tenant.getId());
+            System.out.println("\nInquilino adicionado com sucesso!");
         } else {
             throw new TenantException("Erro: " + EnumTenantException.TenantInvalid);
         }
@@ -103,26 +103,24 @@ public class TenantService {
     }
 
     // REMOVE
-    public void removeTenant(int id) throws TenantException {
+    public void removeTenant(int id) {
         if (tenantRepository.tenants.isEmpty()) {
-            throw new TenantException("Erro: " + EnumTenantException.TenantNoRegistered);
+            System.out.println(("Erro: " + EnumTenantException.TenantNoRegistered));
         } else {
             tenantRepository.tenants.remove(id);
-            Tenant removed = new Tenant(null, null, null, null, 0);
-            removed.setId(id);
-            tenantRepository.addTenant(removed);
             System.out.println("\nInquilino: " + id + ". Removido com sucesso!");
         }
     }
 
     // LIST
-    public void listTenant() throws TenantException {
+    public void listTenant() {
         ArrayList<Tenant> tenants = tenantRepository.listTenant();
         if (tenants.isEmpty()) {
-            throw new TenantException("Erro: " + EnumTenantException.TenantNoRegistered);
+            System.out.println(("Erro: " + EnumTenantException.TenantNoRegistered));
         } else {
             for (int i = 0; i < tenants.size(); i++) {
                 Tenant t = tenants.get(i);
+                t.setId(i);
                 System.out.println("\n-------------------------------------------------------------------------------");
                 System.out.print("Inquilino " + t.getId() + "\n");
                 System.out.print(" | Nome: " + t.getName());
@@ -138,10 +136,10 @@ public class TenantService {
     // CHANGE
     public void changeTenant(int id) throws TenantException {
         if (tenantRepository.tenants.isEmpty()) {
-            throw new TenantException("Erro: " + EnumTenantException.TenantNoRegistered);
+            System.out.println(("Erro: " + EnumTenantException.TenantNoRegistered));
         } else {
             if (id < 0 || id >= tenantRepository.tenants.size()) {
-                throw new TenantException("Erro: " + EnumTenantException.TenantInvalidIndex);
+                System.out.println(("Erro: " + EnumTenantException.TenantInvalidIndex));
             }
 
             Tenant tenant = tenantRepository.tenants.get(id);

@@ -97,17 +97,17 @@ public class LeaseService {
     }
 
     // ATRIBUIR INQUILINO AO IMOVEL
-    public void assignTenantToProperty(int propertyId, Tenant tenant) throws PropertyException {
+    public void assignTenantToProperty(int propertyId, Tenant tenant) {
         Property property = propertyRepository.searchProperty(propertyId);
 
         if (property == null) {
-            throw new PropertyException("Erro: " + EnumPropertyException.PropertyNoRegistered);
+            System.out.println(("Erro: " + EnumPropertyException.PropertyNoRegistered));
         } else if (tenant == null) {
-            throw new PropertyException("Erro: " + EnumTenantException.TenantNoRegistered);
+            System.out.println(("Erro: " + EnumTenantException.TenantNoRegistered));
         }
 
         if (property.getTenant() != null) {
-            throw new PropertyException("Erro: O imóvel já tem um inquilino associado");
+            System.out.println(("Erro: O imóvel já tem um inquilino associado"));
         }
 
         property.getTenant().add(tenant);
@@ -118,16 +118,16 @@ public class LeaseService {
     }
 
     // ATRIBUIR IMOVEL AO PROPRIETÁRIO
-    public void assignPropertyToLandlord(int landlordId, Property property) throws LandlordException {
+    public void assignPropertyToLandlord(int landlordId, Property property) {
         Landlord landlord = landlordRepository.searchLandlord(landlordId);
         if (landlord == null) {
-            throw new LandlordException("Erro: " + EnumLandlordException.LandlordNoRegistered);
+            System.out.println(("Erro: " + EnumLandlordException.LandlordNoRegistered));
         } else if (property == null) {
-            throw new LandlordException("Erro: " + EnumPropertyException.PropertyNoRegistered);
+            System.out.println(("Erro: " + EnumPropertyException.PropertyNoRegistered));
         }
 
         if (property.getLandlord() != null) {
-            throw new LandlordException("Erro: O imóvel já tem um proprietário associado!");
+            System.out.println(("Erro: O imóvel já tem um proprietário associado!"));
         }
 
         landlord.getProperty().add(property);

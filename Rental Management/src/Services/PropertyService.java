@@ -48,7 +48,7 @@ public class PropertyService {
             property.setLandlord(landlord);
             System.out.println("\nImovel adicionado com sucesso! ID: " + property.getId());
         } else {
-            throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalid);
+            System.out.println(("Erro: " + EnumPropertyException.PropertyInvalid));
         }
     }
 
@@ -70,23 +70,20 @@ public class PropertyService {
     }
 
     // REMOVE
-    public void removeProperty(int id) throws PropertyException {
+    public void removeProperty(int id) {
         if (propertyRepository.properties.isEmpty()) {
-            throw new PropertyException("Erro: " + EnumPropertyException.PropertyNoRegistered);
+            System.out.println(("Erro: " + EnumPropertyException.PropertyNoRegistered));
         } else {
             propertyRepository.properties.remove(id);
-            Property removed = new Property(null, 0, null, null);
-            removed.setId(id);
-            propertyRepository.addProperty(removed);
             System.out.println("\nImovel: " + id + ". Removido com sucesso!");
         }
     }
 
     // LIST
-    public void listProperty() throws PropertyException {
+    public void listProperty() {
         ArrayList<Property> properties = propertyRepository.listProperty();
         if (properties.isEmpty()) {
-            throw new PropertyException("Erro: " + EnumPropertyException.PropertyNoRegistered);
+            System.out.println(("Erro: " + EnumPropertyException.PropertyNoRegistered));
         } else {
             for (int i = 0; i < properties.size(); i++) {
                 Property p = properties.get(i);
@@ -104,10 +101,10 @@ public class PropertyService {
     // CHANGE
     public void changeProperty(int id) throws PropertyException {
         if (propertyRepository.properties.isEmpty()) {
-            throw new PropertyException("Erro: " + EnumPropertyException.PropertyNoRegistered);
+            System.out.println(("Erro: " + EnumPropertyException.PropertyNoRegistered));
         } else {
             if (id < 0 || id >= propertyRepository.properties.size()) {
-                throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidIndex);
+                System.out.println(("Erro: " + EnumPropertyException.PropertyInvalidIndex));
             }
 
             Property property = propertyRepository.properties.get(id);

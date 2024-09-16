@@ -35,7 +35,7 @@ public class LandlordService {
         Landlord landlord = createLandlord(name, cpf, telephone, email);
         if (landlord != null) {
             landlordRepository.addLandlord(landlord);
-            System.out.println("\nProprietário adicionado com sucesso! ID: " + landlord.getId());
+            System.out.println("\nProprietário adicionado com sucesso!");
         } else {
             throw new LandlordException("Erro: " + EnumLandlordException.LandlordInvalid);
         }
@@ -80,26 +80,24 @@ public class LandlordService {
     }
 
     // REMOVE
-    public void removeLandlord(int id) throws LandlordException {
+    public void removeLandlord(int id) {
         if (landlordRepository.landlords.isEmpty()) {
-            throw new LandlordException("Erro: " + EnumLandlordException.LandlordNoRegistered);
+            System.out.println(("Erro: " + EnumLandlordException.LandlordNoRegistered));
         } else {
             landlordRepository.landlords.remove(id);
-            Landlord removed = new Landlord(null, null, null, null);
-            removed.setId(id);
-            landlordRepository.addLandlord(removed);
             System.out.println("\nProprietário: " + id + ". Removido com sucesso!");
         }
     }
 
     // LIST
-    public void listLandlord() throws LandlordException {
+    public void listLandlord() {
         ArrayList<Landlord> landlords = landlordRepository.listLandlord();
         if (landlords.isEmpty()) {
-            throw new LandlordException("Erro: " + EnumLandlordException.LandlordNoRegistered);
+            System.out.println(("Erro: " + EnumLandlordException.LandlordNoRegistered));
         } else {
             for (int i = 0; i < landlords.size(); i++) {
                 Landlord l = landlords.get(i);
+                l.setId(i);
                 System.out.println("\n-------------------------------------------------------------------------------");
                 System.out.print("Proprietário " + l.getId() + "\n");
                 System.out.print(" | Nome: " + l.getName());
@@ -114,10 +112,10 @@ public class LandlordService {
     // CHANGE
     public void changeLandlord(int id) throws LandlordException {
         if (landlordRepository.landlords.isEmpty()) {
-            throw new LandlordException("Erro: " + EnumLandlordException.LandlordNoRegistered);
+            System.out.println(("Erro: " + EnumLandlordException.LandlordNoRegistered));
         } else {
             if (id < 0 || id >= landlordRepository.landlords.size()) {
-                throw new LandlordException("Erro: " + EnumLandlordException.LandlordInvalidIndex);
+                System.out.println(("Erro: " + EnumLandlordException.LandlordInvalidIndex));
             }
 
             Landlord landlord = landlordRepository.landlords.get(id);
@@ -127,7 +125,7 @@ public class LandlordService {
             int option = scanner.nextInt();
             scanner.nextLine();
             switch (option) {
-                case 1:
+                case 1: 
                     System.out.print("Novo Nome: ");
                     String newName = scanner.nextLine();
                     landlord.setName(nameFormart(newName));

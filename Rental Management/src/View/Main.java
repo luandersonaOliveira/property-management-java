@@ -24,10 +24,14 @@ import Services.TenantService;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
+
+    // News Repositorys
     private static PropertyRepository propertyRepository = new PropertyRepository();
     private static TenantRepository tenantRepository = new TenantRepository();
     private static LandlordRepository landlordRepository = new LandlordRepository();
     private static LeaseRepository leaseRepository = new LeaseRepository();
+
+    // News Service
     private static PropertyService propertyService = new PropertyService(propertyRepository);
     private static TenantService tenantService = new TenantService(tenantRepository);
     private static LandlordService landlordService = new LandlordService(landlordRepository);
@@ -36,7 +40,7 @@ public class Main {
     // CONTAINERS
 
     public static void main(String[] args)
-            throws TenantException, PropertyException, LandlordException, LeaseException, ParseException {
+            throws LandlordException, PropertyException, TenantException, LeaseException, ParseException {
         // OPÇÕES DO MENU
         boolean sair = false;
         do {
@@ -54,31 +58,33 @@ public class Main {
                     changeTenants();
                     break;
                 case 4:
-                    break;
-                case 5:
-                    createProperty();
-                    break;
-                case 6:
-                    propertyService.listProperty();
-                    break;
-                case 7:
                     createLandlord();
                     break;
-                case 8:
+                case 5:
                     landlordService.listLandlord();
                     break;
-                case 9:
+                case 6:
                     changeLandlord();
                     break;
+                case 7:
+                    createProperty();
+                    break;
+                case 8:
+                    propertyService.listProperty();
+                    break;
+                case 9:
+                    changeProperty();
+                    break;
                 case 10:
-                    createLease();
                     break;
                 case 11:
                     break;
                 case 12:
+                    removeSomething();
                     break;
                 case 0:
                     sair = true;
+                    break;
             }
         } while (!sair);
     }
@@ -92,12 +98,12 @@ public class Main {
         System.out.print("| 1. Para Cadastrar Inquilinos |");
         System.out.print(" 2. Para Checar Inquilinos |");
         System.out.println(" 3. Para Editar Inquilinos |");
-        System.out.print("\n| 4. Para Cadastrar Imoveis |");
-        System.out.print(" 5. Para Checar Imoveis |");
-        System.out.println(" 6. Para Editar Imoveis |");
-        System.out.print("\n| 7. Para Cadastrar Proprietários |");
-        System.out.print(" 8. Para Checar Proprietários |");
-        System.out.println(" 9. Para Editar Proprietários |");
+        System.out.print("\n| 4. Para Cadastrar Proprietários |");
+        System.out.print(" 5. Para Checar Proprietários |");
+        System.out.println(" 6. Para Editar Proprietários |");
+        System.out.print("\n| 7. Para Cadastrar Imoveis |");
+        System.out.print(" 8. Para Checar Imoveis |");
+        System.out.println(" 9. Para Editar Imoveis |");
         System.out.print("\n| 10. |");
         System.out.print(" 11. |");
         System.out.print(" 12. Para Remover Algo |");
@@ -184,7 +190,6 @@ public class Main {
         } catch (PropertyException e) {
             System.out.println("\n" + e.getMessage());
         }
-
     }
 
     // EDITAR IMOVEIS
@@ -195,7 +200,7 @@ public class Main {
     }
 
     // CRIAR PROPRIETARIO
-    private static void createLandlord() throws LandlordException {
+    private static void createLandlord() {
         try {
             System.out.print("\nNome: ");
             String name = scanner.nextLine();
@@ -260,7 +265,7 @@ public class Main {
      */
 
     // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
-    private static void createLease() throws LeaseException, ParseException, PropertyException, LandlordException {
+    private static void createLease() throws LeaseException, ParseException {
         System.out.print("\nInsira o índice do Inquilino: ");
         int idTenant = scanner.nextInt();
         System.out.print("\nInsira o índice do Imovel: ");
@@ -281,22 +286,50 @@ public class Main {
         }
     }
 
+    public static void removeSomething() {
+        boolean sair = false;
+        do {
+            System.out.println("\nDeseja remover qual opção: ");
+            System.out.print("| 0.Nenhum |");
+            System.out.print(" 1.Inquilinos |");
+            System.out.print(" 2.Proprietários |");
+            System.out.print(" 3.Imovel do Proprietário |");
+            System.out.print("\nOpção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+            switch (opcao) {
+                case 1:
+                    removeTenants();
+                    break;
+                case 2:
+                    removeLandlord();
+                    break;
+                case 3:
+                    removePropertyLandlord();
+                    break;
+                case 0:
+                    sair = true;
+                    break;
+            }
+        } while (!sair);
+    }
+
     // REMOVER INQUILINOS
-    private static void removeTenants() throws TenantException {
+    private static void removeTenants() {
         System.out.print("\nInsira o índice do Inquilino para remover: ");
         int id = scanner.nextInt();
         tenantService.removeTenant(id);
     }
 
-    // REMOVE IMOVEIS
-    private static void removeProperty() throws PropertyException {
+    // REMOVE IMOVEL DO PROPRIETARIO
+    private static void removePropertyLandlord() {
         System.out.print("\nInsira o índice do Imovel para remover: ");
         int id = scanner.nextInt();
         propertyService.removeProperty(id);
     }
 
-    // REMOVE INQUILINO DO IMOVEL
-    private static void removeTenantsProperty() throws LandlordException {
+    // REMOVE PROPRIETARIO
+    private static void removeLandlord() {
         System.out.print("\nInsira o índice do Proprietário à editar: ");
         int id = scanner.nextInt();
         landlordService.removeLandlord(id);

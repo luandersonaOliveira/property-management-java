@@ -8,16 +8,10 @@ import Interface.ITenantRepository;
 
 public class TenantRepository implements ITenantRepository {
     public ArrayList<Tenant> tenants = new ArrayList<>();
-    private static int nextTenantId = 0;
-
-    private int getNextTenantId() {
-        return nextTenantId++;
-    }
 
     @Override
     public void addTenant(Tenant tenant) {
         tenants.add(tenant);
-        tenant.setId(getNextTenantId());
     }
 
     @Override
