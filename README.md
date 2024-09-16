@@ -13,7 +13,7 @@ Site Imobiliário Integrado (Implementar, se possivel no proximo semestre)
     Muitos sistemas oferecem a possibilidade de criar um site para divulgar os imóveis disponíveis para aluguel. Isso facilita a exposição das propriedades e a comunicação com potenciais inquilinos.
 
 
-### Classes Principais:
+## Classes Principais:
 
 Proprietário
 - Atributos: id, nome, cpf, telefone, email, Imóvel
@@ -35,7 +35,7 @@ Pagamento
 - Atributos: id, dataPagamento, valor, Contrato
 - Métodos: registrarPagamento(), verificarAtraso()
 
-#### Relacionamentos:
+## Relacionamentos:
 
 - Proprietário pode ter nenhum ou vários Imóveis.
   - Proprietário NÃO depende de imóvel.
@@ -46,41 +46,8 @@ Pagamento
   - Contrato pode remover Inquilino do Imóvel (gerando o fim do contrato).
 - Pagamento está relacionado a um Contrato.
 
-##### Explicação: 
+## Explicação:
 
     Commercial e Residencial herdam de Imovel.
     Pagamento vai estar relacionado com Contrato.
     Contrato recebe as informações de Imovel, Inquilino e Proprietário.
-
-+-----------------------------------+
-|            Sistema de             |
-|     Gerenciamento de Aluguéis     |
-+-----------------------------------+
-| Entidades:                        |
-| - Contrato                        |
-| - Inquilino                       |
-| - Imóvel                          |
-| - Proprietário                    |
-| - Pagamento                       |
-| Interfaces:                       |
-| - Repositórios (Todas as Entidades)|
-| - Serviço de Cobrança (Pagamentos)|
-+-----------------------------------+
-| Herança:                          |
-| - Aluguel Residencial (Imóvel)    |
-| - Aluguel Comercial (Imóvel)      |
-+-----------------------------------+
-| Enums:                            |
-| - Ocupação                        |
-| - Tipo                            |
-| - EnumsExceptions (Todas as Entidades)|
-+-----------------------------------+
-| Repositórios:                     |
-| - (Todas as Entidades)            |
-+-----------------------------------+
-| Exceptions:                       |
-| - (Todas as Entidades)            |
-+-----------------------------------+
-| Service:                          |
-| - (Todas as Entidades)            |
-+-----------------------------------+
