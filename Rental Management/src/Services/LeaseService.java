@@ -16,7 +16,6 @@ import Entity.Tenant;
 import Enum.EnumLandlordException;
 import Enum.EnumLeaseException;
 import Enum.EnumPropertyException;
-import Enum.EnumTenantException;
 import Enum.PropertyOccupation;
 import Exceptions.LeaseException;
 import Utils.DatetimeExtensions;
@@ -41,34 +40,33 @@ public class LeaseService {
 
     // CREATE
     public void addLease(String startDate, String endDate, Landlord landlord, Property property,
-            Tenant tenant)
-            throws LeaseException, ParseException {
+            Tenant tenant) throws LeaseException, ParseException {
         if (landlord == null || property == null || tenant == null) {
             throw new LeaseException("Erro: " + EnumLeaseException.LeaseInvalidRegistered);
-        } else if (property.getLandlord() == null) {
+        } else if (property.getLandlord().equals(null)) {
             throw new LeaseException("Erro: O imóvel está sem proprietário associado!");
-        } else if (startDate == null || endDate == null) {
+        } else if (startDate.equals(null) || endDate.equals(null)) {
             throw new LeaseException("Erro: " + EnumLeaseException.LeaseInvalidStartOrEndDate);
         }
 
         Lease lease = createLease(startDate, endDate, landlord, property, tenant);
         if (lease != null) {
             leaseRepository.addLease(lease);
-            System.out.println("\nContrato adicionado com sucesso! ID: " + lease.getId());
+            System.out.println("\nContrato adicionado com sucesso!");
         } else {
-            throw new LeaseException("Erro: " + EnumLeaseException.LeaseInvalid);
+            System.out.println("Erro: " + EnumLeaseException.LeaseInvalid);
         }
     }
 
     public Lease createLease(String startDate, String endDate, Landlord landlord, Property property,
-            Tenant tenant) throws ParseException, LeaseException {
-        if (landlord.getCpf() == tenant.getCpf()) {
-            throw new LeaseException("Erro: " + EnumLeaseException.LeaseInvalidCpfEqual);
-        } else if (property.getOccupation() == PropertyOccupation.OCCUPIED) {
-            throw new LeaseException("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
-        } else if(toCheckId(tenant.getId(), property.getId())){
-
+            Tenant tenant) throws ParseException {
+        if (landlord.getCpf().equals(tenant.getCpf())) {
+            System.out.println("Erro: " + EnumLeaseException.LeaseInvalidCpfEqual);
+        } else if (property.getOccupation().equals(PropertyOccupation.OCCUPIED)) {
+            System.out.println("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
         }
+        assignTenantToProperty(property, tenant);
+        //assignPropertyToLandlord(landlord, property);
         return new Lease(dateTimeExtensions(startDate), dateTimeExtensions(endDate), landlord, property, tenant);
     }
 
@@ -77,54 +75,39 @@ public class LeaseService {
         return date;
     }
 
-    public boolean toCheckId(int tenantId, int propertyId) {
-        Property properties = propertyRepository.searchProperty(propertyId);
-        Tenant tenants = tenantRepository.searchTenant(tenantId);
-        if (properties.getId() != propertyId || tenants.getId() != tenantId) {
-            return false;
-        }
-        return true;
-    }
-
     // ATRIBUIR INQUILINO AO IMOVEL
-    public void assignTenantToProperty(int propertyId, Tenant tenant) {
-        Property property = propertyRepository.searchProperty(propertyId);
-
-        if (property == null) {
-            System.out.println(("Erro: " + EnumPropertyException.PropertyNoRegistered));
-        } else if (tenant == null) {
-            System.out.println(("Erro: " + EnumTenantException.TenantNoRegistered));
-        }
+    public void assignTenantToProperty(Property property, Tenant tenant) {
+        propertyRepository.searchProperty(property.getId());
+        tenantRepository.searchTenant(tenant.getId());
+        ArrayList<Tenant> tenants = new ArrayList<>();
 
         if (property.getTenant() != null) {
             System.out.println(("Erro: O imóvel já tem um inquilino associado"));
         }
 
-        property.getTenant().add(tenant);
+        tenants.add(tenant);
+        property.setTenant(tenants);
         tenant.setProperty(property);
 
         System.out.println(
-                "Inquilino: " + tenant.getName() + " adicionado ao Imovel: " + property.getId() + " com sucesso!");
+                "Inquilino: " + tenant.getName() + " - cadastrado ao Imovel: " + property.getId());
     }
 
     // ATRIBUIR IMOVEL AO PROPRIETÁRIO
-    public void assignPropertyToLandlord(int landlordId, Property property) {
-        Landlord landlord = landlordRepository.searchLandlord(landlordId);
-        if (landlord == null) {
-            System.out.println(("Erro: " + EnumLandlordException.LandlordNoRegistered));
-        } else if (property == null) {
-            System.out.println(("Erro: " + EnumPropertyException.PropertyNoRegistered));
-        }
+    public void assignPropertyToLandlord(Landlord landlord, Property property) {
+        landlordRepository.searchLandlord(landlord.getId());
+        propertyRepository.searchProperty(property.getId());
+        ArrayList<Property> properties = new ArrayList<>();
 
         if (property.getLandlord() != null) {
             System.out.println(("Erro: O imóvel já tem um proprietário associado!"));
         }
 
-        landlord.getProperty().add(property);
+        properties.add(property);
+        landlord.setProperty(properties);
         property.setLandlord(landlord);
 
-        System.out.println(
-                "Imóvel: " + property.getId() + " adicionado ao proprietário: " + landlord.getName() + " com sucesso!");
+        System.out.println("\nImóvel: " + property.getId() + " - cadastrado ao proprietário: " + landlord.getName());
     }
 
     // REOMVE
@@ -137,11 +120,11 @@ public class LeaseService {
         } else {
             for (int i = 0; i < leases.size(); i++) {
                 Lease l = leases.get(i);
+                l.setId(i);
                 System.out.println("\n-------------------------------------------------------------------------------");
                 System.out.print("Contrato: " + l.getId() + "\n");
-                System.out
-                        .print(" | Proprietário: " + l.getLandlord().getId() + " - " + l.getLandlord().getName()
-                                + "\n");
+                System.out.print(
+                        " | Proprietário: " + l.getLandlord().getId() + " - " + l.getLandlord().getName() + "\n");
                 System.out.print(" | Imovel: " + l.getProperty().getId() + " - " + l.getProperty().getaddress() + "\n");
                 System.out.print(" | Inquilino: " + l.getTenant().getId() + " - " + l.getTenant().getName() + "\n");
                 System.out.print(" | Data de Inicio: " + l.getstartDate());

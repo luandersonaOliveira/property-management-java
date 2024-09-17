@@ -46,7 +46,7 @@ public class PropertyService {
         if (property != null) {
             propertyRepository.addProperty(property);
             property.setLandlord(landlord);
-            System.out.println("\nImovel adicionado com sucesso! ID: " + property.getId());
+            System.out.println("\nImovel adicionado com sucesso!");
         } else {
             System.out.println(("Erro: " + EnumPropertyException.PropertyInvalid));
         }
@@ -87,6 +87,7 @@ public class PropertyService {
         } else {
             for (int i = 0; i < properties.size(); i++) {
                 Property p = properties.get(i);
+                p.setId(i);
                 System.out.println("\n-------------------------------------------------------------------------------");
                 System.out.print("Imovel: " + p.getId() + " | Proprietário: " + p.getLandlord().getId() + "\n");
                 System.out.print(" | Endereço: " + p.getaddress());

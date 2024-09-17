@@ -276,7 +276,7 @@ public class Main {
 
         System.out.print("\nData de Inicio (DD/MM/AA): ");
         String startDate = scanner.nextLine();
-        System.out.print("\nData de Fim: (DD/MM/AA)");
+        System.out.print("\nData de Fim (DD/MM/AA): ");
         String endDate = scanner.nextLine();
 
         Tenant tenant = tenantRepository.searchTenant(idTenant);

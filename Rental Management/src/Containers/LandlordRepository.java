@@ -8,16 +8,10 @@ import Interface.ILandlordRepository;
 
 public class LandlordRepository implements ILandlordRepository {
     public ArrayList<Landlord> landlords = new ArrayList<>();
-    private static int nextLeaseId = 0;
-
-    private int getNextLeaseId() {
-        return nextLeaseId++;
-    }
 
     @Override
     public void addLandlord(Landlord landlord) {
         landlords.add(landlord);
-        landlord.setId(getNextLeaseId());
     }
 
     @Override

@@ -8,16 +8,10 @@ import Interface.ILeaseRepository;
 
 public class LeaseRepository implements ILeaseRepository {
     public ArrayList<Lease> leases = new ArrayList<>();
-    private static int nextLeaseId = 0;
-
-    private int getNextLeaseId() {
-        return nextLeaseId++;
-    }
 
     @Override
     public void addLease(Lease lease) {
         leases.add(lease);
-        lease.setId(getNextLeaseId());
     }
 
     @Override

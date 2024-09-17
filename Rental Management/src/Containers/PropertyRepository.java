@@ -8,16 +8,10 @@ import Interface.IPropertyRepository;
 
 public class PropertyRepository implements IPropertyRepository {
     public ArrayList<Property> properties = new ArrayList<>();
-    private static int nextPropertyId = 0;
-
-    public int getNextPropertyId() {
-        return nextPropertyId++;
-    }
 
     @Override
     public void addProperty(Property property) {
         properties.add(property);
-        property.setId(getNextPropertyId());
     }
 
     @Override
