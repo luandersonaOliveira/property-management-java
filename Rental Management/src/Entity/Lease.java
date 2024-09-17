@@ -13,10 +13,9 @@ public class Lease {
 
     // CONSTRUCTOR
 
-    public Lease(String startDate, String endDate, double value, Landlord landlord, Property property, Tenant tenant) {
+    public Lease(String startDate, String endDate, Landlord landlord, Property property, Tenant tenant) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.value = value;
         this.landlord = landlord;
         this.property = property;
         this.tenant = tenant;

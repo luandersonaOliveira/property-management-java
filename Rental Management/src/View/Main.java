@@ -274,19 +274,15 @@ public class Main {
         int idProperty = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.print("\nData de Inicio: ");
+        System.out.print("\nData de Inicio (DD/MM/AA): ");
         String startDate = scanner.nextLine();
-        System.out.print("\nData de Fim: ");
+        System.out.print("\nData de Fim: (DD/MM/AA)");
         String endDate = scanner.nextLine();
-        System.out.print("\nInforme o valor: ");
-        double value = scanner.nextDouble();
 
         Tenant tenant = tenantRepository.searchTenant(idTenant);
         Property property = propertyRepository.searchProperty(idProperty);
         if (tenant != null && property != null) {
-            leaseService.addLease(startDate, endDate, value, property.getLandlord(), property, tenant);
-            leaseService.assignTenantToProperty(idProperty, tenant);
-            leaseService.assignPropertyToLandlord(property.getLandlord().getId(), property);
+            leaseService.addLease(startDate, endDate, property.getLandlord(), property, tenant);
         }
     }
 
