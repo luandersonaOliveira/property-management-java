@@ -40,14 +40,66 @@ public class Main {
     // CONTAINERS
 
     public static void main(String[] args)
-            throws LandlordException, PropertyException, TenantException, LeaseException, ParseException {
+            throws TenantException, LandlordException, PropertyException, LeaseException, ParseException {
         // OPÇÕES DO MENU
-        boolean sair = false;
+        boolean exit = false;
         do {
-            menuPrincipal();
-            int opcao = scanner.nextInt();
+            menuMain();
+            int option = scanner.nextInt();
             scanner.nextLine();
-            switch (opcao) {
+            switch (option) {
+                case 1:
+                    menuTenant();
+                    break;
+                case 2:
+                    menuLandlord();
+                    break;
+                case 3:
+                    menuProperty();
+                    break;
+                case 4:
+                    menuLease();
+                    break;
+                case 5:
+                    removeSomething();
+                    break;
+                case 0:
+                    exit = true;
+                    break;
+            }
+        } while (!exit);
+    }
+
+    // METODOS PERSONALIZADOS
+
+    // MENU
+    private static void menuMain() {
+        System.out.println("--------------------------------");
+        System.out.println("SELECIONE SUA OPÇÃO:");
+        System.out.println("| 1.Para Acessar Inquilinos.");
+        System.out.println("| 2.Para Acessar Proprietários.");
+        System.out.println("| 3.Para Acessar Imoveis.");
+        System.out.println("| 4.Para Acessar Contratos.");
+        System.out.println("| 5.Para Remover Algo.");
+        System.out.println("--------------------------------");
+        System.out.println("| 0.Para Sair do Menu.");
+        System.out.println("--------------------------------");
+        System.out.print("\nOpção: ");
+    }
+
+    private static void menuTenant() throws TenantException {
+        boolean exit = false;
+        do {
+            System.out.println("\nSELECIONE UMA OPÇÃO: ");
+            System.out.println("| 0.Nenhum.");
+            System.out.println("| 1.Para Cadastrar Inquilinos.");
+            System.out.println("| 2.Para Checar Inquilinos.");
+            System.out.println("| 3.Para Editar Inquilinos.");
+            System.out.println("| 4.Para Pagar Imovel.");
+            System.out.print("\nOpção: ");
+            int option = scanner.nextInt();
+            scanner.nextLine();
+            switch (option) {
                 case 1:
                     createTenants();
                     break;
@@ -58,61 +110,97 @@ public class Main {
                     changeTenants();
                     break;
                 case 4:
-                    createLandlord();
-                    break;
-                case 5:
-                    landlordService.listLandlord();
-                    break;
-                case 6:
-                    changeLandlord();
-                    break;
-                case 7:
-                    createProperty();
-                    break;
-                case 8:
-                    propertyService.listProperty();
-                    break;
-                case 9:
-                    changeProperty();
-                    break;
-                case 10:
-                    createLease();
-                    break;
-                case 11:
-                    leaseService.listLease();
-                    break;
-                case 12:
-                    removeSomething();
+                    System.out.println("Falta fazer ainda!");
                     break;
                 case 0:
-                    sair = true;
+                    exit = true;
                     break;
             }
-        } while (!sair);
+        } while (!exit);
     }
 
-    // METODOS PERSONALIZADOS
+    private static void menuLandlord() throws LandlordException {
+        boolean exit = false;
+        do {
+            System.out.println("\nSELECIONE UMA OPÇÃO: ");
+            System.out.println("| 0.Nenhum.");
+            System.out.println("| 1.Para Cadastrar Proprietários.");
+            System.out.println("| 2.Para Checar Proprietários.");
+            System.out.println("| 3.Para Editar Proprietários.");
+            System.out.print("\nOpção: ");
+            int option = scanner.nextInt();
+            scanner.nextLine();
+            switch (option) {
+                case 1:
+                    createLandlord();
+                    break;
+                case 2:
+                    landlordService.listLandlord();
+                    break;
+                case 3:
+                    changeLandlord();
+                    break;
+                case 0:
+                    exit = true;
+                    break;
+            }
+        } while (!exit);
+    }
 
-    // MENU
-    public static void menuPrincipal() {
-        System.out.println("\n--------------------------------");
-        System.out.println("SELECIONE SUA OPÇÃO:");
-        System.out.print("| 1. Para Cadastrar Inquilinos |");
-        System.out.print(" 2. Para Checar Inquilinos |");
-        System.out.println(" 3. Para Editar Inquilinos |");
-        System.out.print("\n| 4. Para Cadastrar Proprietários |");
-        System.out.print(" 5. Para Checar Proprietários |");
-        System.out.println(" 6. Para Editar Proprietários |");
-        System.out.print("\n| 7. Para Cadastrar Imoveis aos Proprietários |");
-        System.out.print(" 8. Para Checar Imoveis |");
-        System.out.println(" 9. Para Editar Imoveis |");
-        System.out.print("\n| 10. Para Criar Contratos |");
-        System.out.print(" 11. Para Checar Contratos |");
-        System.out.print(" 12. Para Remover Algo |");
-        System.out.print("\n--------------------------------");
-        System.out.print("\n| 0. Para Sair do Menu.");
-        System.out.println("\n--------------------------------");
-        System.out.print("Opção: ");
+    private static void menuProperty() throws PropertyException {
+        boolean exit = false;
+        do {
+            System.out.println("\nSELECIONE UMA OPÇÃO: ");
+            System.out.println("| 0.Nenhum.");
+            System.out.println("| 1.Para Cadastrar Imoveis aos Proprietários.");
+            System.out.println("| 2.Para Checar Imoveis.");
+            System.out.println("| 3.Para Editar Imoveis.");
+            System.out.print("\nOpção: ");
+            int option = scanner.nextInt();
+            scanner.nextLine();
+            switch (option) {
+                case 1:
+                    createProperty();
+                    break;
+                case 2:
+                    propertyService.listProperty();
+                    break;
+                case 3:
+                    changeProperty();
+                    break;
+                case 0:
+                    exit = true;
+                    break;
+            }
+        } while (!exit);
+    }
+
+    private static void menuLease() throws LeaseException, ParseException {
+        boolean exit = false;
+        do {
+            System.out.println("\nSELECIONE UMA OPÇÃO: ");
+            System.out.println("| 0.Nenhum.");
+            System.out.println("| 1.Para Criar Contratos.");
+            System.out.println("| 2.Para Checar Contratos.");
+            System.out.println("| 3.Para Editar Contratos.");
+            System.out.print("\nOpção: ");
+            int option = scanner.nextInt();
+            scanner.nextLine();
+            switch (option) {
+                case 1:
+                    createLease();
+                    break;
+                case 2:
+                    leaseService.listLease();
+                    break;
+                case 3:
+                    changeLease();
+                    break;
+                case 0:
+                    exit = true;
+                    break;
+            }
+        } while (!exit);
     }
 
     // CRIAR INQUILINOS
@@ -256,16 +344,6 @@ public class Main {
      * }
      */
 
-    /*
-     * // LISTA CONTRATOS
-     * private static void listLease() {
-     * }
-     * 
-     * // DELETAR CONTRATOS
-     * private static void deleteLease() {
-     * }
-     */
-
     // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
     private static void createLease() throws LeaseException, ParseException {
         System.out.print("\nInsira o índice do Inquilino: ");
@@ -286,18 +364,26 @@ public class Main {
         }
     }
 
+    // LISTA CONTRATOS
+    private static void changeLease() {
+    }
+
+    // DELETAR CONTRATOS
+    private static void deleteLease() {
+    }
+
     public static void removeSomething() {
-        boolean sair = false;
+        boolean exit = false;
         do {
-            System.out.println("\nDeseja remover qual opção: ");
-            System.out.print("| 0.Nenhum |");
-            System.out.print(" 1.Inquilinos |");
-            System.out.print(" 2.Proprietários |");
-            System.out.print(" 3.Imovel do Proprietário |");
+            System.out.println("\n DESEJA REMOVER QUAL OPÇÃO: ");
+            System.out.println("| 0.Nenhum.");
+            System.out.println("| 1.Inquilinos.");
+            System.out.println("| 2.Proprietários.");
+            System.out.println("| 3.Imovel do Proprietário.");
             System.out.print("\nOpção: ");
-            int opcao = scanner.nextInt();
+            int option = scanner.nextInt();
             scanner.nextLine();
-            switch (opcao) {
+            switch (option) {
                 case 1:
                     removeTenants();
                     break;
@@ -308,10 +394,10 @@ public class Main {
                     removePropertyLandlord();
                     break;
                 case 0:
-                    sair = true;
+                    exit = true;
                     break;
             }
-        } while (!sair);
+        } while (!exit);
     }
 
     // REMOVER INQUILINOS

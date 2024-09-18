@@ -13,7 +13,6 @@ import Entity.Landlord;
 import Entity.Lease;
 import Entity.Property;
 import Entity.Tenant;
-import Enum.EnumLandlordException;
 import Enum.EnumLeaseException;
 import Enum.EnumPropertyException;
 import Enum.PropertyOccupation;
