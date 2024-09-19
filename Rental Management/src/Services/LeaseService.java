@@ -58,11 +58,11 @@ public class LeaseService {
     }
 
     public Lease createLease(String startDate, String endDate, Landlord landlord, Property property,
-            Tenant tenant) throws ParseException {
+            Tenant tenant) throws LeaseException,ParseException {
         if (landlord.getCpf().equals(tenant.getCpf())) {
             System.out.println("Erro: " + EnumLeaseException.LeaseInvalidCpfEqual);
         } else if (property.getOccupation().equals(PropertyOccupation.OCCUPIED)) {
-            System.out.println("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
+            throw new LeaseException("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
         }
         assignTenantToProperty(property, tenant);
         //assignPropertyToLandlord(landlord, property);

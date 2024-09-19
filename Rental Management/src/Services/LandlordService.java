@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Containers.LandlordRepository;
+import Containers.PropertyRepository;
 import Entity.Landlord;
+import Entity.Property;
 import Enum.EnumLandlordException;
 import Exceptions.LandlordException;
 
@@ -13,6 +15,7 @@ public class LandlordService {
     // ATRIBUTOS
     private static final Scanner scanner = new Scanner(System.in);
     private LandlordRepository landlordRepository = new LandlordRepository();
+    private PropertyRepository propertyRepository = new PropertyRepository();
 
     // CONSTRUCTOR
 
@@ -149,6 +152,23 @@ public class LandlordService {
                     break;
             }
         }
+    }
+
+    // ATRIBUIR IMOVEL AO PROPRIETÁRIO
+    public void assignPropertyToLandlord(Landlord landlord, Property property) throws LandlordException {
+        landlordRepository.searchLandlord(landlord.getId());
+        propertyRepository.searchProperty(property.getId());
+        ArrayList<Property> properties = new ArrayList<>();
+
+        if (property.getLandlord() != null) {
+            throw new LandlordException("Erro: O imóvel já tem um proprietário associado!");
+        }
+
+        properties.add(property);
+        landlord.setProperty(properties);
+        property.setLandlord(landlord);
+
+        System.out.println("\nImóvel: " + property.getId() + " - cadastrado ao proprietário: " + landlord.getName());
     }
 
     // BUSCA
