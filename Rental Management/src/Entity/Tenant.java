@@ -2,8 +2,9 @@ package Entity;
 // Inquilino
 
 public class Tenant {
-    // ATRIBUTOS
+    private static int nextId = 0;
 
+    // ATRIBUTOS
     private int id;
     private double balance;
     private String name, cpf, telephone, email;
@@ -17,6 +18,7 @@ public class Tenant {
         this.telephone = telephone;
         this.email = email;
         this.balance = balance;
+        this.setId(nextId++);
     }
 
     // METODOS ESPECIAS

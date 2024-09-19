@@ -122,7 +122,7 @@ public class TenantService {
                 Tenant t = tenants.get(i);
                 t.setId(i);
                 System.out.println("\n-------------------------------------------------------------------------------");
-                System.out.print("Inquilino " + t.getId() + "\n");
+                System.out.print("Inquilino: " + t.getId() + "\n");
                 System.out.print(" | Nome: " + t.getName());
                 System.out.print(" | CPF: " + t.getCpf());
                 System.out.print("\n | Telefone: " + t.getTelephone());

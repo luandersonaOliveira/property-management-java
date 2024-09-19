@@ -170,6 +170,12 @@ public class PropertyService {
     public void searchProperty(int id) {
         Property property = propertyRepository.searchProperty(id);
         System.out.println(property.getId());
+        System.out.println(property.getaddress());
+        System.out.println(property.getLandlord().getId());
+        System.out.println(property.getLandlord().getName());
+        System.out.println(property.getLandlord().getProperty());
+        System.out.println(property.getTenant());
+        System.out.println(property.getTenant().size());
     }
 
 }

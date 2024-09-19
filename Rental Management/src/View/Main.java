@@ -75,7 +75,7 @@ public class Main {
     // MENU
     private static void menuMain() {
         System.out.println("--------------------------------");
-        System.out.println("SELECIONE SUA OPÇÃO:");
+        System.out.println("SELECIONE SUA OPÇÃO: ");
         System.out.println("| 1.Para Acessar Inquilinos.");
         System.out.println("| 2.Para Acessar Proprietários.");
         System.out.println("| 3.Para Acessar Imoveis.");
@@ -112,6 +112,9 @@ public class Main {
                 case 4:
                     System.out.println("Falta fazer ainda!");
                     break;
+                case 5:
+                    searchTenant();
+                    break;
                 case 0:
                     exit = true;
                     break;
@@ -139,6 +142,9 @@ public class Main {
                     break;
                 case 3:
                     changeLandlord();
+                    break;
+                case 4:
+                    searchLandlord();
                     break;
                 case 0:
                     exit = true;
@@ -172,6 +178,9 @@ public class Main {
                 case 4:
                     listProperties();
                     break;
+                case 5:
+                    searchProperty();
+                    break;
                 case 0:
                     exit = true;
                     break;
@@ -199,6 +208,9 @@ public class Main {
                     break;
                 case 3:
                     changeLease();
+                    break;
+                case 4:
+                    searchLease();
                     break;
                 case 0:
                     exit = true;
@@ -317,37 +329,6 @@ public class Main {
         landlordService.changeLandlord(id);
     }
 
-    /*
-     * System.out.println("\nDeseja Criar um imovel? \n1.Sim | 2.Não |");
-     * System.out.print("Opção: ");
-     * int option = scanner.nextInt();
-     * 
-     * if (option == 1) {
-     * createProperty();
-     * System.out.println("Atribuir Imovel ao Proprietário");
-     * System.out.print("\nInsira o índice do Proprietário: ");
-     * int idLandlord = scanner.nextInt();
-     * System.out.print("\nInsira o índice do Imovel: ");
-     * int idProperty = scanner.nextInt();
-     * Property property = propertyRepository.properties.get(idProperty);
-     * landlordService.assignPropertyToLandlord(idLandlord, property);
-     * } else if (option != 1) {
-     * System.out.println("\nImovel Não foi cadastrado!");
-     * }
-     */
-
-    /*
-     * private static void assignTenantToProperty() throws PropertyException {
-     * System.out.print("\nAtribuir Inquilino ao Imovel");
-     * System.out.print("\nInsira o índice do inquilino: ");
-     * int idTenant = scanner.nextInt();
-     * System.out.print("\nInsira o índice do Imovel: ");
-     * int idProperty = scanner.nextInt();
-     * Tenant tenant = tenantRepository.tenants.get(idTenant);
-     * propertyService.assignTenantToProperty(idProperty, tenant);
-     * }
-     */
-
     // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
     private static void createLease() throws LeaseException, ParseException {
         System.out.print("\nInsira o índice do Inquilino: ");
@@ -444,6 +425,12 @@ public class Main {
         landlordService.searchLandlord(idLandlord);
     }
 
+    private static void searchLease() {
+        System.out.print("\nInsira o índice do Contrato: ");
+        int idLease = scanner.nextInt();
+        leaseService.searchLease(idLease);
+    }
+
     // LISTA DE IMOVEIS
     private static void listProperties() throws PropertyException, LandlordException {
         // LANDLORD ADD
@@ -498,7 +485,6 @@ public class Main {
         landlordService.assignPropertyToLandlord(landlord03, property03);
         landlordService.assignPropertyToLandlord(landlord04, property04);
         landlordService.assignPropertyToLandlord(landlord05, property05);
-        
     }
 
 }

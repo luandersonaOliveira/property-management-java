@@ -47,6 +47,9 @@ Inquilino: FEITO
 Proprietário: FALTA
 - Pode ser um Inquilino (Implementar, se possivel depois!).
 
+Contrato: FALTA
+- Proprietários e inquilinos não podem ter o mesmo cpf.
+
 ----------
 Inovações:
 ----------

@@ -4,8 +4,9 @@ package Entity;
 import java.util.List;
 
 public class Landlord {
-    // ATRIBUTOS
+    private static int nextId = 0;
 
+    // ATRIBUTOS
     private int id;
     private String name, cpf, telephone, email;
     private List<Property> property;
@@ -17,6 +18,7 @@ public class Landlord {
         this.cpf = cpf;
         this.telephone = telephone;
         this.email = email;
+        this.setId(nextId++);
     }
 
     // METODOS ESPECIAS

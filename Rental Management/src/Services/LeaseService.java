@@ -3,6 +3,7 @@ package Services;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import Containers.LandlordRepository;
@@ -58,14 +59,13 @@ public class LeaseService {
     }
 
     public Lease createLease(String startDate, String endDate, Landlord landlord, Property property,
-            Tenant tenant) throws LeaseException,ParseException {
-        if (landlord.getCpf().equals(tenant.getCpf())) {
-            System.out.println("Erro: " + EnumLeaseException.LeaseInvalidCpfEqual);
+            Tenant tenant) throws LeaseException, ParseException {
+        if (landlord.getCpf().equals(tenant.getCpf()) || tenant.getCpf().equals(landlord.getCpf())) {
+            throw new LeaseException("Erro: " + EnumLeaseException.LeaseInvalidCpfEqual);
         } else if (property.getOccupation().equals(PropertyOccupation.OCCUPIED)) {
             throw new LeaseException("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
         }
         assignTenantToProperty(property, tenant);
-        //assignPropertyToLandlord(landlord, property);
         return new Lease(dateTimeExtensions(startDate), dateTimeExtensions(endDate), landlord, property, tenant);
     }
 
@@ -74,41 +74,67 @@ public class LeaseService {
         return date;
     }
 
-    // ATRIBUIR INQUILINO AO IMOVEL
     public void assignTenantToProperty(Property property, Tenant tenant) {
-        propertyRepository.searchProperty(property.getId());
-        tenantRepository.searchTenant(tenant.getId());
-        ArrayList<Tenant> tenants = new ArrayList<>();
-
+        // Verifica se o imóvel já tem um inquilino associado
         if (property.getTenant() != null) {
-            System.out.println(("Erro: O imóvel já tem um inquilino associado"));
+            throw new RuntimeException("Erro: O imóvel já tem um inquilino associado!");
         }
-
+    
+        // Adiciona o inquilino à lista do imóvel
+        List<Tenant> tenants = property.getTenant();
+        if (tenants == null) {
+            tenants = new ArrayList<>();
+            property.setTenant(tenants);
+        }
         tenants.add(tenant);
-        property.setTenant(tenants);
+    
+        // Atualiza a associação bidirecional
         tenant.setProperty(property);
-
-        System.out.println(
-                "Inquilino: " + tenant.getName() + " - cadastrado ao Imovel: " + property.getId());
+    
+        System.out.println("\nInquilino " + tenant.getName() + " cadastrado ao Imóvel " + property.getId());
     }
-
-    // ATRIBUIR IMOVEL AO PROPRIETÁRIO
-    public void assignPropertyToLandlord(Landlord landlord, Property property) {
-        landlordRepository.searchLandlord(landlord.getId());
-        propertyRepository.searchProperty(property.getId());
-        ArrayList<Property> properties = new ArrayList<>();
-
-        if (property.getLandlord() != null) {
-            System.out.println(("Erro: O imóvel já tem um proprietário associado!"));
-        }
-
-        properties.add(property);
-        landlord.setProperty(properties);
-        property.setLandlord(landlord);
-
-        System.out.println("\nImóvel: " + property.getId() + " - cadastrado ao proprietário: " + landlord.getName());
-    }
-
+    
+    /*
+     * // ATRIBUIR INQUILINO AO IMOVEL
+     * public void assignTenantToProperty(Property property, Tenant tenant) {
+     * propertyRepository.searchProperty(property.getId());
+     * tenantRepository.searchTenant(tenant.getId());
+     * ArrayList<Tenant> tenantss = new ArrayList<>();
+     * 
+     * if (property.getTenant() != null) {
+     * System.out.println(("Erro: O imóvel já tem um inquilino associado"));
+     * }
+     * 
+     * tenantss.add(tenant);
+     * property.setTenant(tenantss);
+     * tenant.setProperty(property);
+     * for (int i = 0; i < tenantss.size(); i++) {
+     * tenantss.get(i);
+     * }
+     * 
+     * System.out.println("\nInquilino: " + tenant.getName() +
+     * " - cadastrado ao Imovel: " + property.getId());
+     * }
+     */
+    /*
+     * // ATRIBUIR IMOVEL AO PROPRIETÁRIO
+     * public void assignPropertyToLandlords(Landlord landlord, Property property) {
+     * landlordRepository.searchLandlord(landlord.getId());
+     * propertyRepository.searchProperty(property.getId());
+     * ArrayList<Property> properties = new ArrayList<>();
+     * 
+     * if (property.getLandlord() != null) {
+     * System.out.println(("Erro: O imóvel já tem um proprietário associado!"));
+     * }
+     * 
+     * properties.add(property);
+     * landlord.setProperty(properties);
+     * property.setLandlord(landlord);
+     * 
+     * System.out.println("\nImóvel: " + property.getId() +
+     * " - cadastrado ao proprietário: " + landlord.getName());
+     * }
+     */
     // REOMVE
 
     // LIST
@@ -133,26 +159,15 @@ public class LeaseService {
             }
         }
     }
+
     // CHANGE
 
-    /*
-     * // LISTA DE IMOVEIS
-     * public void listProperties() {
-     * Property property01 =
-     * createProperty("Rua Gonçalo de Carvalho – Porto Alegre (RS)", 500,
-     * PropertyType.RESIDENTIAL, PropertyOccupation.UNOCCUPIED);
-     * Property property02 = createProperty("Rua do Mucugê – Arraial d’Ajuda (BA)",
-     * 800, PropertyType.COMMERCIAL,
-     * PropertyOccupation.UNOCCUPIED);
-     * Property property03 = createProperty("Rua das Pedras – Búzios (RJ)", 480,
-     * PropertyType.RESIDENTIAL,
-     * PropertyOccupation.UNOCCUPIED);
-     * Property property04 = createProperty("Rua da Aurora – Recife (PE)", 780,
-     * PropertyType.COMMERCIAL,
-     * PropertyOccupation.UNOCCUPIED);
-     * Property property05 = createProperty("Rua Bento Gonçalves – Erechim (RS)",
-     * 550, PropertyType.RESIDENTIAL,
-     * PropertyOccupation.UNOCCUPIED);
-     * }
-     */
+    public void searchLease(int id) {
+        Lease lease = leaseRepository.searchLease(id);
+        System.out.println(lease.getId());
+        System.out.println(lease.getLandlord().getId());
+        System.out.println(lease.getLandlord().getName());
+        System.out.println(lease.getLandlord().getProperty());
+        System.out.println(lease.getLandlord().getId());
+    }
 }

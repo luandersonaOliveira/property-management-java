@@ -7,8 +7,9 @@ import Enum.PropertyOccupation;
 import Enum.PropertyType;
 
 public class Property {
-    // ATRIBUTOS
+    private static int nextId = 0;
 
+    // ATRIBUTOS
     private int id;
     private String address;
     private double rentalValue;
@@ -24,6 +25,7 @@ public class Property {
         this.rentalValue = rentalValue;
         this.type = type;
         this.occupation = occupation;
+        this.setId(nextId++);
     }
 
     // METODOS ESPECIAS

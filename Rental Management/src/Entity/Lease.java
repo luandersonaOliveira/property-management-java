@@ -2,8 +2,9 @@ package Entity;
 // Locação (Contrato)
 
 public class Lease {
-    // ATRIBUTOS
+    private static int nextId = 0;
 
+    // ATRIBUTOS
     private int id;
     private String startDate, endDate;
     private double value;
@@ -19,6 +20,7 @@ public class Lease {
         this.landlord = landlord;
         this.property = property;
         this.tenant = tenant;
+        this.setId(nextId++);
     }
 
     // METODOS ESPECIAS
