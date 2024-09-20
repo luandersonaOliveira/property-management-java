@@ -9,6 +9,7 @@ import Containers.LeaseRepository;
 import Containers.PropertyRepository;
 import Containers.TenantRepository;
 import Entity.Landlord;
+import Entity.Lease;
 import Entity.Property;
 import Entity.Tenant;
 import Enum.EnumPropertyException;
@@ -103,6 +104,7 @@ public class Main {
             switch (option) {
                 case 1:
                     createTenants();
+                    tenantService.listTenant();
                     break;
                 case 2:
                     tenantService.listTenant();
@@ -137,6 +139,7 @@ public class Main {
             switch (option) {
                 case 1:
                     createLandlord();
+                    landlordService.listLandlord();
                     break;
                 case 2:
                     landlordService.listLandlord();
@@ -169,6 +172,7 @@ public class Main {
             switch (option) {
                 case 1:
                     createProperty();
+                    propertyService.listProperty();
                     break;
                 case 2:
                     propertyService.listProperty();
@@ -204,6 +208,7 @@ public class Main {
             switch (option) {
                 case 1:
                     createLease();
+                    leaseService.listLease();
                     break;
                 case 2:
                     leaseService.listLease();
@@ -335,30 +340,38 @@ public class Main {
 
     // CADASTRA INQUILINO NO IMOVEL (Criar o contrato)
     private static void createLease() throws LeaseException, ParseException {
-        System.out.print("\nInsira o índice do Inquilino: ");
-        int idTenant = scanner.nextInt();
-        System.out.print("\nInsira o índice do Imovel: ");
-        int idProperty = scanner.nextInt();
-        scanner.nextLine();
+        try {
+            System.out.print("\nInsira o índice do Inquilino: ");
+            int idTenant = scanner.nextInt();
+            Tenant tenant = tenantRepository.searchTenant(idTenant);
+            System.out.print("\nInsira o índice do Imovel: ");
+            int idProperty = scanner.nextInt();
+            Property property = propertyRepository.searchProperty(idProperty);
+            scanner.nextLine();
+            if (tenant != null && property != null) {
+                System.out.print("\nData de Inicio (DD/MM/AA): ");
+                String startDate = scanner.nextLine();
+                System.out.print("\nData de Fim (DD/MM/AA): ");
+                String endDate = scanner.nextLine();
 
-        System.out.print("\nData de Inicio (DD/MM/AA): ");
-        String startDate = scanner.nextLine();
-        System.out.print("\nData de Fim (DD/MM/AA): ");
-        String endDate = scanner.nextLine();
+                Lease lease = new Lease(startDate, endDate, property.getLandlord(), property, tenant);
+                leaseService.addLease(lease.getStartDate(), lease.getEndDate(), lease.getLandlord(),
+                        lease.getProperty(), lease.getTenant());
+            } else {
+                System.out.println("\nErro: Proprietário não foi cadastrado!");
+            }
 
-        Tenant tenant = tenantRepository.searchTenant(idTenant);
-        Property property = propertyRepository.searchProperty(idProperty);
-        if (tenant != null && property != null) {
-            leaseService.addLease(startDate, endDate, property.getLandlord(), property, tenant);
+        } catch (LeaseException e) {
+            System.out.println("\n" + e.getMessage());
         }
+
     }
 
     // LISTA CONTRATOS
-    private static void changeLease() {
-    }
-
-    // DELETAR CONTRATOS
-    private static void deleteLease() {
+    private static void changeLease() throws LeaseException, ParseException {
+        System.out.print("\nInsira o índice do Contrato à editar: ");
+        int id = scanner.nextInt();
+        leaseService.changeLease(id);
     }
 
     public static void removeSomething() {
@@ -406,9 +419,16 @@ public class Main {
 
     // REMOVE PROPRIETARIO
     private static void removeLandlord() {
-        System.out.print("\nInsira o índice do Proprietário à editar: ");
+        System.out.print("\nInsira o índice do Proprietário para remover: ");
         int id = scanner.nextInt();
         landlordService.removeLandlord(id);
+    }
+
+    // DELETAR CONTRATOS
+    private static void deleteLease() {
+        System.out.print("\nInsira o índice do Contrato para remover: ");
+        int id = scanner.nextInt();
+        leaseService.removeLease(id);
     }
 
     // BUSCA

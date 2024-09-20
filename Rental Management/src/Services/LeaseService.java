@@ -55,7 +55,7 @@ public class LeaseService {
 
     public Lease createLease(String startDate, String endDate, Landlord landlord, Property property,
             Tenant tenant) throws LeaseException, ParseException {
-        if (landlord.getCpf() == tenant.getCpf() || tenant.getCpf() == landlord.getCpf()) {
+        if (landlord.getCpf().equals(tenant.getCpf())) {
             throw new LeaseException("Erro: " + EnumLeaseException.LandlordAndTenantHaveTheSameCPF);
         } else if (property.getOccupation().equals(PropertyOccupation.OCCUPIED)) {
             throw new LeaseException("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
@@ -86,7 +86,7 @@ public class LeaseService {
         // Atualiza a associação bidirecional
         tenant.setProperty(property);
 
-        System.out.println("\nInquilino " + tenant.getName() + " cadastrado ao Imóvel " + property.getId());
+        System.out.println("\nInquilino " + tenant.getName() + " cadastrado ao Imóvel " + property.getaddress());
     }
 
     public void assignPropertyToLandlord(Landlord landlord, Property property) {
@@ -106,7 +106,7 @@ public class LeaseService {
         // Atualiza a associação bidirecional
         property.setLandlord(landlord);
 
-        System.out.println("\nImóvel " + property.getId() + " cadastrado ao proprietário " + landlord.getName());
+        System.out.println("\nImóvel " + property.getaddress() + " cadastrado ao proprietário " + landlord.getName());
     }
 
     // REOMVE (FALTA MEHORAR!!!)
