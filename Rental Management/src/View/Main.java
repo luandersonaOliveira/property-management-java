@@ -11,6 +11,7 @@ import Containers.TenantRepository;
 import Entity.Landlord;
 import Entity.Property;
 import Entity.Tenant;
+import Enum.EnumPropertyException;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 import Exceptions.LandlordException;
@@ -177,6 +178,7 @@ public class Main {
                     break;
                 case 4:
                     listProperties();
+                    propertyService.listProperty();
                     break;
                 case 5:
                     searchProperty();
@@ -273,7 +275,7 @@ public class Main {
                         propertyType = PropertyType.COMMERCIAL;
                         break;
                     default:
-                        throw new PropertyException("Type Property Invalid!");
+                        throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidType);
                 }
 
                 PropertyOccupation propertyOccupation = null;
@@ -285,10 +287,12 @@ public class Main {
                         propertyOccupation = PropertyOccupation.OCCUPIED;
                         break;
                     default:
-                        throw new PropertyException("Occupation Property Invalid!");
+                        throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
                 }
-
-                propertyService.addProperty(landlord, address, rentalValue, propertyType, propertyOccupation);
+                Property property = new Property(address, rentalValue, propertyType, propertyOccupation);
+                propertyService.addProperty(landlord, property.getaddress(), property.getRentalValue(),
+                        property.getType(), property.getOccupation());
+                leaseService.assignPropertyToLandlord(landlord, property);
             } else {
                 System.out.println("\nErro: Proprietário não foi cadastrado!");
             }
@@ -361,6 +365,7 @@ public class Main {
         boolean exit = false;
         do {
             System.out.println("\n DESEJA REMOVER QUAL OPÇÃO: ");
+            System.out.println("(O Contrato será excluido junto com a opção escolhida!)");
             System.out.println("| 0.Nenhum.");
             System.out.println("| 1.Inquilinos.");
             System.out.println("| 2.Proprietários.");
@@ -480,11 +485,11 @@ public class Main {
                 property05.getType(), property05.getOccupation());
 
         // LANDLORD AND PROPERTY
-        landlordService.assignPropertyToLandlord(landlord01, property01);
-        landlordService.assignPropertyToLandlord(landlord02, property02);
-        landlordService.assignPropertyToLandlord(landlord03, property03);
-        landlordService.assignPropertyToLandlord(landlord04, property04);
-        landlordService.assignPropertyToLandlord(landlord05, property05);
+        leaseService.assignPropertyToLandlord(landlord01, property01);
+        leaseService.assignPropertyToLandlord(landlord02, property02);
+        leaseService.assignPropertyToLandlord(landlord03, property03);
+        leaseService.assignPropertyToLandlord(landlord04, property04);
+        leaseService.assignPropertyToLandlord(landlord05, property05);
     }
 
 }

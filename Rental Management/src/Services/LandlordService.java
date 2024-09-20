@@ -2,13 +2,10 @@ package Services;
 // Sreviço Proprietário
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import Containers.LandlordRepository;
-import Containers.PropertyRepository;
 import Entity.Landlord;
-import Entity.Property;
 import Enum.EnumLandlordException;
 import Exceptions.LandlordException;
 
@@ -16,7 +13,6 @@ public class LandlordService {
     // ATRIBUTOS
     private static final Scanner scanner = new Scanner(System.in);
     private LandlordRepository landlordRepository = new LandlordRepository();
-    private PropertyRepository propertyRepository = new PropertyRepository();
 
     // CONSTRUCTOR
 
@@ -155,45 +151,6 @@ public class LandlordService {
         }
     }
 
-    public void assignPropertyToLandlord(Landlord landlord, Property property) {
-        // Verifica se o imóvel já tem um proprietário associado
-        if (property.getLandlord() != null) {
-            throw new RuntimeException("Erro: O imóvel já tem um proprietário associado!");
-        }
-
-        // Adiciona a propriedade à lista do proprietário
-        List<Property> properties = landlord.getProperty();
-        if (properties == null) {
-            properties = new ArrayList<>();
-            landlord.setProperty(properties);
-        }
-        properties.add(property);
-
-        // Atualiza a associação bidirecional
-        property.setLandlord(landlord);
-
-        System.out.println("\nImóvel " + property.getId() + " cadastrado ao proprietário " + landlord.getName());
-    }
-
-    /*
-     * // ATRIBUIR IMOVEL AO PROPRIETÁRIO
-     * public void assignPropertyToLandlords(Landlord landlord, Property property) {
-     * landlordRepository.searchLandlord(landlord.getId());
-     * propertyRepository.searchProperty(property.getId());
-     * ArrayList<Property> properties = new ArrayList<>();
-     * 
-     * if (property.getLandlord() != null) {
-     * System.out.println(("Erro: O imóvel já tem um proprietário associado!"));
-     * }
-     * 
-     * properties.add(property);
-     * landlord.setProperty(properties);
-     * property.setLandlord(landlord);
-     * 
-     * System.out.println("\nImóvel: " + property.getId() +
-     * " - cadastrado ao proprietário: " + landlord.getName());
-     * }
-     */
     // BUSCA
     public void searchLandlord(int id) {
         Landlord landlord = landlordRepository.searchLandlord(id);

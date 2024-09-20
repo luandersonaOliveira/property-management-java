@@ -50,6 +50,57 @@ Proprietário: FALTA
 Contrato: FALTA
 - Proprietários e inquilinos não podem ter o mesmo cpf.
 
+-----------------------------
+Mensagens do Enums Exceptions
+-----------------------------
+
+Todos os Enums Exceptions contem: 
+- Validos:
+  - Adicionado com sucesso 
+  - Removido com sucesso 
+  - Alterado com sucesso
+
+- Invalidos:
+  - Id invalido
+
+- Não registrados:
+  - Inválido
+  - Não Atualizado
+  - Não Registrado
+  - Propriedade Não Adicionada ao Inquilino
+  - Propriedade Não Adicionada ao Proprietário
+  - Inquilino Não Adicionado à Propriedade
+  - Proprietário Não Adicionado à Propriedade
+  - Proprietário e Inquilino Têm o Mesmo CPF
+
+Diferenças dos Exceptions:
+Inquilino:
+- Invalidos:
+  - Saldo Inválido
+  - Nome Inválido
+  - CPF Inválido
+  - Telefone Inválido
+  - Email Inválido
+
+Imovel:
+- Invalidos:
+  - Endereço inválido
+  - Valor de aluguel inválido
+  - Tipo inválido
+  - Ocupação inválida
+
+Proprietário: 
+- Invalidos:
+  - Nome Inválido
+  - CPF Inválido
+  - Telefone Inválido
+  - Email Inválido
+
+Contrato:
+- Invalidos:
+  - Data de início ou término inválida 
+  - Valor inválido
+
 ----------
 Inovações:
 ----------
@@ -187,3 +238,5 @@ Diagrama UML de Classes:
 | Service:                          |
 | - (Todas as Entidades)            |
 +-----------------------------------+
+
+  

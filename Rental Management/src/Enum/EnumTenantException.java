@@ -1,13 +1,22 @@
 package Enum;
 
 public enum EnumTenantException {
+    // VALID
+    TenantAddedSuccessfully,
+    TenantRemovedSuccessfully,
+    TenantChangedSuccessfully,
+
     // INVALID
+    TenantInvalidIndex,
+    TenantInvalidBalance,
+    TenantInvalidName,
     TenantInvalidCPF,
     TenantInvalidTelephone,
-    TenantInvalidBalance,
-    TenantInvalidIndex,
+    TenantInvalidEmail,
 
     // NO REGISTERED
     TenantInvalid,
-    TenantNoRegistered;
+    TenantNotUpdated,
+    TenantNoRegistered,
+    PropertyNotAddedToTenant;
 }

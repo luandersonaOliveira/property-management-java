@@ -73,7 +73,7 @@ public class TenantService {
         while (true) {
             String CPF = cpf.trim();
             if (CPF.length() != 11 || CPF.contains(" ") || CPF.isBlank() || CPF.isEmpty()) {
-                System.out.print("\nCPF inválido, tente novamente: ");
+                System.out.print("\nErro: " + EnumTenantException.TenantInvalidCPF);
                 return null;
             } else {
                 for (int i = 0; i < CPF.length(); i++) {

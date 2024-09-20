@@ -1,14 +1,21 @@
 package Enum;
 
 public enum EnumLeaseException {
+    // VALID
+    LeaseAddedSuccessfully,
+    LeaseRemovedSuccessfully,
+    LeaseChangedSuccessfully,
+
     // INVALID
     LeaseInvalidIndex,
     LeaseInvalidStartOrEndDate,
-    LeaseInvalidCpfEqual,
     LeaseInvalidValue,
     
     // NO REGISTERED
     LeaseInvalid,
+    LeaseNotUpdated,
     LeaseNoRegistered,
-    LeaseInvalidRegistered;
+    TenantNotAddedToProperty,
+    LandlordNotAddedToProperty, 
+    LandlordAndTenantHaveTheSameCPF;
 }

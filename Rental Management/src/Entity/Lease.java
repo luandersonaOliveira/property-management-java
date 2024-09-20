@@ -33,11 +33,11 @@ public class Lease {
         this.id = id;
     }
 
-    public String getstartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setstartDate(String startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
