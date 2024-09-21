@@ -2,6 +2,7 @@ package View;
 // MAIN
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Containers.LandlordRepository;
@@ -31,7 +32,7 @@ public class Main {
     private static PropertyRepository propertyRepository = new PropertyRepository();
     private static TenantRepository tenantRepository = new TenantRepository();
     private static LandlordRepository landlordRepository = new LandlordRepository();
-    private static LeaseRepository leaseRepository = new LeaseRepository();
+    private static LeaseRepository leaseRepository = new LeaseRepository(new ArrayList<>());
 
     // News Service
     private static PropertyService propertyService = new PropertyService(propertyRepository);
@@ -396,6 +397,9 @@ public class Main {
                 case 3:
                     removePropertyLandlord();
                     break;
+                case 4:
+                    deleteLease();
+                    break;
                 case 0:
                     exit = true;
                     break;
@@ -426,9 +430,7 @@ public class Main {
 
     // DELETAR CONTRATOS
     private static void deleteLease() {
-        System.out.print("\nInsira o índice do Contrato para remover: ");
-        int id = scanner.nextInt();
-        leaseService.removeLease(id);
+        leaseService.removeLease();
     }
 
     // BUSCA

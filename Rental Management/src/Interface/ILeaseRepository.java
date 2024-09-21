@@ -1,18 +1,17 @@
 package Interface;
 // Interface Repositório de Locação (Contratos)
 
-import java.util.ArrayList;
-
+import Containers.PilhaRepository;
 import Entity.Lease;
 
 public interface ILeaseRepository {
     public void addLease(Lease lease);
 
-    public void removeLease(int id);
+    public void removeLease();
 
     public void changeLease(int id);
 
-    public ArrayList<Lease> listLease();
+    public PilhaRepository<Lease> listLease();
 
     public Lease searchLease(int id);
 }

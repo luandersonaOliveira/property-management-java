@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import Containers.LeaseRepository;
+import Containers.PilhaRepository;
 import Entity.Landlord;
 import Entity.Lease;
 import Entity.Property;
@@ -21,7 +22,7 @@ import Utils.DatetimeExtensions;
 public class LeaseService {
     // ATRIBUTOS
     private static final Scanner scanner = new Scanner(System.in);
-    private LeaseRepository leaseRepository = new LeaseRepository();
+    private LeaseRepository leaseRepository = new LeaseRepository(new ArrayList<>());
 
     // CONSTRUCTOR
 
@@ -86,7 +87,7 @@ public class LeaseService {
         // Atualiza a associação bidirecional
         tenant.setProperty(property);
 
-        System.out.println("\nInquilino " + tenant.getName() + " cadastrado ao Imóvel " + property.getaddress());
+        System.out.println("\n| Inquilino " + tenant.getName() + "\n| Cadastrado ao Imóvel " + property.getaddress());
     }
 
     public void assignPropertyToLandlord(Landlord landlord, Property property) {
@@ -106,23 +107,23 @@ public class LeaseService {
         // Atualiza a associação bidirecional
         property.setLandlord(landlord);
 
-        System.out.println("\nImóvel " + property.getaddress() + " cadastrado ao proprietário " + landlord.getName());
+        System.out.println("\n| Imóvel " + property.getaddress() + "\n| Cadastrado ao proprietário " + landlord.getName());
     }
 
     // REOMVE (FALTA MEHORAR!!!)
-    public void removeLease(int id) {
-        if (leaseRepository.leases.isEmpty()) {
+    public void removeLease() {
+        if (leaseRepository.leases.empty()) {
             System.out.println(("Erro: " + EnumLandlordException.LandlordNoRegistered));
         } else {
-            leaseRepository.leases.remove(id);
-            System.out.println("\nContrato: " + id + ". Removido com sucesso!");
+            Lease pop = leaseRepository.leases.pop();
+            System.out.println("\nContrato: " + pop.getId() + ". Removido com sucesso!");
         }
     }
 
     // LIST
     public void listLease() {
-        ArrayList<Lease> leases = leaseRepository.listLease();
-        if (leases.isEmpty()) {
+        PilhaRepository<Lease> leases = leaseRepository.listLease();
+        if (leases.empty()) {
             System.out.println(("Erro: " + EnumPropertyException.PropertyNoRegistered));
         } else {
             for (int i = 0; i < leases.size(); i++) {
@@ -144,7 +145,7 @@ public class LeaseService {
 
     // CHANGE
     public void changeLease(int id) throws LeaseException, ParseException {
-        if (leaseRepository.leases.isEmpty()) {
+        if (leaseRepository.leases.empty()) {
             System.out.println(("Erro: " + EnumLeaseException.LeaseNoRegistered));
         } else {
             if (id < 0 || id >= leaseRepository.leases.size()) {

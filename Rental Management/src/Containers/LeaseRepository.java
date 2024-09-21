@@ -6,17 +6,22 @@ import java.util.ArrayList;
 import Entity.Lease;
 import Interface.ILeaseRepository;
 
-public class LeaseRepository implements ILeaseRepository {
-    public ArrayList<Lease> leases = new ArrayList<>();
+public class LeaseRepository extends PilhaRepository<Lease> implements ILeaseRepository {
+    //public ArrayList<Lease> leases = new ArrayList<>();
+    public PilhaRepository<Lease> leases = new PilhaRepository<>(new ArrayList<>());
 
-    @Override
-    public void addLease(Lease lease) {
-        leases.add(lease);
+    public LeaseRepository(ArrayList<Lease> pilha) {
+        super(pilha);
     }
 
     @Override
-    public void removeLease(int id) {
-        leases.remove(id);
+    public void addLease(Lease lease) {
+        leases.push(lease);
+    }
+
+    @Override
+    public void removeLease() {
+        leases.pop();
     }
 
     @Override
@@ -26,7 +31,7 @@ public class LeaseRepository implements ILeaseRepository {
     }
 
     @Override
-    public ArrayList<Lease> listLease() {
+    public PilhaRepository<Lease> listLease() {
         return leases;
     }
 
