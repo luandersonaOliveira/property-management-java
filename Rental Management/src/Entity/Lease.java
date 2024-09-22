@@ -4,7 +4,8 @@ package Entity;
 public class Lease {
     private static int nextId = 0;
 
-    // ATRIBUTOS
+    // ATTRIBUTES
+
     private int id;
     private String startDate, endDate;
     private double value;
@@ -80,6 +81,4 @@ public class Lease {
     public void setTenant(Tenant tenant) {
         this.tenant = tenant;
     }
-
-    // METODOS PERSONALIZADOS
 }

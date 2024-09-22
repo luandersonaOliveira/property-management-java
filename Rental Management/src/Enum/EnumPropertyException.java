@@ -1,4 +1,5 @@
 package Enum;
+// Enum Imovel Exception
 
 public enum EnumPropertyException {
     // VALID

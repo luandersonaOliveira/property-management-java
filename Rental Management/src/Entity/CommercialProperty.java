@@ -1,15 +1,17 @@
 package Entity;
-//HERANÇA ALUGUEL COMERCIAL
+// Herança Aluguel Comercial
 
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 
 public class CommercialProperty extends Property {
-    // ATRIBUTOS
+    // ATTRIBUTES
+
     private int numberOfRooms;
     private String typeOfTrade;
 
     // CONSTRUCTOR
+
     public CommercialProperty(Landlord landlord, String address, double rentalValue, PropertyType type,
             PropertyOccupation occupation) {
         super(address, rentalValue, type, occupation);
@@ -33,6 +35,4 @@ public class CommercialProperty extends Property {
     public void setTypeOfTrade(String typeOfTrade) {
         this.typeOfTrade = typeOfTrade;
     }
-
-    // METODOS PERSONALIZADOS
 }

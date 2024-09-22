@@ -9,7 +9,8 @@ import Enum.PropertyType;
 public class Property {
     private static int nextId = 0;
 
-    // ATRIBUTOS
+    // ATTRIBUTES
+
     private int id;
     private String address;
     private double rentalValue;
@@ -85,6 +86,4 @@ public class Property {
     public void setTenant(List<Tenant> tenant) {
         this.tenant = tenant;
     }
-
-    // METODOS PERSONALIZADOS
 }

@@ -1,5 +1,5 @@
 package Services;
-// Sreviço Imovel
+// Serviço Imovel
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,7 +16,8 @@ import Enum.PropertyType;
 import Exceptions.PropertyException;
 
 public class PropertyService {
-    // ATRIBUTOS
+    // ATTRIBUTES
+
     private static final Scanner scanner = new Scanner(System.in);
     private PropertyRepository propertyRepository = new PropertyRepository();
 
@@ -26,9 +27,7 @@ public class PropertyService {
         this.propertyRepository = propertyRepository;
     }
 
-    // METODOS ESPECIAS
-
-    // METODOS PERSONALIZADOS
+    // METHODS PERSONALIZED
 
     // CREATE
     public void addProperty(Landlord landlord, String address, double rentalValue, PropertyType type,
@@ -167,6 +166,7 @@ public class PropertyService {
         }
     }
 
+    // SEARCH
     public void searchProperty(int id) {
         Property property = propertyRepository.searchProperty(id);
         System.out.println(property.getId());

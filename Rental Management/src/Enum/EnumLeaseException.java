@@ -1,4 +1,5 @@
 package Enum;
+// Enum Contrato Exception
 
 public enum EnumLeaseException {
     // VALID

@@ -1,7 +1,7 @@
 package Interface;
 // Interface Repositório de Locação (Contratos)
 
-import Containers.PilhaRepository;
+import Containers.StackRepository;
 import Entity.Lease;
 
 public interface ILeaseRepository {
@@ -11,7 +11,7 @@ public interface ILeaseRepository {
 
     public void changeLease(int id);
 
-    public PilhaRepository<Lease> listLease();
+    public StackRepository<Lease> listLease();
 
     public Lease searchLease(int id);
 }

@@ -2,7 +2,7 @@ package Entity;
 // Pagamento
 
 public class Payment {
-    // ATRIBUTOS
+    // ATTRIBUTES
 
     private int id;
     private double value;
@@ -11,8 +11,7 @@ public class Payment {
 
     // CONSTRUCTOR
 
-    public Payment(int id, double value, String datePayment, Lease lease) {
-        this.id = id;
+    public Payment(double value, String datePayment, Lease lease) {
         this.value = value;
         this.datePayment = datePayment;
         this.lease = lease;
@@ -51,6 +50,4 @@ public class Payment {
     public void setLease(Lease lease) {
         this.lease = lease;
     }
-
-    // METODOS PERSONALIZADOS
 }

@@ -1,15 +1,17 @@
 package Entity;
-//HERANÇA ALUGUEL RESIDENCIAL
+// Herança Aluguel Residencial
 
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 
 public class ResidentialProperty extends Property {
-    // ATRIBUTOS
+    // ATTRIBUTES
+
     private int numberRooms;
     private boolean ItHasALeisureArea;
 
     // CONSTRUCTOR
+
     public ResidentialProperty(Landlord landlord, String address, double rentalValue, PropertyType type,
             PropertyOccupation occupation) {
         super(address, rentalValue, type, occupation);
@@ -33,6 +35,4 @@ public class ResidentialProperty extends Property {
     public void setItHasALeisureArea(boolean itHasALeisureArea) {
         ItHasALeisureArea = itHasALeisureArea;
     }
-
-    // METODOS PERSONALIZADOS
 }

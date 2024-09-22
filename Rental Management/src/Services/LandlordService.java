@@ -1,5 +1,5 @@
 package Services;
-// Sreviço Proprietário
+// Serviço Proprietário
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,7 +10,8 @@ import Enum.EnumLandlordException;
 import Exceptions.LandlordException;
 
 public class LandlordService {
-    // ATRIBUTOS
+    // ATTRIBUTES
+
     private static final Scanner scanner = new Scanner(System.in);
     private LandlordRepository landlordRepository = new LandlordRepository();
 
@@ -20,9 +21,7 @@ public class LandlordService {
         this.landlordRepository = landlordRepository;
     }
 
-    // METODOS ESPECIAS
-
-    // METODOS PERSONALIZADOS
+    // METHODS PERSONALIZED
 
     // CREATE
     public void addLandlord(String name, String cpf, String telephone, String email) throws LandlordException {
@@ -151,7 +150,7 @@ public class LandlordService {
         }
     }
 
-    // BUSCA
+    // Search
     public void searchLandlord(int id) {
         Landlord landlord = landlordRepository.searchLandlord(id);
         System.out.println(landlord.getName());

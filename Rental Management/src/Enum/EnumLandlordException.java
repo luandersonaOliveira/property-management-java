@@ -1,4 +1,5 @@
 package Enum;
+// Enum Proprietário Exception
 
 public enum EnumLandlordException {
     // VALID

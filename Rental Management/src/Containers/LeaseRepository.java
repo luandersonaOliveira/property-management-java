@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import Entity.Lease;
 import Interface.ILeaseRepository;
 
-public class LeaseRepository extends PilhaRepository<Lease> implements ILeaseRepository {
-    //public ArrayList<Lease> leases = new ArrayList<>();
-    public PilhaRepository<Lease> leases = new PilhaRepository<>(new ArrayList<>());
+public class LeaseRepository extends StackRepository<Lease> implements ILeaseRepository {
+    // public ArrayList<Lease> leases = new ArrayList<>();
+    public StackRepository<Lease> leases = new StackRepository<>(new ArrayList<>());
 
-    public LeaseRepository(ArrayList<Lease> pilha) {
-        super(pilha);
+    public LeaseRepository(ArrayList<Lease> stack) {
+        super(stack);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class LeaseRepository extends PilhaRepository<Lease> implements ILeaseRep
     }
 
     @Override
-    public PilhaRepository<Lease> listLease() {
+    public StackRepository<Lease> listLease() {
         return leases;
     }
 

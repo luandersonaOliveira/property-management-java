@@ -1,5 +1,5 @@
 package Services;
-// Sreviço Contrato
+// Serviço Contrato
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import Containers.LeaseRepository;
-import Containers.PilhaRepository;
+import Containers.StackRepository;
 import Entity.Landlord;
 import Entity.Lease;
 import Entity.Property;
@@ -20,7 +20,8 @@ import Exceptions.LeaseException;
 import Utils.DatetimeExtensions;
 
 public class LeaseService {
-    // ATRIBUTOS
+    // ATTRIBUTES
+
     private static final Scanner scanner = new Scanner(System.in);
     private LeaseRepository leaseRepository = new LeaseRepository(new ArrayList<>());
 
@@ -30,9 +31,7 @@ public class LeaseService {
         this.leaseRepository = leaseRepository;
     }
 
-    // METODOS ESPECIAS
-
-    // METODOS PERSONALIZADOS
+    // METHODS PERSONALIZED
 
     // CREATE
     public void addLease(String startDate, String endDate, Landlord landlord, Property property,
@@ -107,10 +106,11 @@ public class LeaseService {
         // Atualiza a associação bidirecional
         property.setLandlord(landlord);
 
-        System.out.println("\n| Imóvel " + property.getaddress() + "\n| Cadastrado ao proprietário " + landlord.getName());
+        System.out.println(
+                "\n| Imóvel " + property.getaddress() + "\n| Cadastrado ao proprietário " + landlord.getName());
     }
 
-    // REOMVE (FALTA MEHORAR!!!)
+    // REOMVE (FALTA MEHORAR)
     public void removeLease() {
         if (leaseRepository.leases.empty()) {
             System.out.println(("Erro: " + EnumLandlordException.LandlordNoRegistered));
@@ -122,7 +122,7 @@ public class LeaseService {
 
     // LIST
     public void listLease() {
-        PilhaRepository<Lease> leases = leaseRepository.listLease();
+        StackRepository<Lease> leases = leaseRepository.listLease();
         if (leases.empty()) {
             System.out.println(("Erro: " + EnumPropertyException.PropertyNoRegistered));
         } else {
@@ -179,7 +179,7 @@ public class LeaseService {
         }
     }
 
-    // BUSCA
+    // SEARCH
     public void searchLease(int id) {
         Lease lease = leaseRepository.searchLease(id);
         System.out.println(lease.getId());

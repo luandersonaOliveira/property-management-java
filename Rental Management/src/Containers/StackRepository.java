@@ -2,19 +2,19 @@ package Containers;
 
 import java.util.ArrayList;
 
-public class PilhaRepository<T> {
+public class StackRepository<T> {
     private ArrayList<T> stackList;
 
-    public PilhaRepository(ArrayList<T> pilha) {
-        this.stackList = pilha;
+    public StackRepository(ArrayList<T> stack) {
+        this.stackList = stack;
     }
 
-    // push: coloca uma informação na pilha
+    // push: coloca uma informação na stack
     public void push(T value) {
         stackList.add(value);
     }
 
-    // pop: retira uma informação da pilha
+    // pop: retira uma informação da stack
     public T pop() {
         if (!stackList.isEmpty()) {
             return stackList.remove(stackList.size() - 1);
@@ -23,12 +23,12 @@ public class PilhaRepository<T> {
         }
     }
 
-    // size: retorna o tamanho da pilha
+    // size: retorna o tamanho da stack
     public int size() {
         return stackList.size();
     }
 
-    // stackpop: retorna o elemento superior da pilha sem removê-lo
+    // stackpop: retorna o elemento superior da stack sem removê-lo
     public T stackpop() {
         if (!stackList.isEmpty()) {
             return stackList.get(stackList.size() - 1);
@@ -37,12 +37,12 @@ public class PilhaRepository<T> {
         }
     }
 
-    // empty: verifica se a pilha está vazia
+    // empty: verifica se a stack está vazia
     public boolean empty() {
         return stackList.isEmpty();
     }
 
-    public T get(int id){
+    public T get(int id) {
         return stackList.get(id);
     }
 

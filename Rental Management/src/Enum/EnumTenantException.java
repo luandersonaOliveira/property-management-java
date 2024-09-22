@@ -1,4 +1,5 @@
 package Enum;
+// Enum Inquilino Exception
 
 public enum EnumTenantException {
     // VALID

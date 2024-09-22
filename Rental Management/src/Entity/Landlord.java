@@ -6,7 +6,8 @@ import java.util.List;
 public class Landlord {
     private static int nextId = 0;
 
-    // ATRIBUTOS
+    // ATTRIBUTES
+
     private int id;
     private String name, cpf, telephone, email;
     private List<Property> property;
@@ -70,6 +71,4 @@ public class Landlord {
     public void setProperty(List<Property> property) {
         this.property = property;
     }
-
-    // METODOS PERSONALIZADOS
 }

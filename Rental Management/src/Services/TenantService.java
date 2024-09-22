@@ -1,5 +1,5 @@
 package Services;
-// Sreviço Inquilino
+// Serviço Inquilino
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,7 +10,8 @@ import Enum.EnumTenantException;
 import Exceptions.TenantException;
 
 public class TenantService {
-    // ATRIBUTOS
+    // ATTRIBUTES
+
     private static final Scanner scanner = new Scanner(System.in);
     private TenantRepository tenantRepository = new TenantRepository();
 
@@ -20,9 +21,7 @@ public class TenantService {
         this.tenantRepository = tenantRepository;
     }
 
-    // METODOS ESPECIAS
-
-    // METODOS PERSONALIZADOS
+    // METHODS PERSONALIZED
 
     // CREATE
     public void addTenant(String name, String cpf, String telephone, String email, double balance)
@@ -181,7 +180,7 @@ public class TenantService {
         }
     }
 
-    // BUSCA
+    // SEARCH
     public void searchTenant(int id) {
         try {
             Tenant tenant = tenantRepository.searchTenant(id);

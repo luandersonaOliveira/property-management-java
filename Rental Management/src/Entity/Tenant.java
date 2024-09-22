@@ -4,7 +4,8 @@ package Entity;
 public class Tenant {
     private static int nextId = 0;
 
-    // ATRIBUTOS
+    // ATTRIBUTES
+
     private int id;
     private double balance;
     private String name, cpf, telephone, email;
@@ -78,6 +79,4 @@ public class Tenant {
     public void setProperty(Property property) {
         this.property = property;
     }
-
-    // METODOS PERSONALIZADOS
 }

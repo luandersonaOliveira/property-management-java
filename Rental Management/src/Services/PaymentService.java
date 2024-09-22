@@ -1,12 +1,12 @@
 package Services;
-// Sreviço Pagamento
+// Serviço Pagamento
 
 public class PaymentService {
-    // ATRIBUTOS
+    // ATTRIBUTES
 
     // CONSTRUCTOR
 
     // METODOS ESPECIAS
 
-    // METODOS PERSONALIZADOS
+    // METHODS PERSONALIZED
 }
