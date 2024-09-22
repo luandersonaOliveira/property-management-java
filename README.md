@@ -1,3 +1,4 @@
+
 # Property-management-java
   Essa é a base do sistema. Envolve o controle dos contratos de locação, datas de início e término, valores dos aluguéis e reajustes. Também inclui o registro de informações sobre os inquilinos e proprietários.
 
@@ -28,24 +29,72 @@ Site Imobiliário Integrado (Implementar, se possivel no proximo semestre)
 - Verificar se os campos obrigatórios estão preenchidos corretamente (como nome, endereço, etc.).
 - Evitar duplicação de registros (por exemplo, dois contratos para o mesmo imóvel no mesmo período).
 
-CPF: FALTA
+CPF:
 - Não poder conter espaços em branco, letras, numeros double e float (Telefone segue a mesma regra!).
 
-Email: FALTA
+Email:
 - Deve conter @gmail, @hotmail e @ru.
 
-Datas: FEITO
+Datas:
 - Transformar a String para Date (início e término de contratos, datas de pagamento).
 
-Inquilino: FEITO
+Inquilino:
 - Pode escolhe qual informação alterar após cadrastro (Proprietário segue a mesma regra!).
 
-Proprietário: FALTA
+Proprietário:
 - Pode ser um Inquilino (Implementar, se possivel depois!).
 
-Contrato: FALTA
+Contrato:
 - Proprietários e inquilinos não podem ter o mesmo cpf.
 
+## Mensagens do Enums Exceptions
+
+Todos os Enums Exceptions contem: 
+- Validos:
+  - Adicionado com sucesso 
+  - Removido com sucesso 
+  - Alterado com sucesso
+
+- Invalidos:
+  - Id invalido
+
+- Não registrados:
+  - Inválido
+  - Não Atualizado
+  - Não Registrado
+  - Propriedade Não Adicionada ao Inquilino
+  - Propriedade Não Adicionada ao Proprietário
+  - Inquilino Não Adicionado à Propriedade
+  - Proprietário Não Adicionado à Propriedade
+  - Proprietário e Inquilino Têm o Mesmo CPF
+
+Diferenças dos Exceptions:
+Inquilino:
+- Invalidos:
+  - Saldo Inválido
+  - Nome Inválido
+  - CPF Inválido
+  - Telefone Inválido
+  - Email Inválido
+
+Imovel:
+- Invalidos:
+  - Endereço inválido
+  - Valor de aluguel inválido
+  - Tipo inválido
+  - Ocupação inválida
+
+Proprietário: 
+- Invalidos:
+  - Nome Inválido
+  - CPF Inválido
+  - Telefone Inválido
+  - Email Inválido
+
+Contrato:
+- Invalidos:
+  - Data de início ou término inválida 
+  - Valor inválido
 
 ## Inovações:
 
@@ -111,3 +160,11 @@ Pagamento:
 - Commercial e Residencial herdam de Imovel.
 - Pagamento vai estar relacionado com Contrato.
 - Contrato recebe as informações de Imovel, Inquilino e Proprietário.
+
+## Funcionalidades:
+
+- Cadastrar Inquilinos e Proprietários.
+- Adicionar Inquilinos aos Imóveis (Cria Contratos), Imoveis aos Proprietários (Imovel depende de Proprietário).
+- Alterar Inquilinos, Imoveis, Proprietários e Contratos.
+- Remover Inquilinos, Imoveis, Proprietários e Contratos.
+- Lista Inquilinos, Imoveis, Proprietários e Contratos.
