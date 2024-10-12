@@ -190,7 +190,7 @@ public class TenantService {
             System.out.println(tenant.getName());
             System.out.println(tenant.getId());
         } catch (Exception e) {
-            System.err.println("erro!!!");
+            System.err.println("Erro!!!");
         }
     }
 
