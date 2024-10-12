@@ -12,10 +12,6 @@ public class Tenant {
     private Property property;
 
     // CONSTRUCTOR
-    
-    public Tenant() {
-    	
-    }
 
     public Tenant(String name, String cpf, String telephone, String email, double balance) {
         this.name = name;
