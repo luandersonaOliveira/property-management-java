@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 // Locação (Contrato)
 
 public class Lease {

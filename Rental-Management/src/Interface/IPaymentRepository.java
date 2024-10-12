@@ -3,7 +3,7 @@ package Interface;
 
 import java.util.ArrayList;
 
-import Entity.Payment;
+import entity.Payment;
 
 public interface IPaymentRepository {
     public void addPayment(Payment payment);

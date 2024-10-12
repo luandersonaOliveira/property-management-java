@@ -1,19 +1,19 @@
-package Services;
+package services;
 // Serviço Imovel
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Containers.PropertyRepository;
-import Entity.CommercialProperty;
-import Entity.Landlord;
-import Entity.Property;
-import Entity.ResidentialProperty;
 import Enum.EnumLandlordException;
 import Enum.EnumPropertyException;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
-import Exceptions.PropertyException;
+import containers.PropertyRepository;
+import entity.CommercialProperty;
+import entity.Landlord;
+import entity.Property;
+import entity.ResidentialProperty;
+import exceptions.PropertyException;
 
 public class PropertyService {
     // ATTRIBUTES

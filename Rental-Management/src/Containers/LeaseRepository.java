@@ -1,10 +1,10 @@
-package Containers;
+package containers;
 // Repositório da Locação (Contrato)
 
 import java.util.ArrayList;
 
-import Entity.Lease;
 import Interface.ILeaseRepository;
+import entity.Lease;
 
 public class LeaseRepository extends StackRepository<Lease> implements ILeaseRepository {
     // public ArrayList<Lease> leases = new ArrayList<>();

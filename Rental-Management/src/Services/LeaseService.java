@@ -1,4 +1,4 @@
-package Services;
+package services;
 // Serviço Contrato
 
 import java.text.ParseException;
@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Containers.LeaseRepository;
-import Containers.StackRepository;
-import Entity.Landlord;
-import Entity.Lease;
-import Entity.Property;
-import Entity.Tenant;
 import Enum.EnumLandlordException;
 import Enum.EnumLeaseException;
 import Enum.EnumPropertyException;
 import Enum.PropertyOccupation;
-import Exceptions.LeaseException;
-import Utils.DatetimeExtensions;
+import containers.LeaseRepository;
+import containers.StackRepository;
+import entity.Landlord;
+import entity.Lease;
+import entity.Property;
+import entity.Tenant;
+import exceptions.LeaseException;
+import utils.DatetimeExtensions;
 
 public class LeaseService {
     // ATTRIBUTES

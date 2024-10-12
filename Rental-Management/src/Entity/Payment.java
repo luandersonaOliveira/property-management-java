@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 // Pagamento
 
 public class Payment {

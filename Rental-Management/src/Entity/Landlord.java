@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 // Proprietário (Espefico de imovel)
 
 import java.util.List;

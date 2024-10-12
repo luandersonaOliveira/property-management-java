@@ -1,4 +1,4 @@
-package Services;
+package services;
 // Serviço Pagamento
 
 public class PaymentService {

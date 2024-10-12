@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 // Inquilino Exception
 
 public class TenantException extends Exception {

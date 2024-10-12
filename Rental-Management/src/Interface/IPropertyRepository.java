@@ -3,7 +3,7 @@ package Interface;
 
 import java.util.ArrayList;
 
-import Entity.Property;
+import entity.Property;
 
 public interface IPropertyRepository {
     public void addProperty(Property property);

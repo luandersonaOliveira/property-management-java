@@ -1,10 +1,10 @@
-package Containers;
+package containers;
 // Repositório do Inquilino
 
 import java.util.ArrayList;
 
-import Entity.Tenant;
 import Interface.ITenantRepository;
+import entity.Tenant;
 
 public class TenantRepository implements ITenantRepository {
     public ArrayList<Tenant> tenants = new ArrayList<>();

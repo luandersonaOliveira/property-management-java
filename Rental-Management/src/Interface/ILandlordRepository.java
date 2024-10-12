@@ -3,7 +3,7 @@ package Interface;
 
 import java.util.ArrayList;
 
-import Entity.Landlord;
+import entity.Landlord;
 
 public interface ILandlordRepository {
     public void addLandlord(Landlord landlord);

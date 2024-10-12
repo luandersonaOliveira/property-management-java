@@ -1,13 +1,13 @@
-package Services;
+package services;
 // Serviço Proprietário
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Containers.LandlordRepository;
-import Entity.Landlord;
 import Enum.EnumLandlordException;
-import Exceptions.LandlordException;
+import containers.LandlordRepository;
+import entity.Landlord;
+import exceptions.LandlordException;
 
 public class LandlordService {
     // ATTRIBUTES

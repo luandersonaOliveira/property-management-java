@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 // Imovel Exception
 
 public class PropertyException extends Exception {

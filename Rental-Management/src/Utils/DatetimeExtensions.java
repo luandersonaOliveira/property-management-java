@@ -1,4 +1,4 @@
-package Utils;
+package utils;
 // Em resumo, essa classe é útil para converter entre strings de datas e objetos Date, além de formatar datas para exibição. Ela pode ser usada em cenários onde você precisa lidar com datas em diferentes formatos ou realizar operações de conversão.
 
 import java.text.ParseException;

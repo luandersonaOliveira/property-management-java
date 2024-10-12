@@ -1,10 +1,10 @@
-package Containers;
+package containers;
 // Repositório do Imovel
 
 import java.util.ArrayList;
 
-import Entity.Property;
 import Interface.IPropertyRepository;
+import entity.Property;
 
 public class PropertyRepository implements IPropertyRepository {
     public ArrayList<Property> properties = new ArrayList<>();

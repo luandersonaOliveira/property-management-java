@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 // Herança Aluguel Comercial
 
 import Enum.PropertyOccupation;

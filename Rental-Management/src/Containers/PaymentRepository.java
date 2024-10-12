@@ -1,10 +1,10 @@
-package Containers;
+package containers;
 // Repositório do Pagamento
 
 import java.util.ArrayList;
 
-import Entity.Payment;
 import Interface.IPaymentRepository;
+import entity.Payment;
 
 public class PaymentRepository implements IPaymentRepository {
     public ArrayList<Payment> payments = new ArrayList<>();

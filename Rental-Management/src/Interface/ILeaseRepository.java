@@ -1,8 +1,8 @@
 package Interface;
 // Interface Repositório de Locação (Contratos)
 
-import Containers.StackRepository;
-import Entity.Lease;
+import containers.StackRepository;
+import entity.Lease;
 
 public interface ILeaseRepository {
     public void addLease(Lease lease);

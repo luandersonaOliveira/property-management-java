@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 // Imovel
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 // Herança Aluguel Residencial
 
 import Enum.PropertyOccupation;

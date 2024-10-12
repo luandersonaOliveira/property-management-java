@@ -1,10 +1,10 @@
-package Containers;
+package containers;
 // Repositório do Proprietário
 
 import java.util.ArrayList;
 
-import Entity.Landlord;
 import Interface.ILandlordRepository;
+import entity.Landlord;
 
 public class LandlordRepository implements ILandlordRepository {
     public ArrayList<Landlord> landlords = new ArrayList<>();

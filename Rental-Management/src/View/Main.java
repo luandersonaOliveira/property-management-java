@@ -1,29 +1,29 @@
-package View;
+package view;
 // MAIN
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Containers.LandlordRepository;
-import Containers.LeaseRepository;
-import Containers.PropertyRepository;
-import Containers.TenantRepository;
-import Entity.Landlord;
-import Entity.Lease;
-import Entity.Property;
-import Entity.Tenant;
 import Enum.EnumPropertyException;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
-import Exceptions.LandlordException;
-import Exceptions.LeaseException;
-import Exceptions.PropertyException;
-import Exceptions.TenantException;
-import Services.LandlordService;
-import Services.LeaseService;
-import Services.PropertyService;
-import Services.TenantService;
+import containers.LandlordRepository;
+import containers.LeaseRepository;
+import containers.PropertyRepository;
+import containers.TenantRepository;
+import entity.Landlord;
+import entity.Lease;
+import entity.Property;
+import entity.Tenant;
+import exceptions.LandlordException;
+import exceptions.LeaseException;
+import exceptions.PropertyException;
+import exceptions.TenantException;
+import services.LandlordService;
+import services.LeaseService;
+import services.PropertyService;
+import services.TenantService;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);

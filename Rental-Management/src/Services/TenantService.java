@@ -1,13 +1,14 @@
-package Services;
+package services;
 // Serviço Inquilino
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Containers.TenantRepository;
-import Entity.Tenant;
 import Enum.EnumTenantException;
-import Exceptions.TenantException;
+import containers.TenantRepository;
+import dao.TenantDAO;
+import entity.Tenant;
+import exceptions.TenantException;
 
 public class TenantService {
     // ATTRIBUTES
@@ -45,6 +46,8 @@ public class TenantService {
 
     private Tenant createTenant(String name, String cpf, String telephone, String email, double balance)
             throws TenantException {
+    	Tenant tenants = new Tenant(name, cpf, telephone, email, balance);
+    	new TenantDAO().cadastrarUsuario(tenants);
         return new Tenant(nameFormart(name), cpfFormart(cpf), telephoneFormart(telephone), email, balance);
     }
 
