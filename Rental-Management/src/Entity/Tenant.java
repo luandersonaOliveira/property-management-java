@@ -22,10 +22,6 @@ public class Tenant {
         this.setId(nextId++);
     }
 
-    public Tenant() {
-
-    }
-
     // METODOS ESPECIAS
 
     public int getId() {
