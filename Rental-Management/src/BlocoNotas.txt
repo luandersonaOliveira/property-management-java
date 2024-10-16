@@ -184,6 +184,139 @@ Funcionalidades:
 - Remover Inquilinos, Imoveis, Proprietários e Contratos.
 - Lista Inquilinos, Imoveis, Proprietários e Contratos.
 
+--------------
+Modelo Logico:
+--------------
+
+Proprietário
+	
+- id: INTEGER (PK)
+	
+- nome: VARCHAR
+	
+- cpf: VARCHAR (Unique)
+	
+- telefone: VARCHAR
+	
+- email: VARCHAR
+
+Imóvel
+	
+- id: INTEGER (PK)
+	
+- endereço: VARCHAR
+	
+- valorAluguel: DOUBLE
+	
+- tipo: ENUM ('Residencial', 'Comercial')
+	
+- ocupação: ENUM ('Desocupado', 'Ocupado')
+	
+- cpf_Proprietário: VARCHAR (FK)
+
+Inquilino
+	
+- id: INTEGER (PK)
+	
+- nome: VARCHAR
+	
+- cpf: VARCHAR (Unique)
+	
+- telefone: VARCHAR
+	
+- email: VARCHAR
+	
+- saldo: DOUBLE
+
+Contrato
+	
+- id: INTEGER (PK)
+	
+- dataInicio: DATE
+	
+- dataFim: DATE
+	
+- id_Imóvel: INTEGER (FK)
+	
+- cpf_Proprietário: VARCHAR (FK)
+	
+- cpf_Inquilino: VARCHAR (FK)
+
+------
+MySQL:
+------
+
+CREATE TABLE Proprietario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    cpf VARCHAR(14) UNIQUE NOT NULL,
+    telefone VARCHAR(20),
+    email VARCHAR(255)
+);
+
+INSERT INTO Proprietario (nome, cpf, telefone, email) VALUES
+('Carlos Silva', '123.456.789-00', '5511998765432', 'carlos.silva@example.com'),
+('Maria Oliveira', '987.654.321-00', '5521998765432', 'maria.oliveira@example.com');
+
+
+CREATE TABLE Imovel (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    endereco VARCHAR(255) NOT NULL,
+    valorAluguel DOUBLE NOT NULL,
+    tipo ENUM('Residencial', 'Comercial') NOT NULL,
+    ocupacao ENUM('Desocupado', 'Ocupado') NOT NULL,
+    cpf_proprietario VARCHAR(14) NOT NULL,
+    FOREIGN KEY (cpf_proprietario) REFERENCES Proprietario(cpf)
+);
+
+INSERT INTO Imovel (endereco, valorAluguel, tipo, ocupacao, cpf_proprietario) VALUES
+('Rua das Flores, 123', 1500.00, 'Residencial', 'Desocupado', '123.456.789-00'),
+('Avenida Paulista, 456', 5000.00, 'Comercial', 'Ocupado', '987.654.321-00');
+
+
+CREATE TABLE Inquilino (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    cpf VARCHAR(14) UNIQUE NOT NULL,
+    telefone VARCHAR(20),
+    email VARCHAR(255),
+    saldo DOUBLE
+);
+
+INSERT INTO Inquilino (nome, cpf, telefone, email, saldo) VALUES
+('João Souza', '111.222.333-44', '5531998765432', 'joao.souza@example.com', 2000.00),
+('Ana Lima', '555.666.777-88', '5541998765432', 'ana.lima@example.com', 0.00);
+
+
+CREATE TABLE Contrato (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    dataInicio DATE NOT NULL,
+    dataFim DATE NOT NULL,
+    id_Imovel INT NOT NULL,
+    cpf_proprietario VARCHAR(14) NOT NULL,
+    cpf_inquilino VARCHAR(14),
+    FOREIGN KEY (id_Imovel) REFERENCES Imovel(id),
+    FOREIGN KEY (cpf_proprietario) REFERENCES Proprietario(cpf),
+    FOREIGN KEY (cpf_inquilino) REFERENCES Inquilino(cpf)
+);
+
+INSERT INTO Contrato (dataInicio, dataFim, id_Imovel, cpf_proprietario, cpf_inquilino) VALUES
+('2023-01-01', '2023-12-31', 1, '123.456.789-00', '111.222.333-44'),
+('2024-01-01', '2024-12-31', 2, '987.654.321-00', '555.666.777-88');
+
+
+CREATE TABLE InquilinoContrato (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_inquilino INT NOT NULL,
+    id_contrato INT NOT NULL,
+    FOREIGN KEY (id_inquilino) REFERENCES Inquilino(id),
+    FOREIGN KEY (id_contrato) REFERENCES Contrato(id)
+);
+
+INSERT INTO InquilinoContrato (id_inquilino, id_contrato) VALUES
+(1, 1),
+(2, 2);
+
 ------------------------
 Diagrama UML de Classes:
 ------------------------

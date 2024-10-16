@@ -2,83 +2,100 @@ package entity;
 // Locação (Contrato)
 
 public class Lease {
-    private static int nextId = 0;
+	// ATTRIBUTES
 
-    // ATTRIBUTES
+	private int id, idProperty;
+	private String startDate, endDate, cpfLandlord, cpfTenant;
+	private Property property;
+	private Landlord landlord;
+	private Tenant tenant;
 
-    private int id;
-    private String startDate, endDate;
-    private double value;
-    private Landlord landlord;
-    private Property property;
-    private Tenant tenant;
+	// CONSTRUCTOR
+	
+	public Lease () {
+		
+	}
 
-    // CONSTRUCTOR
+	public Lease(int idProperty, String startDate, String endDate, String cpfLandlord, String cpfTenant) {
+		this.idProperty = idProperty;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.cpfLandlord = cpfLandlord;
+		this.cpfTenant = cpfTenant;
+	}
 
-    public Lease(String startDate, String endDate, Landlord landlord, Property property, Tenant tenant) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.landlord = landlord;
-        this.property = property;
-        this.tenant = tenant;
-        this.setId(nextId++);
-    }
+	// METODOS ESPECIAS
 
-    // METODOS ESPECIAS
+	public int getId() {
+		return id;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getIdProperty() {
+		return idProperty;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setIdProperty(int idProperty) {
+		this.idProperty = idProperty;
+	}
 
-    public String getStartDate() {
-        return startDate;
-    }
+	public String getStartDate() {
+		return startDate;
+	}
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
 
-    public String getEndDate() {
-        return endDate;
-    }
+	public String getEndDate() {
+		return endDate;
+	}
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 
-    public double getValue() {
-        return value;
-    }
+	public String getCpfLandlord() {
+		return cpfLandlord;
+	}
 
-    public void setValue(double value) {
-        this.value = value;
-    }
+	public void setCpfLandlord(String cpfLandlord) {
+		this.cpfLandlord = cpfLandlord;
+	}
 
-    public Landlord getLandlord() {
-        return landlord;
-    }
+	public String getCpfTenant() {
+		return cpfTenant;
+	}
 
-    public void setLandlord(Landlord landlord) {
-        this.landlord = landlord;
-    }
+	public void setCpfTenant(String cpfTenant) {
+		this.cpfTenant = cpfTenant;
+	}
 
-    public Property getProperty() {
-        return property;
-    }
+	public Property getProperty() {
+		return property;
+	}
 
-    public void setProperty(Property property) {
-        this.property = property;
-    }
+	public void setProperty(Property property) {
+		this.property = property;
+	}
 
-    public Tenant getTenant() {
-        return tenant;
-    }
+	public Landlord getLandlord() {
+		return landlord;
+	}
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
-    }
+	public void setLandlord(Landlord landlord) {
+		this.landlord = landlord;
+	}
+
+	public Tenant getTenant() {
+		return tenant;
+	}
+
+	public void setTenant(Tenant tenant) {
+		this.tenant = tenant;
+	}
+
 }

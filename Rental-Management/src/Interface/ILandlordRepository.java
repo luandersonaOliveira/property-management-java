@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import entity.Landlord;
 
 public interface ILandlordRepository {
-    public void addLandlord(Landlord landlord);
+	public void addLandlord(Landlord landlord);
 
-    public void removeLandlord(int id);
+	public void removeLandlord(int id);
 
-    public void changeLandlord(int id);
+	public void changeLandlord(int id);
 
-    public ArrayList<Landlord> listLandlord();
+	public ArrayList<Landlord> listLandlord();
 
-    public Landlord searchLandlord(int id);
+	public Landlord searchLandlord(int id);
 }

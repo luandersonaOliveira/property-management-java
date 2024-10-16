@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import entity.Tenant;
 
 public interface ITenantRepository {
-    public void addTenant(Tenant tenant);
+	public void addTenant(Tenant tenant);
 
-    public void removeTenant(int id);
+	public void removeTenant(int id);
 
-    public void changeTenant(int id);
+	public void changeTenant(int id);
 
-    public ArrayList<Tenant> listTenant();
+	public ArrayList<Tenant> listTenant();
 
-    public Tenant searchTenant(int id);
+	public Tenant searchTenant(int id);
 }

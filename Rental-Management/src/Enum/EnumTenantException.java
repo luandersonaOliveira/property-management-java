@@ -2,22 +2,13 @@ package Enum;
 // Enum Inquilino Exception
 
 public enum EnumTenantException {
-    // VALID
-    TenantAddedSuccessfully,
-    TenantRemovedSuccessfully,
-    TenantChangedSuccessfully,
+	// VALID
+	TenantAddedSuccessfully, TenantRemovedSuccessfully, TenantChangedSuccessfully,
 
-    // INVALID
-    TenantInvalidIndex,
-    TenantInvalidBalance,
-    TenantInvalidName,
-    TenantInvalidCPF,
-    TenantInvalidTelephone,
-    TenantInvalidEmail,
+	// INVALID
+	TenantInvalidIndex, TenantInvalidBalance, TenantInvalidName, TenantInvalidCPF, TenantInvalidTelephone,
+	TenantInvalidEmail,
 
-    // NO REGISTERED
-    TenantInvalid,
-    TenantNotUpdated,
-    TenantNoRegistered,
-    PropertyNotAddedToTenant;
+	// NO REGISTERED
+	TenantInvalid, TenantNotUpdated, TenantNoRegistered, PropertyNotAddedToTenant;
 }
