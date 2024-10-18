@@ -4,11 +4,13 @@ package services;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Enum.EnumLandlordException;
 import Enum.EnumPropertyException;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 import containers.PropertyRepository;
 import dao.DAO;
+import entity.Landlord;
 import entity.Property;
 import exceptions.PropertyException;
 
@@ -27,27 +29,30 @@ public class PropertyService {
 	// METHODS PERSONALIZED
 
 	// CREATE
-	public void addProperty(String address, double rentalValue, PropertyType type, PropertyOccupation occupation,
-			String cpfLandlord) throws PropertyException {
-		if (type == null) {
+	public void addProperty(Landlord landlord, String address, double rentalValue, PropertyType type,
+			PropertyOccupation occupation) throws PropertyException {
+		if (landlord == null) {
+			throw new PropertyException("Erro: " + EnumLandlordException.LandlordInvalid);
+		} else if (type == null) {
 			throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidType);
 		} else if (rentalValue < 0) {
 			throw new PropertyException("Erro: " + EnumPropertyException.PropertyInvalidRentalValue);
 		}
 
-		Property property = createProperty(address, rentalValue, type, occupation, cpfLandlord);
+		Property property = createProperty(landlord, address, rentalValue, type, occupation);
 		if (property != null) {
 			propertyRepository.addProperty(property);
-			//new DAO().addProperty(property);
+			property.setLandlord(landlord);
+			new DAO().addProperty(property);
 			System.out.println("\nImovel adicionado com sucesso!");
 		} else {
 			System.out.println(("Erro: " + EnumPropertyException.PropertyInvalid));
 		}
 	}
 
-	private Property createProperty(String address, double rentalValue, PropertyType type,
-			PropertyOccupation occupation, String cpfLandlord) {
-		return new Property(addressFormat(address), rentalValue, type, occupation, cpfLandlord);
+	private Property createProperty(Landlord landlord, String address, double rentalValue, PropertyType type,
+			PropertyOccupation occupation) {
+		return new Property(addressFormat(address), rentalValue, type, occupation);
 	}
 
 	private String addressFormat(String address) {
@@ -75,7 +80,7 @@ public class PropertyService {
 				Property p = properties.get(i);
 				p.setId(i);
 				System.out.println("\n-------------------------------------------------------------------------------");
-				System.out.print("Imovel: " + p.getId() + " | Proprietário: " + p.getCpfLandlord() + "\n");
+				System.out.print("Imovel: " + p.getId() + " | Proprietário: " + p.getLandlord().getId() + "\n");
 				System.out.print(" | Endereço: " + p.getAddress());
 				System.out.print(" | Valor do Aluguel: " + p.getRentalValue() + " |");
 				System.out.print("\n | Tipo: " + p.getType());
@@ -158,10 +163,11 @@ public class PropertyService {
 		Property property = propertyRepository.searchProperty(id);
 		System.out.println(property.getId());
 		System.out.println(property.getAddress());
-		System.out.println(property.getRentalValue());
-		System.out.println(property.getType());
-		System.out.println(property.getOccupation());
-		System.out.println(property.getCpfLandlord());
+		System.out.println(property.getLandlord().getId());
+		System.out.println(property.getLandlord().getName());
+		System.out.println(property.getLandlord().getProperty());
+		System.out.println(property.getTenant());
+		System.out.println(property.getTenant().size());
 	}
 
 }

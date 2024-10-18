@@ -36,7 +36,7 @@ public class LandlordService {
 		Landlord landlord = createLandlord(name, cpf, telephone, email);
 		if (landlord != null) {
 			landlordRepository.addLandlord(landlord);
-			// new DAO().addLandlord(lanlord);
+			new DAO().addLandlord(landlord);
 			System.out.println("\nProprietário adicionado com sucesso!");
 		} else {
 			throw new LandlordException("Erro: " + EnumLandlordException.LandlordInvalid);

@@ -39,7 +39,7 @@ public class LeaseService {
 			throws LeaseException, ParseException {
 		if (landlord == null || property == null || tenant == null) {
 			throw new LeaseException("Erro: " + EnumLeaseException.LeaseNoRegistered);
-		} else if (property.getCpfLandlord() == null) {
+		} else if (property.getLandlord().equals(null)) {
 			throw new LeaseException("Erro: " + EnumLeaseException.LandlordNotAddedToProperty);
 		} else if (startDate.equals(null) || endDate.equals(null)) {
 			throw new LeaseException("Erro: " + EnumLeaseException.LeaseInvalidStartOrEndDate);
@@ -48,8 +48,8 @@ public class LeaseService {
 		Lease lease = createLease(startDate, endDate, landlord, property, tenant);
 		if (lease != null) {
 			leaseRepository.addLease(lease);
-			//new DAO().addLease(lease);
-			//new DAO().addTenantLease(tenant, lease);
+			// new DAO().addLease(lease);
+			// new DAO().addTenantLease(tenant, lease);
 			System.out.println("\nContrato adicionado com sucesso!");
 		} else {
 			System.out.println("Erro: " + EnumLeaseException.LeaseInvalid);
@@ -58,15 +58,13 @@ public class LeaseService {
 
 	public Lease createLease(String startDate, String endDate, Landlord landlord, Property property, Tenant tenant)
 			throws LeaseException, ParseException {
-
 		if (landlord.getCpf().equals(tenant.getCpf())) {
 			throw new LeaseException("Erro: " + EnumLeaseException.LandlordAndTenantHaveTheSameCPF);
 		} else if (property.getOccupation().equals(PropertyOccupation.OCCUPIED)) {
 			throw new LeaseException("Erro: " + EnumPropertyException.PropertyInvalidOccupation);
 		}
 		assignTenantToProperty(property, tenant);
-		return new Lease(property.getId(), dateTimeExtensions(startDate), dateTimeExtensions(endDate),
-				landlord.getCpf(), tenant.getCpf());
+		return new Lease(dateTimeExtensions(startDate), dateTimeExtensions(endDate), landlord, property, tenant);
 	}
 
 	private String dateTimeExtensions(String date) throws ParseException {
@@ -75,14 +73,16 @@ public class LeaseService {
 	}
 
 	public void assignTenantToProperty(Property property, Tenant tenant) {
-
-		if (property.getOccupation() == PropertyOccupation.OCCUPIED) {
+		if (property.getTenant() != null) {
 			System.out.println("Erro: O imóvel já tem um inquilino associado!");
-			return;
 		}
 
-		property.setCpfTenant(tenant.getCpf());
-		property.setOccupation(PropertyOccupation.OCCUPIED);
+		List<Tenant> tenants = property.getTenant();
+		if (tenants == null) {
+			tenants = new ArrayList<>();
+			property.setTenant(tenants);
+		}
+		tenants.add(tenant);
 
 		tenant.setProperty(property);
 
@@ -90,21 +90,18 @@ public class LeaseService {
 	}
 
 	public void assignPropertyToLandlord(Landlord landlord, Property property) {
-
-		if (property.getCpfLandlord() != null && !property.getCpfLandlord().isEmpty()) {
+		if (property.getLandlord() != null) {
 			System.out.println("Erro: O imóvel já tem um proprietário associado!");
-			return;
 		}
 
-		List<Property> propertys = landlord.getPropertys();
-
-		if (propertys == null) {
-			propertys = new ArrayList<>();
-			landlord.setPropertys(propertys);
+		List<Property> properties = landlord.getProperty();
+		if (properties == null) {
+			properties = new ArrayList<>();
+			landlord.setProperty(properties);
 		}
-		propertys.add(property);
+		properties.add(property);
 
-		property.setCpfLandlord(landlord.getCpf());
+		property.setLandlord(landlord);
 
 		System.out.println(
 				"\n| Imóvel " + property.getAddress() + "\n| Cadastrado ao proprietário " + landlord.getName());
@@ -131,11 +128,13 @@ public class LeaseService {
 				l.setId(i);
 				System.out.println("\n-------------------------------------------------------------------------------");
 				System.out.print("Contrato: " + l.getId() + "\n");
-				System.out.print(" | Proprietário: " + l.getCpfLandlord() + "\n");
-				System.out.print(" | Imovel: " + l.getIdProperty() + "\n");
-				System.out.print(" | Inquilino: " + l.getCpfTenant() + "\n");
+				System.out.print(
+						" | Proprietário: " + l.getLandlord().getId() + " - " + l.getLandlord().getName() + "\n");
+				System.out.print(" | Imovel: " + l.getProperty().getId() + " - " + l.getProperty().getAddress() + "\n");
+				System.out.print(" | Inquilino: " + l.getTenant().getId() + " - " + l.getTenant().getName() + "\n");
 				System.out.print(" | Data de Inicio: " + l.getStartDate());
 				System.out.print(" | Data de Fim: " + l.getEndDate());
+				System.out.print(" | Valor: " + l.getProperty().getRentalValue() + " |");
 				System.out.println("\n-------------------------------------------------------------------------------");
 			}
 		}
@@ -179,14 +178,10 @@ public class LeaseService {
 
 	// SEARCH
 	public void searchLease(int id) {
-		try {
-			Lease lease = leaseRepository.searchLease(id);
-			System.out.println(lease.getId());
-			System.out.println(lease.getCpfLandlord());
-			System.out.println(lease.getCpfTenant());
-			System.out.println(lease.getIdProperty());
-		} catch (Exception e) {
-			System.err.println("Erro!!!");
-		}
+		Lease lease = leaseRepository.searchLease(id);
+		System.out.println(lease.getId());
+		System.out.println(lease.getLandlord().getId());
+		System.out.println(lease.getLandlord().getName());
+		System.out.println(lease.getLandlord().getProperty());
 	}
 }

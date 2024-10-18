@@ -38,7 +38,7 @@ public class TenantService {
 		Tenant tenant = createTenant(name, cpf, telephone, email, balance);
 		if (tenant != null) {
 			tenantRepository.addTenant(tenant);
-			// new DAO().addTenant(tenant);
+			new DAO().addTenant(tenant);
 			System.out.println("\nInquilino adicionado com sucesso!");
 		} else {
 			throw new TenantException("Erro: " + EnumTenantException.TenantInvalid);

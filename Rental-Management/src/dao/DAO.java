@@ -61,9 +61,9 @@ public class DAO {
 			ps = Connections.getConnections().prepareStatement(sql);
 			ps.setString(1, lease.getStartDate());
 			ps.setString(2, lease.getEndDate());
-			ps.setInt(3, lease.getIdProperty());
-			ps.setString(4, lease.getCpfLandlord());
-			ps.setString(5, lease.getCpfTenant());
+			ps.setInt(3, lease.getProperty().getId());
+			ps.setString(4, lease.getLandlord().getCpf());
+			ps.setString(5, lease.getTenant().getCpf());
 
 			ps.execute();
 			ps.close();
@@ -84,7 +84,7 @@ public class DAO {
 			ps.setDouble(2, property.getRentalValue());
 			ps.setString(3, property.getType().name());
 			ps.setString(4, property.getOccupation().name());
-			ps.setString(3, property.getCpfLandlord());
+			ps.setString(5, property.getLandlord().getCpf());
 
 			ps.execute();
 			ps.close();
@@ -93,7 +93,7 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void addTenantLease(Tenant tenant, Lease lease) {
 		String sql = "INSERT INTO TENANT_LEASE (ID_TENANT, ID_LEASE) VALUES (?, ?)";
 
@@ -101,8 +101,8 @@ public class DAO {
 
 		try {
 			ps = Connections.getConnections().prepareStatement(sql);
-			ps.setInt(1, tenant.getId()+1);
-			ps.setInt(2, lease.getId()+1);
+			ps.setInt(1, tenant.getId());
+			ps.setInt(2, lease.getId());
 
 			ps.execute();
 			ps.close();

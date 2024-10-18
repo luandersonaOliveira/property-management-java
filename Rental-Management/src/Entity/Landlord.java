@@ -9,7 +9,7 @@ public class Landlord {
 
 	private int id;
 	private String name, cpf, telephone, email;
-	private List<Property> propertys;
+	private List<Property> property;
 
 	// CONSTRUCTOR
 	
@@ -62,11 +62,11 @@ public class Landlord {
 		this.email = email;
 	}
 
-	public List<Property> getPropertys() {
-		return propertys;
+	public List<Property> getProperty() {
+		return property;
 	}
 
-	public void setPropertys(List<Property> propertys) {
-		this.propertys = propertys;
+	public void setProperty(List<Property> property) {
+		this.property = property;
 	}
 }

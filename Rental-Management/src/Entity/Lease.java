@@ -4,24 +4,20 @@ package entity;
 public class Lease {
 	// ATTRIBUTES
 
-	private int id, idProperty;
-	private String startDate, endDate, cpfLandlord, cpfTenant;
+	private int id;
+	private String startDate, endDate;
 	private Property property;
 	private Landlord landlord;
 	private Tenant tenant;
 
 	// CONSTRUCTOR
-	
-	public Lease () {
-		
-	}
 
-	public Lease(int idProperty, String startDate, String endDate, String cpfLandlord, String cpfTenant) {
-		this.idProperty = idProperty;
+	public Lease(String startDate, String endDate, Landlord landlord, Property property, Tenant tenant) {
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.cpfLandlord = cpfLandlord;
-		this.cpfTenant = cpfTenant;
+		this.landlord = landlord;
+		this.property = property;
+		this.tenant = tenant;
 	}
 
 	// METODOS ESPECIAS
@@ -32,14 +28,6 @@ public class Lease {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-	
-	public int getIdProperty() {
-		return idProperty;
-	}
-
-	public void setIdProperty(int idProperty) {
-		this.idProperty = idProperty;
 	}
 
 	public String getStartDate() {
@@ -56,22 +44,6 @@ public class Lease {
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
-	}
-
-	public String getCpfLandlord() {
-		return cpfLandlord;
-	}
-
-	public void setCpfLandlord(String cpfLandlord) {
-		this.cpfLandlord = cpfLandlord;
-	}
-
-	public String getCpfTenant() {
-		return cpfTenant;
-	}
-
-	public void setCpfTenant(String cpfTenant) {
-		this.cpfTenant = cpfTenant;
 	}
 
 	public Property getProperty() {

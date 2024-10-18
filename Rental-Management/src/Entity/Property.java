@@ -1,6 +1,8 @@
 package entity;
 // Imovel
 
+import java.util.List;
+
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 
@@ -12,22 +14,16 @@ public class Property {
 	private double rentalValue;
 	private PropertyType type;
 	private PropertyOccupation occupation;
-	private String cpfLandlord;
-	private String cpfTenant;
+    private Landlord landlord;
+    private List<Tenant> tenant;
 
 	// CONSTRUCTOR
-	
-	public Property() {
-		
-	}
 
-	public Property(String address, double rentalValue, PropertyType type, PropertyOccupation occupation,
-			String cpfLandlord) {
+	public Property(String address, double rentalValue, PropertyType type, PropertyOccupation occupation) {
 		this.address = address;
 		this.rentalValue = rentalValue;
 		this.type = type;
 		this.occupation = occupation;
-		this.cpfLandlord = cpfLandlord;
 	}
 
 	// METODOS ESPECIAS
@@ -72,19 +68,19 @@ public class Property {
 		this.occupation = occupation;
 	}
 
-	public String getCpfLandlord() {
-		return cpfLandlord;
+	public Landlord getLandlord() {
+		return landlord;
 	}
 
-	public void setCpfLandlord(String cpfLandlord) {
-		this.cpfLandlord = cpfLandlord;
+	public void setLandlord(Landlord landlord) {
+		this.landlord = landlord;
 	}
 
-	public String getCpfTenant() {
-		return cpfTenant;
+	public List<Tenant> getTenant() {
+		return tenant;
 	}
 
-	public void setCpfTenant(String cpfTenant) {
-		this.cpfTenant = cpfTenant;
+	public void setTenant(List<Tenant> tenant) {
+		this.tenant = tenant;
 	}
 }
