@@ -48,8 +48,8 @@ public class LeaseService {
 		Lease lease = createLease(startDate, endDate, landlord, property, tenant);
 		if (lease != null) {
 			leaseRepository.addLease(lease);
-			// new DAO().addLease(lease);
-			// new DAO().addTenantLease(tenant, lease);
+			new DAO().addLease(lease);
+			new DAO().addTenantLease(tenant, lease);
 			System.out.println("\nContrato adicionado com sucesso!");
 		} else {
 			System.out.println("Erro: " + EnumLeaseException.LeaseInvalid);

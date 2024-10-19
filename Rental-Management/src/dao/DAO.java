@@ -1,6 +1,8 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import connection.Connections;
@@ -95,21 +97,35 @@ public class DAO {
 	}
 
 	public void addTenantLease(Tenant tenant, Lease lease) {
-		String sql = "INSERT INTO TENANT_LEASE (ID_TENANT, ID_LEASE) VALUES (?, ?)";
-
-		PreparedStatement ps = null;
-
-		try {
-			ps = Connections.getConnections().prepareStatement(sql);
-			ps.setInt(1, tenant.getId());
-			ps.setInt(2, lease.getId());
-
-			ps.execute();
-			ps.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	    String sqlCheckTenant = "SELECT COUNT(*) FROM tenant WHERE id = ?";
+	    String sqlCheckLease = "SELECT COUNT(*) FROM lease WHERE id = ?";
+	    String sqlInsertTenantLease = "INSERT INTO TENANT_LEASE (ID_TENANT, ID_LEASE) VALUES (?, ?)";
+	    
+	    try (Connection conn = Connections.getConnections();
+	         PreparedStatement psCheckTenant = conn.prepareStatement(sqlCheckTenant);
+	         PreparedStatement psCheckLease = conn.prepareStatement(sqlCheckLease);
+	         PreparedStatement psInsert = conn.prepareStatement(sqlInsertTenantLease)) {
+	         
+	        psCheckTenant.setInt(1, tenant.getId());
+	        ResultSet rsTenant = psCheckTenant.executeQuery();
+	        if (rsTenant.next() && rsTenant.getInt(1) == 0) {
+	            throw new SQLException("Tenant não encontrado");
+	        }
+	        
+	        psCheckLease.setInt(1, lease.getId());
+	        ResultSet rsLease = psCheckLease.executeQuery();
+	        if (rsLease.next() && rsLease.getInt(1) == 0) {
+	            throw new SQLException("Lease não encontrado");
+	        }
+	        
+	        psInsert.setInt(1, tenant.getId());
+	        psInsert.setInt(2, lease.getId());
+	        psInsert.execute();
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
+
 
 }

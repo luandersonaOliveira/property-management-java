@@ -8,7 +8,7 @@ import java.util.Date;
 public class DatetimeExtensions {
 	public static Date toDate(String date) throws ParseException {
 		try {
-			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
 			Date data = formato.parse(date);
 			return data;
 

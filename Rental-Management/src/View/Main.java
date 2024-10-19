@@ -77,7 +77,7 @@ public class Main {
 	// MENU
 	private static void menuMain() {
 		System.out.println("--------------------------------");
-		System.out.println("SELECIONE SUA OPÇÃO: ");
+		System.out.println("Menu Principal: ");
 		System.out.println("| 1.Para Acessar Inquilinos.");
 		System.out.println("| 2.Para Acessar Proprietários.");
 		System.out.println("| 3.Para Acessar Imoveis.");
@@ -92,7 +92,7 @@ public class Main {
 	private static void menuTenant() throws TenantException {
 		boolean exit = false;
 		do {
-			System.out.println("\nSELECIONE UMA OPÇÃO: ");
+			System.out.println("\nMenu Inquilino: ");
 			System.out.println("| 0.Nenhum.");
 			System.out.println("| 1.Para Cadastrar Inquilinos.");
 			System.out.println("| 2.Para Checar Inquilinos.");
@@ -124,7 +124,7 @@ public class Main {
 	private static void menuLandlord() throws LandlordException {
 		boolean exit = false;
 		do {
-			System.out.println("\nSELECIONE UMA OPÇÃO: ");
+			System.out.println("\nMenu Proprietário: ");
 			System.out.println("| 0.Nenhum.");
 			System.out.println("| 1.Para Cadastrar Proprietários.");
 			System.out.println("| 2.Para Checar Proprietários.");
@@ -156,7 +156,7 @@ public class Main {
 	private static void menuProperty() throws PropertyException, LandlordException {
 		boolean exit = false;
 		do {
-			System.out.println("\nSELECIONE UMA OPÇÃO: ");
+			System.out.println("\nMenu Imovel: ");
 			System.out.println("| 0.Nenhum.");
 			System.out.println("| 1.Para Cadastrar Imoveis aos Proprietários.");
 			System.out.println("| 2.Para Checar Imoveis.");
@@ -193,7 +193,7 @@ public class Main {
 	private static void menuLease() throws LeaseException, ParseException {
 		boolean exit = false;
 		do {
-			System.out.println("\nSELECIONE UMA OPÇÃO: ");
+			System.out.println("\nMenu Contrato: ");
 			System.out.println("| 0.Nenhum.");
 			System.out.println("| 1.Para Criar Contratos.");
 			System.out.println("| 2.Para Checar Contratos.");
@@ -294,9 +294,9 @@ public class Main {
 				}
 
 				Property property = new Property(address, rentalValue, propertyType, propertyOccupation);
-                propertyService.addProperty(landlord, property.getAddress(), property.getRentalValue(),
-                        property.getType(), property.getOccupation());
-                leaseService.assignPropertyToLandlord(landlord, property);
+				propertyService.addProperty(landlord, property.getAddress(), property.getRentalValue(),
+						property.getType(), property.getOccupation());
+				leaseService.assignPropertyToLandlord(landlord, property);
 			} else {
 				System.out.println("\nErro: Proprietário não foi cadastrado!");
 			}
@@ -324,7 +324,9 @@ public class Main {
 			String telephone = scanner.nextLine();
 			System.out.print("Email: ");
 			String email = scanner.nextLine();
-			landlordService.addLandlord(name, cpf, telephone, email);
+			Landlord landlord = new Landlord(name, cpf, telephone, email);
+			landlordService.addLandlord(landlord.getName(), landlord.getCpf(), landlord.getTelephone(),
+					landlord.getEmail());
 		} catch (LandlordException e) {
 			System.out.println("\n" + e.getMessage());
 		}
@@ -348,9 +350,9 @@ public class Main {
 			Property property = propertyRepository.searchProperty(idProperty);
 			scanner.nextLine();
 			if (tenant != null && property != null) {
-				System.out.print("\nData de Inicio (DD/MM/AA): ");
+				System.out.print("\nData de Inicio (YYYY/MM/DD): ");
 				String startDate = scanner.nextLine();
-				System.out.print("\nData de Fim (DD/MM/AA): ");
+				System.out.print("\nData de Fim (YYYY/MM/DD): ");
 				String endDate = scanner.nextLine();
 
 				Lease lease = new Lease(startDate, endDate, property.getLandlord(), property, tenant);
@@ -457,58 +459,55 @@ public class Main {
 	// LIST OF READY PROPERTIES
 	private static void listProperties() throws PropertyException, LandlordException {
 
-        // LANDLORD ADD
-        Landlord landlord01 = new Landlord("Liang", "74678506039", "86986012358", "Liang@gmail.com.br");
-        Landlord landlord02 = new Landlord("Ravi", "89867001826", "62989335737", "Ravi@gmail.com.br");
-        Landlord landlord03 = new Landlord("Elli", "21422187926", "63998845787", "Elli@gmail.com.br");
-        Landlord landlord04 = new Landlord("Norabel", "38766718686", "92999042606", "Norabel@gmail.com.br");
-        Landlord landlord05 = new Landlord("YuYan", "94614156487", "62991046653", "YuYan@gmail.com.br");
+		// LANDLORD ADD
+		Landlord landlord01 = new Landlord("Liang", "74678506039", "86986012358", "Liang@gmail.com.br");
+		Landlord landlord02 = new Landlord("Ravi", "89867001826", "62989335737", "Ravi@gmail.com.br");
+		Landlord landlord03 = new Landlord("Elli", "21422187926", "63998845787", "Elli@gmail.com.br");
+		Landlord landlord04 = new Landlord("Norabel", "38766718686", "92999042606", "Norabel@gmail.com.br");
+		Landlord landlord05 = new Landlord("YuYan", "94614156487", "62991046653", "YuYan@gmail.com.br");
 
-        // PROPERTY ADD
-        Property property01 = new Property("Rua Gonçalo de Carvalho (RS)", 1000,
-                PropertyType.RESIDENTIAL, PropertyOccupation.OCCUPIED);
-        Property property02 = new Property("Rua do Mucugê (BA)", 1200, PropertyType.COMMERCIAL,
-                PropertyOccupation.UNOCCUPIED);
-        Property property03 = new Property("Rua das Pedras (RJ)", 1600,
-                PropertyType.RESIDENTIAL,
-                PropertyOccupation.UNOCCUPIED);
-        Property property04 = new Property("Rua da Aurora (PE)", 1800,
-                PropertyType.COMMERCIAL,
-                PropertyOccupation.UNOCCUPIED);
-        Property property05 = new Property("Rua Bento Gonçalves (RS)",
-                2000, PropertyType.RESIDENTIAL,
-                PropertyOccupation.UNOCCUPIED);
+		// LANDLORD SERVICE
+		landlordService.addLandlord(landlord01.getName(), landlord01.getCpf(), landlord01.getTelephone(),
+				landlord01.getEmail());
+		landlordService.addLandlord(landlord02.getName(), landlord02.getCpf(), landlord02.getTelephone(),
+				landlord02.getEmail());
+		landlordService.addLandlord(landlord03.getName(), landlord03.getCpf(), landlord03.getTelephone(),
+				landlord03.getEmail());
+		landlordService.addLandlord(landlord04.getName(), landlord04.getCpf(), landlord04.getTelephone(),
+				landlord04.getEmail());
+		landlordService.addLandlord(landlord05.getName(), landlord05.getCpf(), landlord05.getTelephone(),
+				landlord05.getEmail());
 
-        // LANDLORD SERVICE
-        landlordService.addLandlord(landlord01.getName(), landlord01.getCpf(), landlord01.getTelephone(),
-                landlord01.getEmail());
-        landlordService.addLandlord(landlord02.getName(), landlord02.getCpf(), landlord02.getTelephone(),
-                landlord02.getEmail());
-        landlordService.addLandlord(landlord03.getName(), landlord03.getCpf(), landlord03.getTelephone(),
-                landlord03.getEmail());
-        landlordService.addLandlord(landlord04.getName(), landlord04.getCpf(), landlord04.getTelephone(),
-                landlord04.getEmail());
-        landlordService.addLandlord(landlord05.getName(), landlord05.getCpf(), landlord05.getTelephone(),
-                landlord05.getEmail());
+		// PROPERTY ADD
+		Property property01 = new Property("Rua Gonçalo de Carvalho (RS)", 1000, PropertyType.RESIDENTIAL,
+				PropertyOccupation.OCCUPIED);
+		Property property02 = new Property("Rua do Mucugê (BA)", 1200, PropertyType.COMMERCIAL,
+				PropertyOccupation.UNOCCUPIED);
+		Property property03 = new Property("Rua das Pedras (RJ)", 1600, PropertyType.RESIDENTIAL,
+				PropertyOccupation.UNOCCUPIED);
+		Property property04 = new Property("Rua da Aurora (PE)", 1800, PropertyType.COMMERCIAL,
+				PropertyOccupation.UNOCCUPIED);
+		Property property05 = new Property("Rua Bento Gonçalves (RS)", 2000, PropertyType.RESIDENTIAL,
+				PropertyOccupation.UNOCCUPIED);
 
-        // PROPERTY SERVICE
-        propertyService.addProperty(landlord01, property01.getAddress(), property01.getRentalValue(),
-                property01.getType(), property01.getOccupation());
-        propertyService.addProperty(landlord02, property02.getAddress(), property02.getRentalValue(),
-                property02.getType(), property02.getOccupation());
-        propertyService.addProperty(landlord03, property03.getAddress(), property03.getRentalValue(),
-                property03.getType(), property03.getOccupation());
-        propertyService.addProperty(landlord04, property04.getAddress(), property04.getRentalValue(),
-                property04.getType(), property04.getOccupation());
-        propertyService.addProperty(landlord05, property05.getAddress(), property05.getRentalValue(),
-                property05.getType(), property05.getOccupation());
+		// PROPERTY SERVICE
+		propertyService.addProperty(landlord01, property01.getAddress(), property01.getRentalValue(),
+				property01.getType(), property01.getOccupation());
+		propertyService.addProperty(landlord02, property02.getAddress(), property02.getRentalValue(),
+				property02.getType(), property02.getOccupation());
+		propertyService.addProperty(landlord03, property03.getAddress(), property03.getRentalValue(),
+				property03.getType(), property03.getOccupation());
+		propertyService.addProperty(landlord04, property04.getAddress(), property04.getRentalValue(),
+				property04.getType(), property04.getOccupation());
+		propertyService.addProperty(landlord05, property05.getAddress(), property05.getRentalValue(),
+				property05.getType(), property05.getOccupation());
 
-        // ASSIGN PROPERTY TO LANDLORD
-        leaseService.assignPropertyToLandlord(landlord01, property01);
-        leaseService.assignPropertyToLandlord(landlord02, property02);
-        leaseService.assignPropertyToLandlord(landlord03, property03);
-        leaseService.assignPropertyToLandlord(landlord04, property04);
-        leaseService.assignPropertyToLandlord(landlord05, property05);
-    }
+		// ASSIGN PROPERTY TO LANDLORD
+		leaseService.assignPropertyToLandlord(landlord01, property01);
+		leaseService.assignPropertyToLandlord(landlord02, property02);
+		leaseService.assignPropertyToLandlord(landlord03, property03);
+		leaseService.assignPropertyToLandlord(landlord04, property04);
+		leaseService.assignPropertyToLandlord(landlord05, property05);
+	}
 
 }

@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import Enum.EnumLandlordException;
 import Enum.EnumPropertyException;
+import Enum.EnumTenantException;
 import Enum.PropertyOccupation;
 import Enum.PropertyType;
 import containers.PropertyRepository;
@@ -43,6 +44,7 @@ public class PropertyService {
 		if (property != null) {
 			propertyRepository.addProperty(property);
 			property.setLandlord(landlord);
+			property.getLandlord().setCpf(cpfFormart(landlord.getCpf()));
 			new DAO().addProperty(property);
 			System.out.println("\nImovel adicionado com sucesso!");
 		} else {
@@ -58,6 +60,16 @@ public class PropertyService {
 	private String addressFormat(String address) {
 		String addressFormat = address.toUpperCase();
 		return addressFormat;
+	}
+
+	private String cpfFormart(String cpf) throws PropertyException {
+		if (cpf.length() == 11) {
+			return String.format("%s.%s.%s-%s", cpf.substring(0, 3), cpf.substring(3, 6), cpf.substring(6, 9),
+					cpf.substring(9, 11));
+		} else {
+			cpf = null;
+			throw new PropertyException("Erro: " + EnumLandlordException.LandlordInvalidTelephone);
+		}
 	}
 
 	// REMOVE
@@ -80,7 +92,7 @@ public class PropertyService {
 				Property p = properties.get(i);
 				p.setId(i);
 				System.out.println("\n-------------------------------------------------------------------------------");
-				System.out.print("Imovel: " + p.getId() + " | Proprietário: " + p.getLandlord().getId() + "\n");
+				System.out.print("Imovel: " + p.getId() + " | Proprietário: " + p.getLandlord().getCpf() + "\n");
 				System.out.print(" | Endereço: " + p.getAddress());
 				System.out.print(" | Valor do Aluguel: " + p.getRentalValue() + " |");
 				System.out.print("\n | Tipo: " + p.getType());
