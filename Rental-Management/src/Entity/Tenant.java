@@ -11,6 +11,10 @@ public class Tenant {
 
 	// CONSTRUCTOR
 
+	public Tenant(){
+		
+	}
+
 	public Tenant(String name, String cpf, String telephone, String email,double balance) {
 		this.name = name;
 		this.cpf = cpf;

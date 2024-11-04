@@ -1,12 +1,11 @@
 package services;
 // Serviço Inquilino
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import Enum.EnumTenantException;
 import containers.TenantRepository;
-import dao.DAO;
 import entity.Tenant;
 import exceptions.TenantException;
 
@@ -14,15 +13,7 @@ public class TenantService {
 	// ATTRIBUTES
 
 	private static final Scanner scanner = new Scanner(System.in);
-	private TenantRepository tenantRepository = new TenantRepository();
-
-	// CONSTRUCTOR
-
-	public TenantService(TenantRepository tenantRepository) {
-		this.tenantRepository = tenantRepository;
-	}
-
-	// METHODS PERSONALIZED
+	private static final TenantRepository tenantDAO = new TenantRepository();
 
 	// CREATE
 	public void addTenant(String name, String cpf, String telephone, String email, double balance)
@@ -37,9 +28,7 @@ public class TenantService {
 
 		Tenant tenant = createTenant(name, cpf, telephone, email, balance);
 		if (tenant != null) {
-			tenantRepository.addTenant(tenant);
-			new DAO().addTenant(tenant);
-			System.out.println("\nInquilino adicionado com sucesso!");
+			tenantDAO.save(tenant);
 		} else {
 			throw new TenantException("Erro: " + EnumTenantException.TenantInvalid);
 		}
@@ -117,48 +106,40 @@ public class TenantService {
 
 	// REMOVE
 	public void removeTenant(int id) {
-		if (tenantRepository.tenants.isEmpty()) {
-			System.out.println(("Erro: " + EnumTenantException.TenantNoRegistered));
-		} else {
-			tenantRepository.tenants.remove(id);
-			System.out.println("\nInquilino: " + id + ". Removido com sucesso!");
-		}
+		tenantDAO.deleteByID(id);
 	}
 
 	// LIST
-	public void listTenant() {
-		ArrayList<Tenant> tenants = tenantRepository.listTenant();
-		if (tenants.isEmpty()) {
+	public void listTenant() throws SQLException {
+		if (tenantDAO.getTenants().isEmpty()) {
 			System.out.println(("Erro: " + EnumTenantException.TenantNoRegistered));
 		} else {
-			for (int i = 0; i < tenants.size(); i++) {
-				Tenant t = tenants.get(i);
-				t.setId(i);
-				System.out.println("\n-------------------------------------------------------------------------------");
-				System.out.print("Inquilino: " + t.getId() + "\n");
+			for (Tenant t : tenantDAO.getTenants()) {
+				System.out.print("\nID Inquilino: " + t.getId() + "\n");
 				System.out.print(" | Nome: " + t.getName());
 				System.out.print(" | CPF: " + t.getCpf());
+				System.out.print(" | Saldo: " + t.getBalance());
 				System.out.print("\n | Telefone: " + t.getTelephone());
-				System.out.print(" | Email: " + t.getEmail());
-				System.out.print(" | Saldo: " + t.getBalance() + " |");
-				System.out.println("\n-------------------------------------------------------------------------------");
+				System.out.print(" | Email: " + t.getEmail() + " |\n");
 			}
 		}
 	}
 
 	// CHANGE
-	public void changeTenant(int id) throws TenantException {
-		if (tenantRepository.tenants.isEmpty()) {
+	public void changeTenant(int id) throws TenantException, SQLException {
+		if (tenantDAO.getTenants().isEmpty()) {
 			System.out.println(("Erro: " + EnumTenantException.TenantNoRegistered));
 		} else {
-			if (id < 0 || id >= tenantRepository.tenants.size()) {
-				System.out.println(("Erro: " + EnumTenantException.TenantInvalidIndex));
+			if (id <= 0 || id > tenantDAO.getTenants().size()) {
+				throw new TenantException("Erro: " + EnumTenantException.TenantInvalidIndex);
 			}
 
-			Tenant tenant = tenantRepository.tenants.get(id);
+			Tenant tenant = new Tenant();
+
 			System.out.println(
-					"\nQuais as novas informações do Inquilino deseja mudar? \n0.Nenhum | 1.Nome | 2.Telefone | 3.Email | 4.Saldo |");
+					"\nQuais as novas informações do Inquilino deseja mudar? \n| 0.Nenhum | 1.Nome | 2.Telefone | 3.Email | 4.Saldo |");
 			System.out.print("\nOpção: ");
+
 			int option = scanner.nextInt();
 			scanner.nextLine();
 			switch (option) {
@@ -166,46 +147,49 @@ public class TenantService {
 				System.out.print("Novo Nome: ");
 				String newName = scanner.nextLine();
 				tenant.setName(nameFormart(newName));
-				System.out.println("\nInquilino atualizado com sucesso!");
+				tenant.setId(id);
+				tenantDAO.updateName(tenant);
 				break;
 			case 2:
 				System.out.print("Novo Telefone: ");
 				String newTelephone = scanner.nextLine();
 				tenant.setTelephone(telephoneFormat(newTelephone));
-				System.out.println("\nInquilino atualizado com sucesso!");
+				tenant.setId(id);
+				tenantDAO.updateTelephone(tenant);
 				break;
 			case 3:
 				System.out.print("Novo Email: ");
 				String newEmail = scanner.nextLine();
 				tenant.setEmail(newEmail);
-				System.out.println("\nInquilino atualizado com sucesso!");
+				tenant.setId(id);
+				tenantDAO.updateEmail(tenant);
 				break;
 			case 4:
 				System.out.print("Novo Saldo: ");
 				double newBalance = scanner.nextDouble();
 				tenant.setBalance(newBalance);
-				System.out.println("\nInquilino atualizado com sucesso!");
+				tenant.setId(id);
+				tenantDAO.updateBalance(tenant);
 				break;
 			default:
-				option = 0;
 				System.out.println("\nInquilino não foi atualizado!");
+				option = 0;
 				break;
 			}
 		}
 	}
-
-	// SEARCH
-	public void searchTenant(int id) {
-		try {
-			Tenant tenant = tenantRepository.searchTenant(id);
-			System.out.println(tenant.getId());
-			System.out.println(tenant.getName());
-			System.out.println(tenant.getCpf());
-			System.out.println(tenant.getEmail());
-			System.out.println(tenant.getTelephone());
-		} catch (Exception e) {
-			System.err.println("Erro!!!");
-		}
+	
+	public Tenant searchTenant(int id) throws SQLException, Exception {
+	    Tenant tenant = null;
+	    if (tenantDAO.getTenants().isEmpty()) {
+	        System.out.println("Erro: " + EnumTenantException.TenantNoRegistered);
+	    } else {
+	        tenant = tenantDAO.getTenantById(id);
+	        if (tenant == null) {
+	        	System.out.println("Erro: Inquilino não encontrado.");
+	        }
+	    }
+	    return tenant;
 	}
 
 }
