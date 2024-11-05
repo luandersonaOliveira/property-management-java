@@ -140,20 +140,22 @@ public class LeaseService {
 			scanner.nextLine();
 			switch (option) {
 			case 1:
-				System.out.print("\nNova Data de Inicio (DD/MM/AA): ");
+				System.out.print("\nNova Data de Inicio (YYYY/MM/DD): ");
 				String newStartDate = scanner.nextLine();
-				lease.setStartDate(newStartDate);
+				lease.setStartDate(dateTimeExtensionss(newStartDate));
+				lease.setId(id);
 				leaseDAO.LeaseUpdateStartDate(lease);
 				break;
 			case 2:
-				System.out.print("\nNova Data de Fim (DD/MM/AA): ");
+				System.out.print("\nNova Data de Fim (YYYY/MM/DD): ");
 				String newEndDate = scanner.nextLine();
-				lease.setEndDate(newEndDate);
+				lease.setEndDate(dateTimeExtensionss(newEndDate));
+				lease.setId(id);
 				leaseDAO.LeaseUpdateEndDate(lease);
 				break;
 			default:
-				option = 0;
 				System.out.println("\nContrato não foi atualizado!");
+				option = 0;
 				break;
 			}
 		}

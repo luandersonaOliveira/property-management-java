@@ -111,7 +111,7 @@ public class LeaseRepository implements ILeaseRepository {
 			pstm = (PreparedStatement) conn.prepareStatement(sql);
 
 			// Adicionar os valores para atualizar
-			pstm.setString(1, lease.getStartDate());
+			pstm.setString(1, lease.getStartDate().toString());
 			pstm.setInt(2, lease.getId());
 
 			// Executar a query
@@ -149,7 +149,7 @@ public class LeaseRepository implements ILeaseRepository {
 			pstm = (PreparedStatement) conn.prepareStatement(sql);
 
 			// Adicionar os valores para atualizar
-			pstm.setString(1, lease.getEndDate());
+			pstm.setString(1, lease.getEndDate().toString());
 			pstm.setInt(2, lease.getId());
 
 			// Executar a query
