@@ -22,8 +22,4 @@ public interface ILeaseRepository {
 	
 	public Lease getLeaseById(int id) throws SQLException;
 	
-	public void tenantLeaseSave(int idTenant, int idLease);
-	
-	public void tenantLeaseDeleteByID(int id);
-	
 }
